@@ -1,0 +1,109 @@
+
+.home{
+    position: absolute;
+    box-sizing: border-box;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    opacity: 1;
+}
+
+.rectangle{
+    height: 100vh;
+    z-index: -10;
+    background: #285073;
+}
+
+.menunav{
+    position: absolute;
+    width: 100%;
+    top: 30px;
+    font-family: "PT Sans Narrow";
+    font-weight: bold;
+    font-size: 14.5px;
+    letter-spacing: 0.25em;
+    line-height: 81px;
+    text-align: left;
+    color: #fff;
+}
+
+.fas{
+    color:#285073;
+    font-size: 2em;
+
+}
+
+.photo{
+    position: absolute;
+    box-sizing: border-box;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    opacity: 1;
+    top: 50%;
+    transform:translate(0,-50%);
+}
+
+.titre{
+    font-family: "Volkhov", serif;
+    font-weight: bold;
+    font-size: 80px;
+    letter-spacing: 0.03em;
+    line-height: 100px;
+    text-align: left;
+    color: #fff;
+    position: absolute;
+    box-sizing: border-box;
+    overflow: hidden;
+    opacity: 1;
+    top: 50%;
+    transform:translate(0,-50%);
+}
+
+.sous-titre{
+    font-family: "PT Sans Narrow";
+    font-weight: normal;
+    font-size: 21.5px;
+    letter-spacing: 0.05em;
+    line-height: 81px;
+    text-align: left;
+    color: #fff;
+    position: absolute;
+    box-sizing: border-box;
+    overflow: hidden;
+    opacity: 1;
+    top: 80%;
+    transform:translate(0,-80%);
+
+}
+
+.footer{
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.last_chapter{
+    font-family: "PT Sans Narrow";
+    font-weight: normal;
+    text-decoration: underline;
+    font-size: 21px;
+    line-height: 81px;
+    color: #285073;
+    background: #fff;
+
+
+}
+
+.all_chapter{
+    font-family: "PT Sans Narrow";
+    font-weight: normal;
+    text-decoration: underline;
+    font-size: 21px;
+    line-height: 81px;
+    color: #fff;
+    background: #191919;
+}
+
