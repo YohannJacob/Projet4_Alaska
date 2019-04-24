@@ -55,7 +55,7 @@
         <!-- Titre / sous titre -->
         <div class="row">
             <div class="col-md-6 offset-md-1 titre">Billet simple pour l’Alaska</div>
-            <div class="col-md-3 offset-md-1 sous-titre">Un livre-blog de Jean Forteroche</div>
+            <div class="col-md-3 offset-md-1 sous-titre">Un livre-blog publié par Jean Forteroche</div>
         </div>
 
         <!-- Menu footer -->
