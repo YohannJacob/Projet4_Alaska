@@ -1,2 +1,2 @@
 # Projet4_Alaska
-Blog de l'écrivain JEAN FORTEROCHE
+Blog de l'écrivain JEAN FORTEROCHE pour Openclassroom
