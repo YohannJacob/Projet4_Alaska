@@ -10,11 +10,7 @@ session_start();
     {
         die('Erreur : '.$e->getMessage());
     }
-    // Aller chercher les données dans la table
-    // $reponse = $bdd->query('SELECT pseudo, message_post, DATE_FORMAT(date_mess, \'%d/%m/%Y à %H:%i\') AS date_mess FROM Minichat ORDER BY id DESC LIMIT 0, 10');
-    // var_dump($_POST);
     
-    // a ce stade on crée une conditions pour ne pas afficher le code si jamais la data pseudo et message_post n'existe pas. Ces donnnées n'existant que lorsque le formulaire est rempli 
     if (!empty($_POST)) {
         $req = $bdd->prepare('INSERT INTO livre(chapter_number, title, text_chapter) VALUES(:chapter_number, :title, :text_chapter)');
         $req->execute(array(
@@ -23,9 +19,6 @@ session_start();
             'text_chapter' => $_POST['text_chapter'],
             
             ));
-        // et dans ce cas on affiche la raffraichit la page en l'ouvrant à nouveau 
-        setcookie('chapter_number', $_POST['chapter_number'], time() + 365*24*3600, null, null, false, true);
-        header('Location: index.php');
     }   
 
 ?>
