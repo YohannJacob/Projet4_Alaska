@@ -10,13 +10,11 @@ session_start();
     {
         die('Erreur : '.$e->getMessage());
     }
-    // Aller chercher les données dans la table
-    $reponse = $bdd->query('SELECT chapter_number, title, text_chapter FROM livre');
 
     // a ce stade on crée une conditions pour ne pas afficher le code si jamais la data pseudo et message_post n'existe pas. Ces donnnées n'existant que lorsque le formulaire est rempli 
     if (!empty($_POST)) {
         // si le post n'est pas vide on insert le contenu du formulaire dans la table
-        $req = $bdd->prepare('INSERT INTO livre (chapter_number, title, text_chapter) VALUES(:chapter_number, :title, : text_chapter)');
+        $req = $bdd->prepare('INSERT INTO livre (chapter_number, title, text_chapter) VALUES(:chapter_number, :title, : tex_chapter');
         $req->execute(array(
             'chapter_number'=> $_POST['chapter_number'], 
             'title' => $_POST['title'],
@@ -24,7 +22,9 @@ session_start();
             ));
         // et dans ce cas on affiche la raffraichit la page en l'ouvrant à nouveau ;
         header('Location: post_chapter.php');
-    }   
+    }
+    // Aller chercher les données dans la table
+    $reponse = $bdd->query('SELECT chapter_number, title, text_chapter FROM livre');
 ?>
 
 
@@ -42,7 +42,7 @@ session_start();
 
     <h1>Poster un chapitre</h1>
     <div class="content">
-        <form action="post_chapter.php" method="post">
+        <form action="post_chapter.php" method="POST">
 
             <p><label>N° de chapitre</label> : <input type="text" id="chapter_number" name="chapter_number"/></p>    
             <p><label>Titre du chapitre</label> : <input type="text" id="title" name="title"/></p>
@@ -53,18 +53,15 @@ session_start();
         </form>
         <!-- cette parti inclu du html donc on ouvre à nouveau les balises PHP -->
         <!-- on va créer une boucle pour afficher les messages. Attention concaténation un peu spécifique à utiliser tout le temps : "?="" equivaut "?php echo" -->
-
         <ul class="post">
             <?php while ($donnees = $reponse->fetch()){ ?>
                 <li>
-                <p id="date"> <?= htmlspecialchars($donnees['title']) ?> </p>
+               
                 <div id="message">
-                    <p id="pseudo"> <?= htmlspecialchars($donnees['chapter_number']) ?> </strong> : </p> 
-                    <p id="post"> <?= htmlspecialchars($donnees['text_chapter']) ?> </p>
+                    <p id="pseudo"> <?= htmlspecialchars($donnees['title']) ?> </strong></p> 
+                   
                 </div>
                 </li>
             <?php } ?>
-
-        </ul>
     </div>
    </body>
