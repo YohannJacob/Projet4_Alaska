@@ -9,7 +9,7 @@
     <title>Billet simple pour l'Alaska</title>
     <meta name="description" content="Un billet pour l'alaska, le blog de l'écrivain Jean Forteroche">
 
-    <!-- Twitter Card data  A remplir !!!!!!!!!! -->
+    <!-- Twitter Card data -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@billetalaska" />
     <meta name="twitter:title" content="Un billet pour l'alaska, le blog de l'écrivain Jean Forteroche" />
