@@ -8,7 +8,7 @@ catch (Exception $e) {
     die('Erreur : ' . $e->getMessage());
 }
 // Aller chercher les données dans la table
-$reponse = $bdd->query('SELECT chapter_number, date_publi, title, text_chapter FROM livre ORDER BY date_publi');
+$reponse = $bdd->query('SELECT chapter_number, date_publi, title, text_chapter, couleur FROM livre ORDER BY date_publi');
 ?>
 
 
@@ -78,7 +78,7 @@ $reponse = $bdd->query('SELECT chapter_number, date_publi, title, text_chapter F
 
             <!-- Background -->
             <div class="row">
-                <div class="col-md-8 back rectangle"></div>
+                <div class="col-md-8 rectangle <?= htmlspecialchars($donnees['couleur'])?>"></div>
             </div>
 
         <?php } ?>

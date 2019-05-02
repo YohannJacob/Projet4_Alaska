@@ -14,6 +14,12 @@
     background: #285073;
 }
 
+.jaune{
+    height: 100vh;
+    z-index: -10;
+    background: #CFAD5E;
+}
+
 .menunav{
     position: absolute;
     width: 100%;
