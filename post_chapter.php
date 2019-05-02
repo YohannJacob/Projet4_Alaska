@@ -16,8 +16,7 @@ session_start();
         $req->execute(array(
             'chapter_number'=> $_POST['chapter_number'], 
             'title' => $_POST['title'],
-            'text_chapter' => $_POST['text_chapter'],
-            
+            'text_chapter' => $_POST['text_chapter'],        
             ));
     }   
 
