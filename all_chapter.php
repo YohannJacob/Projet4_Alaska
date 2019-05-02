@@ -56,7 +56,7 @@ $reponse = $bdd->query('SELECT chapter_number, date_publi, title, text_chapter, 
 <body>
     <!-- Menu -->
     <div class="row menunav">
-        <div class="col-md-10 offset-md-1 text_sans-serif">JEAN FORTEROCHE</div>
+    <div class="col-md-10 offset-md-1 back_home text_sans-serif"><a href="index.php">JEAN FORTEROCHE</a></div>
         <div class="col-md-1"><i class="fas fa-bars"></i></div>
     </div>
     <?php while ($donnees = $reponse->fetch()) { ?>
@@ -83,8 +83,3 @@ $reponse = $bdd->query('SELECT chapter_number, date_publi, title, text_chapter, 
 
         <?php } ?>
 </body>
-
-
-
-
-<!-- <p> <?= htmlspecialchars($donnees['text_chapter']) ?> </p> -->

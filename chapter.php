@@ -43,7 +43,7 @@
 
         <!-- Menu -->
         <div class="row menunav">
-            <div class="col-md-10 offset-md-1 text_sans-serif">JEAN FORTEROCHE</div>
+            <div class="col-md-10 offset-md-1 back_home text_sans-serif"><a href="index.php">JEAN FORTEROCHE</a></div>
             <div class="col-md-1"><i class="fas fa-bars"></i></div>
         </div>
 
@@ -71,7 +71,7 @@
 
         <!-- Background -->
         <div class="row">
-            <div class="col-md-8 back rectangle"></div>
+            <div class="col-md-8 back rectangle bleu"></div>
         </div>
 
         <!-- Contenu -->
@@ -121,3 +121,5 @@
 </body>
 
 </html>
+
+<!-- <p> <?= htmlspecialchars($donnees['text_chapter']) ?> </p> -->

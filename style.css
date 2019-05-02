@@ -11,13 +11,22 @@
 .rectangle{
     height: 100vh;
     z-index: -10;
-    background: #285073;
 }
 
 .jaune{
-    height: 100vh;
-    z-index: -10;
     background: #CFAD5E;
+}
+
+.rouge{
+    background: #CF5E62;
+}
+
+.bleu{
+    background: #285073;
+}
+
+.vert{
+    background: #489F6B;
 }
 
 .menunav{
@@ -30,13 +39,16 @@
     letter-spacing: 0.25em;
     line-height: 81px;
     text-align: left;
+    color: #fff
+}
+
+.back_home a{
     color: #fff;
 }
 
 .fas{
     color:#285073;
     font-size: 2em;
-
 }
 
 .photo{
@@ -46,8 +58,8 @@
     margin: 0;
     padding: 0;
     opacity: 1;
-    top: 50%;
-    transform:translate(0,-50%);
+    top: 60vh;
+    transform:translate(0,-40vh);
 }
 
 .titre{
@@ -62,8 +74,8 @@
     box-sizing: border-box;
     overflow: hidden;
     opacity: 1;
-    top: 50%;
-    transform:translate(0,-50%);
+    top: 77vh;
+    transform:translate(0,-40vh);
 }
 
 .sous-titre{
@@ -78,8 +90,8 @@
     box-sizing: border-box;
     overflow: hidden;
     opacity: 1;
-    top: 80%;
-    transform:translate(0,-80%);
+    top: 90vh;
+    transform:translate(0,-25vh);
 
 }
 
@@ -100,6 +112,11 @@
     font-size: 21px;
     color: #285073;
     background: #fff;
+    text-align: center;
+}
+
+.last_chapter a{
+    color: #285073;
 }
 
 .all_chapter{
@@ -110,8 +127,12 @@
     color: #fff;
     background: #191919;
     z-index: -15;
+    text-align: center;
 }
 
+.all_chapter a{
+    color: #fff;
+}
 .chapter{
     font-family: "PT Sans Narrow";
     font-weight: normal;
@@ -123,8 +144,7 @@
     box-sizing: border-box;
     overflow: hidden;
     opacity: 1;
-    top: 35%;
-    transform:translate(0,-35%);
+    top: 240px;
 }
 
 .fixed{
