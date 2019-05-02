@@ -72,7 +72,7 @@ $reponse = $bdd->query('SELECT chapter_number, date_publi, title, text_chapter, 
                 <!-- Titre / sous titre -->
                 <div class="row">
                     <div class="col-md-6 offset-md-1 chapter text_sans-serif">Chapitre N° <?= htmlspecialchars($donnees['chapter_number']) ?></div>
-                    <div class="col-md-4 offset-md-1 titre"><?= htmlspecialchars($donnees['title']) ?></div>
+                    <a href="chapter.php?chapitre=<?php echo $donnees['chapter_number']; ?>"><div class="col-md-4 offset-md-1 titre"><?= htmlspecialchars($donnees['title']) ?></div></a>
                 </div>
             </div>
 

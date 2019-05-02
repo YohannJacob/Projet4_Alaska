@@ -1,3 +1,19 @@
+<?php
+// Appel vers la base de donnée
+try {
+    $bdd = new PDO('mysql:host=localhost;dbname=Alaska;charset=utf8', 'root', 'root');
+}
+// Gérer les erreurs
+catch (Exception $e) {
+    die('Erreur : ' . $e->getMessage());
+}
+// Aller chercher les données dans la table
+$req = $bdd->prepare('SELECT chapter_number, date_publi, title, text_chapter, couleur FROM livre WHERE chapter_number = ?');
+$req->execute(array($_GET['chapitre']));
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -39,87 +55,91 @@
 </head>
 
 <body>
-    <div class="container-fluid home">
+    <?php while ($donnees = $req->fetch()) { ?>
 
-        <!-- Menu -->
-        <div class="row menunav">
-            <div class="col-md-10 offset-md-1 back_home text_sans-serif"><a href="index.php">JEAN FORTEROCHE</a></div>
-            <div class="col-md-1"><i class="fas fa-bars"></i></div>
-        </div>
-
-        <div class="intro">
-            <!-- photo  -->
-            <div class="row photo">
-                <div class="col-md-7 offset-md-4"><img class="img-fluid" src="img/photo1.jpg" alt="Alaska"></div>
+<!-- POURQUOI AUCUN DE MES LIENS NE FONCTIONNENT ??? -->
+        <div class="container-fluid home">
+            <!-- Menu -->
+            <div class="row menunav">
+                
+                <div class="col-md-10 offset-md-1 back_home text_sans-serif"><a href="index.php">JEAN FORTEROCHE</a></div>
+                <div class="col-md-1"><i class="fas fa-bars"></i></div>
             </div>
 
-            <!-- Titre / sous titre -->
-            <div class="row">
-                <div class="col-md-6 offset-md-1 titre">Billet simple pour l’Alaska</div>
-                <div class="col-md-4 offset-md-1 sous-titre">Un livre-blog publié par Jean Forteroche</div>
-            </div>
-        </div>
+            <div class="intro">
+                <!-- photo  -->
+                <div class="row photo_chapter">
+                    <div class="col-md-7 offset-md-4"><img class="img-fluid" src="img/photo1.jpg" alt="Alaska"></div>
+                </div>
 
-        <!-- Menu footer -->
-        <div class="row footer">
-            <div class="col-md-4 offset-md-8 all_chapter fixed">
+                <!-- Titre / sous titre -->
                 <div class="row">
-                    <div class="col-md-8 offset-md-4">Liste des chapitres</div>
+                    <div class="col-md-6 offset-md-1 titre"><?= htmlspecialchars($donnees['title']) ?> </div>
+                    <div class="col-md-4 offset-md-1 sous-titre">Un livre-blog publié par Jean Forteroche</div>
                 </div>
             </div>
-        </div>
 
-        <!-- Background -->
-        <div class="row">
-            <div class="col-md-8 back rectangle bleu"></div>
-        </div>
-
-        <!-- Contenu -->
-        <div class="row">
-            <div class="col-md-8 text">
-                <div class="col-md-2 offset-md-1 marg-top text_sans-serif">CHAPITRE</div>
-                <div class="col-md-10 offset-md-1 marg-top text_serif">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eget ligula vitae urna molestie pretium. Pellentesque eget mollis sapien. Aenean ut dolor hendrerit, commodo nunc nec, cursus augue. Ut quis rutrum odio, nec congue lectus. In auctor ultricies libero, nec elementum nulla dignissim a. Proin sit amet sem tincidunt, hendrerit purus at, maximus ante. In pulvinar iaculis nibh in accumsan. Suspendisse potenti. Praesent nec arcu vestibulum, mattis augue finibus, vestibulum magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque in fringilla mi. Nam sollicitudin turpis in enim dapibus, euismod mollis risus luctus. Integer pellentesque, nisl non lacinia ultrices, felis lectus gravida massa, id lacinia tellus ligula vel est. Nam eget quam aliquet, lobortis ante et, eleifend ex. Integer rutrum tempor purus, at viverra elit porttitor id. Fusce ut pharetra elit. Cras laoreet orci tincidunt maximus aliquet. Etiam hendrerit purus vel urna ornare sollicitudin. Maecenas sagittis maximus massa, vitae bibendum diam condimentum porta. Donec tincidunt erat a magna malesuada ullamcorper. Vestibulum felis ex, euismod in condimentum et, consectetur at massa. Suspendisse potenti. Fusce ac massa metus. Donec maximus laoreet venenatis. Curabitur id nibh nec mi elementum sodales. Nullam sit amet neque et metus consectetur posuere. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam eu maximus leo. Vestibulum maximus arcu elit, eu dapibus turpis condimentum a. Phasellus fringilla porta ultricies. Etiam vehicula ligula vulputate, semper dui et, dictum sem. Etiam convallis nibh malesuada sapien fringilla, et placerat ex commodo. Integer sollicitudin, leo sit amet aliquam varius, mi mauris pretium enim, eu iaculis elit diam sed erat. Integer placerat purus at neque accumsan iaculis. Proin vulputate et nunc id dignissim. Etiam quis est mi. Etiam tristique purus in leo aliquet luctus. In id elementum massa. Fusce placerat in elit mollis finibus. Pellentesque ligula ipsum, eleifend id mollis fringilla, fermentum vitae turpis. Praesent nibh turpis, malesuada ac lacinia ut, sagittis sit amet ipsum.</div>
-                <div class="col md-12">
+            <!-- Menu footer -->
+            <div class="row footer">
+                <div class="col-md-4 offset-md-8 all_chapter fixed">
                     <div class="row">
-                        <div class="col-md-5 offset-md-1 marg-top prev">Chapitre précédent</div>
-                        <div class="col-md-4 offset-md-1 marg-top next">Chapitre suivant</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- Commentaires -->
-        <div class="row">
-            <div class="col-md-8 text grey_line">
-                <div class="col-md-2 offset-md-1 marg-top text_sans-serif">commentaires</div>
-                <div class="col md-12">
-                    <div class="row">
-                        <div class="col-md-11 offset-md-1 marg-top pseudo">Pseudo</div>
-                        <div class="col-md-11 offset-md-1 comments">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                        <div class="col-md-3 offset-md-8 alert_comment">Signaler</div>
-
+                        <div class="col-md-8 offset-md-4"><a href="all_chapter.php">Liste des chapitres</a></div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-4 add_comment">
-                <div class="col-md-11 title_add_comment"> Ajouter votre commentaire</div>
-                <div class="col-md-11">
-                    <form action="post_chapter.php" method="POST">
-                        <div class="col-md-11">
-                            <p><input type="textarea" id="pseudo" name="pseudo" placeholder="Pseudo" /></p>
-                            <p><textarea name="comment" id="comment" placeholder="Votre commentaire..."></textarea></p>
+            <!-- Background -->
+            <div class="row">
+            <div class="col-md-8 rectangle <?= htmlspecialchars($donnees['couleur'])?>"></div>
+            </div>
 
-                            <p><input type="submit" value="Valider" id="bt_post" /></p>
+            <!-- Contenu -->
+            <div class="row">
+                <div class="col-md-8 text">
+                    <div class="col-md-3 offset-md-1 marg-top text_sans-serif">CHAPITRE N° <?= htmlspecialchars($donnees['chapter_number']) ?> </div>
+                    <div class="col-md-10 offset-md-1 marg-top text_serif">
+                        <?= htmlspecialchars($donnees['text_chapter']) ?>
+                    </div>
+                    <div class="col md-12">
+                        <div class="row">
+                            <div class="col-md-5 offset-md-1 marg-top prev">Chapitre précédent</div>
+                            <div class="col-md-4 offset-md-1 marg-top next">Chapitre suivant</div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
+
+
+            <!-- Commentaires -->
+            <div class="row">
+                <div class="col-md-8 text grey_line">
+                    <div class="col-md-3 offset-md-1 marg-top text_sans-serif">commentaires</div>
+                    <div class="col md-12">
+                        <div class="row">
+                            <div class="col-md-11 offset-md-1 marg-top pseudo">Pseudo</div>
+                            <div class="col-md-11 offset-md-1 comments">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+                            <div class="col-md-3 offset-md-8 alert_comment">Signaler</div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 add_comment">
+                    <div class="col-md-11 title_add_comment"> Ajouter votre commentaire</div>
+                    <div class="col-md-11">
+                        <form action="post_chapter.php" method="POST">
+                            <div class="col-md-11">
+                                <p><input type="textarea" id="pseudo" name="pseudo" placeholder="Pseudo" /></p>
+                                <p><textarea name="comment" id="comment" placeholder="Votre commentaire..."></textarea></p>
+
+                                <p><input type="submit" value="Valider" id="bt_post" /></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
 
 </body>
 
 </html>
-
-<!-- <p> <?= htmlspecialchars($donnees['text_chapter']) ?> </p> -->
