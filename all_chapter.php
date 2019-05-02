@@ -1,12 +1,26 @@
+<?php
+// Appel vers la base de donnée
+try {
+    $bdd = new PDO('mysql:host=localhost;dbname=Alaska;charset=utf8', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+}
+// Gérer les erreurs
+catch (Exception $e) {
+    die('Erreur : ' . $e->getMessage());
+}
+// Aller chercher les données dans la table
+$reponse = $bdd->query('SELECT chapter_number, date_publi, title, text_chapter FROM livre ORDER BY date_publi');
+?>
+
+
+<!-- ici on commence le HTML -->
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Billet simple pour l'Alaska</title>
+    <title>Billet simple pour l'Alaska - Chapitre N°</title> <!-- Inserer en PHP le num de cchapitre -->
     <meta name="description" content="Un billet pour l'alaska, le blog de l'écrivain Jean Forteroche">
 
     <!-- Twitter Card data -->
@@ -40,45 +54,37 @@
 </head>
 
 <body>
-    <div class="container-fluid home">
-        <!-- Menu -->
-        <div class="row menunav">
-            <div class="col-md-10 offset-md-1">JEAN FORTEROCHE</div>
-            <div class="col-md-1"><i class="fas fa-bars"></i></div>
-        </div>
+    <!-- Menu -->
+    <div class="row menunav">
+        <div class="col-md-10 offset-md-1 text_sans-serif">JEAN FORTEROCHE</div>
+        <div class="col-md-1"><i class="fas fa-bars"></i></div>
+    </div>
+    <?php while ($donnees = $reponse->fetch()) { ?>
+        <div class="container-fluid home">
 
-        <!-- photo  -->
-        <div class="row photo">
-            <div class="col-md-7 offset-md-4"><img class="img-fluid" src="img/photo1.jpg" alt="Alaska"></div>
-        </div>
 
-        <!-- Titre / sous titre -->
-        <div class="row">
-            <div class="col-md-6 offset-md-1 titre">Billet simple pour l’Alaska</div>
-            <div class="col-md-3 offset-md-1 sous-titre">Un livre-blog publié par Jean Forteroche</div>
-        </div>
+            <div class="intro">
+                <!-- photo  -->
+                <div class="row photo">
+                    <div class="col-md-7 offset-md-4"><img class="img-fluid" src="img/photo1.jpg" alt="Alaska"></div>
+                </div>
 
-        <!-- Menu footer -->
-        <div class="row footer">
-            <div class="col-md-8 last_chapter">
+                <!-- Titre / sous titre -->
                 <div class="row">
-                    <div class="col-md-10 offset-md-2">Lire le dernier chapitre publié</div>
+                    <div class="col-md-6 offset-md-1 chapter text_sans-serif">Chapitre N° <?= htmlspecialchars($donnees['chapter_number']) ?></div>
+                    <div class="col-md-4 offset-md-1 titre"><?= htmlspecialchars($donnees['title']) ?></div>
                 </div>
             </div>
-            <a href="all_chapter.php"><div class="col-md-4 all_chapter">
-                <div class="row">
-                    <div class="col-md-8 offset-md-4">Liste des chapitres</div>
-                </div>
-            </div></a>
-        </div>
 
-        <!-- Background -->
-        <div class="row">
-            <div class="col-md-8 back rectangle"></div>
-        </div>
+            <!-- Background -->
+            <div class="row">
+                <div class="col-md-8 back rectangle"></div>
+            </div>
 
-    </div>
-
+        <?php } ?>
 </body>
 
-</html>
+
+
+
+<!-- <p> <?= htmlspecialchars($donnees['text_chapter']) ?> </p> -->
