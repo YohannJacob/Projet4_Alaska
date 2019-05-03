@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="style.css" rel="stylesheet">
 
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -43,7 +44,7 @@
     <div class="container-fluid home">
         <!-- Menu -->
         <div class="row menunav">
-        <div class="col-md-10 offset-md-1 back_home text_sans-serif"><a href="index.php">JEAN FORTEROCHE</a></div>
+            <div class="col-md-10 offset-md-1 back_home text_sans-serif"><a href="index.php">JEAN FORTEROCHE</a></div>
             <div class="col-md-1"><i class="fas fa-bars"></i></div>
         </div>
 
@@ -68,6 +69,7 @@
         <!-- Background -->
         <div class="row">
             <div class="col-md-8 rectangle bleu"></div>
+            <div class="col-md-4"></div>
         </div>
 
     </div>

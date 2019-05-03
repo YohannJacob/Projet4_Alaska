@@ -98,7 +98,7 @@ $req->execute(array($_GET['chapitre']));
                 <div class="col-md-8 text">
                     <div class="col-md-3 offset-md-1 marg-top text_sans-serif">CHAPITRE N° <?= htmlspecialchars($donnees['chapter_number']) ?> </div>
                     <div class="col-md-10 offset-md-1 marg-top text_serif">
-                        <?= htmlspecialchars($donnees['text_chapter']) ?>
+                        <?= $donnees['text_chapter'] ?>
                     </div>
                     <div class="col md-12">
                         <div class="row">

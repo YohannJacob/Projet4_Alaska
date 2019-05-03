@@ -137,13 +137,14 @@
     font-size: 21px;
     color: #fff;
     background: #191919;
-    z-index: -15;
+    /* z-index: -15; */
     text-align: center;
 }
 
 .all_chapter a{
     color: #fff;
-}
+} 
+
 .chapter{
     font-family: "PT Sans Narrow";
     font-weight: normal;
@@ -186,6 +187,10 @@
     line-height: 30px;
     text-align:justify;
     color: #191919;
+}
+
+.text_serif p{
+    background: #FCFAF2 !important;
 }
 
 .prev{
