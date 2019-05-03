@@ -69,30 +69,21 @@ $req->execute(array($_GET['chapitre']));
             <div class="contenu">
                 <!-- Titre / sous titre -->
                 <div class="row">
-                    <div class="col-md-6 offset-md-1 titre"><?= htmlspecialchars($donnees['title']) ?> </div>
+                    <h1 class="col-md-6 offset-md-1 titre"><?= htmlspecialchars($donnees['title']) ?> </h1>
                     <div class="col-md-4 offset-md-1 sous-titre">Un livre-blog publié par Jean Forteroche</div>
                 </div>
-                
+
                 <!-- photo  -->
                 <div class="row photo_chapter">
                     <div class="col-md-7 offset-md-4"><img class="img-fluid" src="img/photo1.jpg" alt="Alaska"></div>
                 </div>
-
-
             </div>
 
             <!-- Menu footer -->
-            <div class="row footer">
-                <div class="col-md-4 offset-md-8 all_chapter fixed">
-                    <div class="row">
-                        <div class="col-md-8 offset-md-4"><a href="all_chapter.php">Liste des chapitres</a></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Background -->
-            <div class="row">
+            <div class="row background">
                 <div class="col-md-8 rectangle <?= htmlspecialchars($donnees['couleur']) ?>"></div>
+                <div class="col-md-4"></div>
+                <div class="col-md-4 offset-md-8 all_chapter fixed"><a href="all_chapter.php">Liste des chapitres</a></div>
             </div>
 
             <!-- Contenu -->
@@ -141,7 +132,6 @@ $req->execute(array($_GET['chapitre']));
                 </div>
             </div>
         <?php } ?>
-
 </body>
 
 </html>

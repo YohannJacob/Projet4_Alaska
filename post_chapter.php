@@ -18,7 +18,6 @@ if (!empty($_POST)) {
         'couleur' => $_POST['couleur'],
     ));
 }
-
 ?>
 
 
@@ -62,7 +61,7 @@ if (!empty($_POST)) {
         tinymce.init({
             selector: '#text_chapter'
             // content_css : '/style.css'
-            
+
         });
     </script>
 
@@ -77,34 +76,73 @@ if (!empty($_POST)) {
 
 <body>
     <div class="container-fluid home">
-        <div class="row">
-            <div class="col-md-3 rectangle bleu back_home text_sans-serif ">
-                <div class="col- md-2 offset-md-1 marg-top">
-                    <a href="index.php">JEAN FORTEROCHE</a>
+        <div class="row menu">
+            <div class="col-md-3 bleu">
+                <div class="row">
+                    <div class="col-md-10 offset-md-2 marg-top text_sans-serif">
+                        <a href="index.php">JEAN FORTEROCHE</a>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-md-9">
-                <h1 class="text_serif marg-top">Ajouter un chapitre</h1>
-                <div class="content">
+            <div class="col-md-7 offset-md-1">
+                <h1 class="text_serif marg-top titre_manager">Ajouter un chapitre</h1>
+                <div class="content marg-top">
+
                     <form action="post_chapter.php" method="POST">
+                        <div class="row">
+                            <div class="col-md-9 form-group">
+                                <input type="text" placeholder="Titre du chapitre" id="title" name="title" class="form-control manager_form" />
+                            </div>
 
-                        <p><label>Numéro de chapitre</label> : <input type="text" id="chapter_number" name="chapter_number" /></p>
-                        <p><label>Titre du chapitre</label> : <input type="text" id="title" name="title" /></p>
-                        <p><label>Chapitre</label> : <textarea name="text_chapter" id="text_chapter" cols="100" rows="20"></textarea></p>
-                        <label>Couleur de fond :</label>
-                        <p><input type="checkbox" name="couleur" value="jaune" />Jaune / <input type="checkbox" name="couleur" value="rouge" />Rouge /
-                            <input type="checkbox" name="couleur" value="vert" />Vert /
-                            <input type="checkbox" name="couleur" value="bleu" />Bleu /
-                            <input type="submit" value="Valider" id="bt_post" /></p>
+                            <div class="col-md-3 form-group">
 
+                                <input type="text" placeholder="N° de chapitre" id="chapter_number" name="chapter_number" class="form-control manager_form" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <h4>Contenu du chapitre :</h4>
+                            <textarea name="text_chapter" id="text_chapter" cols="50" rows="15" class="form-control manager_form"></textarea>
+                        </div>
+
+                        <div class="form-group ">
+                            <h4>Couleur de fond :</h4>
+                            <div class="row">
+                                <div class="col-md-3 radio">
+                                    <label for="jaune" class="radio radio_marg"><input type="radio" name="couleur" value="jaune" class="radio_marg"/> Jaune </label>
+                                </div>
+
+                                <div class="col-md-3 radio">
+                                    <label for="Rouge" class="radio radio_marg"><input type="radio" name="couleur" value="rouge" class="radio_marg"/> Rouge </label>
+                                </div>
+
+                                <div class="col-md-3 radio">
+                                    <label for="Vert" class="radio radio_marg"><input type="radio" name="couleur" value="vert" class="radio_marg"/> Vert </label>
+                                </div>
+
+                                <div class="col-md-3 radio">
+                                    <label for="Bleu" class="radio radio_marg"><input type="radio" name="couleur" value="bleu" class="radio_marg"/> Bleu </label>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group ">
+                            <h4>Ajouter une photo :</h4>
+                            <div class="row">
+                                <div class="col-md-12 radio">
+                                    <label for="jaune" class="radio radio_marg"><input type="radio" name="couleur" value="jaune" class="radio_marg"/> Jaune </label>
+                                </div>
+
+                                <button class="btn btn-primary marg-top" type="submit" id="bt_post">Envoyer</button>
+                                <!-- <input type="submit" value="Valider" id="bt_post" class="form-control" /> -->
+                            </div>
+                        </div>
                     </form>
 
                 </div>
             </div>
         </div>
-
-
-
     </div>
 </body>

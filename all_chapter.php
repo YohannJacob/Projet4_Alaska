@@ -68,7 +68,7 @@ $reponse = $bdd->query('SELECT chapter_number, date_publi, title, text_chapter, 
                 <div class="row">
                     <div class="col-md-6 offset-md-1 chapter text_sans-serif">Chapitre N° <?= htmlspecialchars($donnees['chapter_number']) ?></div>
                     <a href="chapter.php?chapitre=<?php echo $donnees['chapter_number']; ?>">
-                        <div class="col-md-4 offset-md-1 titre"><?= htmlspecialchars($donnees['title']) ?></div>
+                        <h1 class="col-md-4 offset-md-1 titre"><?= htmlspecialchars($donnees['title']) ?></h1>
                     </a>
                 </div>
 
@@ -76,14 +76,12 @@ $reponse = $bdd->query('SELECT chapter_number, date_publi, title, text_chapter, 
                 <div class="row photo">
                     <div class="col-md-7 offset-md-4"><img class="img-fluid" src="img/photo1.jpg" alt="Alaska"></div>
                 </div>
-
             </div>
 
             <!-- Background -->
             <div class="row background">
                 <div class="col-md-8 rectangle <?= htmlspecialchars($donnees['couleur']) ?>"></div>
             </div>
-
         <?php } ?>
     </div>
 </body>
