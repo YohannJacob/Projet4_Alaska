@@ -48,29 +48,27 @@
             <div class="col-md-1"><i class="fas fa-bars"></i></div>
         </div>
 
-        <!-- photo  -->
-        <div class="row photo">
-            <div class="col-md-7 offset-md-4"><img class="img-fluid" src="img/photo1.jpg" alt="Alaska"></div>
-        </div>
-
         <!-- Titre / sous titre -->
         <div class="row">
             <div class="col-md-6 offset-md-1 titre">Billet simple pour l’Alaska</div>
             <div class="col-md-4 offset-md-1 sous-titre">Un livre-blog publié par Jean Forteroche</div>
         </div>
 
-        <!-- Menu footer -->
+        <!-- photo  -->
+        <div class="row photo">
+            <div class="col-md-7 offset-md-4"><img class="img-fluid" src="img/photo1.jpg" alt="Alaska"></div>
+        </div>
+
+        <!-- Background -->
         <div class="row footer">
+            <div class="col-md-8 rectangle bleu"></div>
+            <div class="col-md-4"></div>
             <div class="col-md-8 last_chapter">Lire le dernier chapitre publié</div>
             <div class="col-md-4 all_chapter"><a href="all_chapter.php">Liste des chapitres</a></div>
         </div>
 
-
-        <!-- Background -->
-        <div class="row">
-            <div class="col-md-8 rectangle bleu"></div>
-            <div class="col-md-4"></div>
-        </div>
+        <!-- Menu footer -->
+        <!-- <div class="row footer"></div> -->
 
     </div>
 

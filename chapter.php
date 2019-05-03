@@ -57,26 +57,28 @@ $req->execute(array($_GET['chapitre']));
 <body>
     <?php while ($donnees = $req->fetch()) { ?>
 
-<!-- POURQUOI AUCUN DE MES LIENS NE FONCTIONNENT ??? -->
-        <div class="container-fluid home">
+        <!-- POURQUOI AUCUN DE MES LIENS NE FONCTIONNENT ??? -->
+        <div class="container-fluid">
             <!-- Menu -->
             <div class="row menunav">
-                
+
                 <div class="col-md-10 offset-md-1 back_home text_sans-serif"><a href="index.php">JEAN FORTEROCHE</a></div>
                 <div class="col-md-1"><i class="fas fa-bars"></i></div>
             </div>
 
-            <div class="intro">
-                <!-- photo  -->
-                <div class="row photo_chapter">
-                    <div class="col-md-7 offset-md-4"><img class="img-fluid" src="img/photo1.jpg" alt="Alaska"></div>
-                </div>
-
+            <div class="contenu">
                 <!-- Titre / sous titre -->
                 <div class="row">
                     <div class="col-md-6 offset-md-1 titre"><?= htmlspecialchars($donnees['title']) ?> </div>
                     <div class="col-md-4 offset-md-1 sous-titre">Un livre-blog publié par Jean Forteroche</div>
                 </div>
+                
+                <!-- photo  -->
+                <div class="row photo_chapter">
+                    <div class="col-md-7 offset-md-4"><img class="img-fluid" src="img/photo1.jpg" alt="Alaska"></div>
+                </div>
+
+
             </div>
 
             <!-- Menu footer -->
@@ -90,7 +92,7 @@ $req->execute(array($_GET['chapitre']));
 
             <!-- Background -->
             <div class="row">
-            <div class="col-md-8 rectangle <?= htmlspecialchars($donnees['couleur'])?>"></div>
+                <div class="col-md-8 rectangle <?= htmlspecialchars($donnees['couleur']) ?>"></div>
             </div>
 
             <!-- Contenu -->

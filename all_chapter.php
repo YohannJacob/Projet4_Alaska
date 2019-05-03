@@ -54,32 +54,36 @@ $reponse = $bdd->query('SELECT chapter_number, date_publi, title, text_chapter, 
 </head>
 
 <body>
-    <!-- Menu -->
-    <div class="row menunav">
-    <div class="col-md-10 offset-md-1 back_home text_sans-serif"><a href="index.php">JEAN FORTEROCHE</a></div>
-        <div class="col-md-1"><i class="fas fa-bars"></i></div>
-    </div>
-    <?php while ($donnees = $reponse->fetch()) { ?>
-        <div class="container-fluid home">
+    <div class="container-fluid">
+        <!-- Menu -->
+        <div class="row menunav">
+            <div class="col-md-10 offset-md-1 back_home text_sans-serif"><a href="index.php">JEAN FORTEROCHE</a></div>
+            <div class="col-md-1"><i class="fas fa-bars"></i></div>
+        </div>
+        <?php while ($donnees = $reponse->fetch()) { ?>
 
+            <!-- Contenu -->
+            <div class="contenu">
+                <!-- Titre / sous titre -->
+                <div class="row">
+                    <div class="col-md-6 offset-md-1 chapter text_sans-serif">Chapitre N° <?= htmlspecialchars($donnees['chapter_number']) ?></div>
+                    <a href="chapter.php?chapitre=<?php echo $donnees['chapter_number']; ?>">
+                        <div class="col-md-4 offset-md-1 titre"><?= htmlspecialchars($donnees['title']) ?></div>
+                    </a>
+                </div>
 
-            <div class="intro">
                 <!-- photo  -->
                 <div class="row photo">
                     <div class="col-md-7 offset-md-4"><img class="img-fluid" src="img/photo1.jpg" alt="Alaska"></div>
                 </div>
 
-                <!-- Titre / sous titre -->
-                <div class="row">
-                    <div class="col-md-6 offset-md-1 chapter text_sans-serif">Chapitre N° <?= htmlspecialchars($donnees['chapter_number']) ?></div>
-                    <a href="chapter.php?chapitre=<?php echo $donnees['chapter_number']; ?>"><div class="col-md-4 offset-md-1 titre"><?= htmlspecialchars($donnees['title']) ?></div></a>
-                </div>
             </div>
 
             <!-- Background -->
-            <div class="row">
-                <div class="col-md-8 rectangle <?= htmlspecialchars($donnees['couleur'])?>"></div>
+            <div class="row background">
+                <div class="col-md-8 rectangle <?= htmlspecialchars($donnees['couleur']) ?>"></div>
             </div>
 
         <?php } ?>
+    </div>
 </body>
