@@ -2,7 +2,7 @@
 session_start();
 // Appel vers la base de donnée
 try {
-    $bdd = new PDO('mysql:host=localhost;dbname=Alaska;charset=utf8', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+    $db = new PDO('mysql:host=localhost;dbname=Alaska;charset=utf8', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 }
 // Gérer les erreurs
 catch (Exception $e) {
@@ -10,7 +10,7 @@ catch (Exception $e) {
 }
 
 if (!empty($_POST)) {
-    $req = $bdd->prepare('INSERT INTO livre(chapter_number, title, text_chapter, couleur) VALUES(:chapter_number, :title, :text_chapter, :couleur)');
+    $req = $db->prepare('INSERT INTO livre(chapter_number, title, text_chapter, couleur) VALUES(:chapter_number, :title, :text_chapter, :couleur)');
     $req->execute(array(
         'chapter_number' => $_POST['chapter_number'],
         'title' => $_POST['title'],
@@ -19,8 +19,6 @@ if (!empty($_POST)) {
     ));
 }
 ?>
-
-
 
 <!-- ici on commence le HTML -->
 <!DOCTYPE html>
@@ -79,18 +77,18 @@ if (!empty($_POST)) {
         <div class="row menu">
             <div class="col-md-3 bleu">
                 <div class="row">
-                    <div class="col-md-10 offset-md-2 marg-top text_sans-serif">
+                    <div class="col-md-10 offset-md-2 marg_top-60 text_sans-serif">
                         <a href="index.php">JEAN FORTEROCHE</a>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-7 offset-md-1">
-                <h1 class="text_serif marg-top titre_manager">Ajouter un chapitre</h1>
+                <h1 class="text_serif marg_top-60 titre_manager">Ajouter un chapitre</h1>
                 <div class="content marg-top">
 
-                    <form action="post_chapter.php" method="POST">
-                        <div class="row">
+                    <form action="post_chapter.php" method="POST" enctype="multipart/form-data">
+                        <div class="row marg_top-60">
                             <div class="col-md-9 form-group">
                                 <input type="text" placeholder="Titre du chapitre" id="title" name="title" class="form-control manager_form" />
                             </div>
@@ -102,45 +100,45 @@ if (!empty($_POST)) {
                         </div>
 
                         <div class="form-group">
-                            <h4>Contenu du chapitre :</h4>
-                            <textarea name="text_chapter" id="text_chapter" cols="50" rows="15" class="form-control manager_form"></textarea>
+                            <h4 class="marg_top-30">Contenu du chapitre :</h4>
+                            <textarea name="text_chapter" id="text_chapter" cols="50" rows="15" class="form-control manager_form marg_top-30"></textarea>
                         </div>
 
                         <div class="form-group ">
-                            <h4>Couleur de fond :</h4>
+                            <h4 class="marg_top-30">Couleur de fond :</h4>
                             <div class="row">
-                                <div class="col-md-3 radio">
-                                    <label for="jaune" class="radio radio_marg"><input type="radio" name="couleur" value="jaune" class="radio_marg"/> Jaune </label>
+                                <div class="col-md-3 radio marg_top-15">
+                                    <label for="jaune" class="radio radio_marg"><input type="radio" name="couleur" value="jaune" class="radio_marg" /> Jaune </label>
                                 </div>
 
-                                <div class="col-md-3 radio">
-                                    <label for="Rouge" class="radio radio_marg"><input type="radio" name="couleur" value="rouge" class="radio_marg"/> Rouge </label>
+                                <div class="col-md-3 radio marg_top-15">
+                                    <label for="Rouge" class="radio radio_marg"><input type="radio" name="couleur" value="rouge" class="radio_marg" /> Rouge </label>
                                 </div>
 
-                                <div class="col-md-3 radio">
-                                    <label for="Vert" class="radio radio_marg"><input type="radio" name="couleur" value="vert" class="radio_marg"/> Vert </label>
+                                <div class="col-md-3 radio marg_top-15">
+                                    <label for="Vert" class="radio radio_marg"><input type="radio" name="couleur" value="vert" class="radio_marg" /> Vert </label>
                                 </div>
 
-                                <div class="col-md-3 radio">
-                                    <label for="Bleu" class="radio radio_marg"><input type="radio" name="couleur" value="bleu" class="radio_marg"/> Bleu </label>
+                                <div class="col-md-3 radio marg_top-15">
+                                    <label for="Bleu" class="radio radio_marg"><input type="radio" name="couleur" value="bleu" class="radio_marg" /> Bleu </label>
                                 </div>
 
                             </div>
                         </div>
 
                         <div class="form-group ">
-                            <h4>Ajouter une photo :</h4>
+                            <h4 class="marg_top-30">Ajouter une photo :</h4>
                             <div class="row">
-                                <div class="col-md-12 radio">
-                                    <label for="jaune" class="radio radio_marg"><input type="radio" name="couleur" value="jaune" class="radio_marg"/> Jaune </label>
+                                <div class="col-md-8">
+                                    <input type="file" name="photo" accept="image/png, image/jpeg" class="marg_top-15"/>
                                 </div>
-
-                                <button class="btn btn-primary marg-top" type="submit" id="bt_post">Envoyer</button>
+                                <div class="col-md-2 offset-md-2">
+                                    <button class="btn btn-primary" type="submit" id="bt_post">Envoyer</button>
+                                </div>
                                 <!-- <input type="submit" value="Valider" id="bt_post" class="form-control" /> -->
                             </div>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>

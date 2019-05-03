@@ -1,14 +1,14 @@
 <?php
 // Appel vers la base de donnée
 try {
-    $bdd = new PDO('mysql:host=localhost;dbname=Alaska;charset=utf8', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+    $db = new PDO('mysql:host=localhost;dbname=Alaska;charset=utf8', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 }
 // Gérer les erreurs
 catch (Exception $e) {
     die('Erreur : ' . $e->getMessage());
 }
 // Aller chercher les données dans la table
-$reponse = $bdd->query('SELECT chapter_number, date_publi, title, text_chapter, couleur FROM livre ORDER BY date_publi');
+$reponse = $db->query('SELECT chapter_number, date_publi, title, text_chapter, couleur FROM livre ORDER BY date_publi');
 ?>
 
 
@@ -60,15 +60,15 @@ $reponse = $bdd->query('SELECT chapter_number, date_publi, title, text_chapter, 
             <div class="col-md-10 offset-md-1 back_home text_sans-serif"><a href="index.php">JEAN FORTEROCHE</a></div>
             <div class="col-md-1"><i class="fas fa-bars"></i></div>
         </div>
-        <?php while ($donnees = $reponse->fetch()) { ?>
+        <?php while ($data = $reponse->fetch()) { ?>
 
             <!-- Contenu -->
             <div class="contenu">
                 <!-- Titre / sous titre -->
                 <div class="row">
-                    <div class="col-md-6 offset-md-1 chapter text_sans-serif">Chapitre N° <?= htmlspecialchars($donnees['chapter_number']) ?></div>
-                    <a href="chapter.php?chapitre=<?php echo $donnees['chapter_number']; ?>">
-                        <h1 class="col-md-4 offset-md-1 titre"><?= htmlspecialchars($donnees['title']) ?></h1>
+                    <div class="col-md-6 offset-md-1 chapter text_sans-serif">Chapitre N° <?= htmlspecialchars($data['chapter_number']) ?></div>
+                    <a href="chapter.php?chapitre=<?php echo $data['chapter_number']; ?>">
+                        <h1 class="col-md-4 offset-md-1 titre"><?= htmlspecialchars($data['title']) ?></h1>
                     </a>
                 </div>
 
@@ -80,7 +80,7 @@ $reponse = $bdd->query('SELECT chapter_number, date_publi, title, text_chapter, 
 
             <!-- Background -->
             <div class="row background">
-                <div class="col-md-8 rectangle <?= htmlspecialchars($donnees['couleur']) ?>"></div>
+                <div class="col-md-8 rectangle <?= htmlspecialchars($data['couleur']) ?>"></div>
             </div>
         <?php } ?>
     </div>

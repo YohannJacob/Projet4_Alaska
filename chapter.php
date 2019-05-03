@@ -1,14 +1,14 @@
 <?php
 // Appel vers la base de donnée
 try {
-    $bdd = new PDO('mysql:host=localhost;dbname=Alaska;charset=utf8', 'root', 'root');
+    $db = new PDO('mysql:host=localhost;dbname=Alaska;charset=utf8', 'root', 'root');
 }
 // Gérer les erreurs
 catch (Exception $e) {
     die('Erreur : ' . $e->getMessage());
 }
 // Aller chercher les données dans la table
-$req = $bdd->prepare('SELECT chapter_number, date_publi, title, text_chapter, couleur FROM livre WHERE chapter_number = ?');
+$req = $db->prepare('SELECT chapter_number, date_publi, title, text_chapter, couleur FROM livre WHERE chapter_number = ?');
 $req->execute(array($_GET['chapitre']));
 
 ?>
@@ -55,7 +55,7 @@ $req->execute(array($_GET['chapitre']));
 </head>
 
 <body>
-    <?php while ($donnees = $req->fetch()) { ?>
+    <?php while ($data = $req->fetch()) { ?>
 
         <!-- POURQUOI AUCUN DE MES LIENS NE FONCTIONNENT ??? -->
         <div class="container-fluid">
@@ -69,7 +69,7 @@ $req->execute(array($_GET['chapitre']));
             <div class="contenu">
                 <!-- Titre / sous titre -->
                 <div class="row">
-                    <h1 class="col-md-6 offset-md-1 titre"><?= htmlspecialchars($donnees['title']) ?> </h1>
+                    <h1 class="col-md-6 offset-md-1 titre"><?= htmlspecialchars($data['title']) ?> </h1>
                     <div class="col-md-4 offset-md-1 sous-titre">Un livre-blog publié par Jean Forteroche</div>
                 </div>
 
@@ -81,7 +81,7 @@ $req->execute(array($_GET['chapitre']));
 
             <!-- Menu footer -->
             <div class="row background">
-                <div class="col-md-8 rectangle <?= htmlspecialchars($donnees['couleur']) ?>"></div>
+                <div class="col-md-8 rectangle <?= htmlspecialchars($data['couleur']) ?>"></div>
                 <div class="col-md-4"></div>
                 <div class="col-md-4 offset-md-8 all_chapter fixed"><a href="all_chapter.php">Liste des chapitres</a></div>
             </div>
@@ -89,14 +89,14 @@ $req->execute(array($_GET['chapitre']));
             <!-- Contenu -->
             <div class="row">
                 <div class="col-md-8 text">
-                    <div class="col-md-3 offset-md-1 marg-top text_sans-serif">CHAPITRE N° <?= htmlspecialchars($donnees['chapter_number']) ?> </div>
-                    <div class="col-md-10 offset-md-1 marg-top text_serif">
-                        <?= $donnees['text_chapter'] ?>
+                    <div class="col-md-3 offset-md-1 marg_top-60 text_sans-serif">CHAPITRE N° <?= htmlspecialchars($data['chapter_number']) ?> </div>
+                    <div class="col-md-10 offset-md-1 marg_top-60 text_serif">
+                        <?= $data['text_chapter'] ?>
                     </div>
                     <div class="col md-12">
                         <div class="row">
-                            <div class="col-md-5 offset-md-1 marg-top prev">Chapitre précédent</div>
-                            <div class="col-md-4 offset-md-1 marg-top next">Chapitre suivant</div>
+                            <div class="col-md-5 offset-md-1 marg_top-60 prev">Chapitre précédent</div>
+                            <div class="col-md-4 offset-md-1 marg_top-60 next">Chapitre suivant</div>
                         </div>
                     </div>
                 </div>
@@ -106,10 +106,10 @@ $req->execute(array($_GET['chapitre']));
             <!-- Commentaires -->
             <div class="row">
                 <div class="col-md-8 text grey_line">
-                    <div class="col-md-3 offset-md-1 marg-top text_sans-serif">commentaires</div>
+                    <div class="col-md-3 offset-md-1 marg_top-60 text_sans-serif">commentaires</div>
                     <div class="col md-12">
                         <div class="row">
-                            <div class="col-md-11 offset-md-1 marg-top pseudo">Pseudo</div>
+                            <div class="col-md-11 offset-md-1 marg_top-60 pseudo">Pseudo</div>
                             <div class="col-md-11 offset-md-1 comments">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
                             <div class="col-md-3 offset-md-8 alert_comment">Signaler</div>
 

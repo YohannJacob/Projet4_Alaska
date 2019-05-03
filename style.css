@@ -191,8 +191,16 @@
     background: #FCFAF2;
 }
 
-.marg-top {
+.marg_top-60 {
     margin-top: 60px;
+}
+
+.marg_top-30 {
+    margin-top: 30px;
+}
+
+.marg_top-15 {
+    margin-top: 15px;
 }
 
 .text_sans-serif {
@@ -304,13 +312,15 @@
     color: #cfad5e;
 }
 
-.manager_form{
+.manager_form {
     background-color: #FCFAF2;
 
 }
-.tox-edit-area__iframe{
+
+.tox-edit-area__iframe {
     background-color: #FCFAF2 !important;
 }
-.radio_marg{
+
+.radio_marg {
     margin-right: 10px;
 }
