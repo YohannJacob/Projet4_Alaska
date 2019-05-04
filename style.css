@@ -324,3 +324,39 @@
 .radio_marg {
     margin-right: 10px;
 }
+
+.add_btn {
+    height: 40px;
+    border: 2px solid #FFF;
+    line-height: 40px;
+}
+
+.perso_btn {
+    border: 2px solid #29BA9E;
+    line-height: 40px;
+    font-size: 0.5rem;
+    color: #29BA9E;
+    display: flex;   
+    align-items: center;
+}
+
+.perso_btn a {
+    color: #29BA9E;
+}
+
+.round {
+    background: #29BA9E;
+    color: #285073;
+    border-radius: 100%;
+    width: 25px;
+    height: 25px;
+    margin-left: 30px;
+}
+
+.round .fa-pencil-alt {
+    color: #285073;
+    position: relative;
+    left: 49%;
+    top: 17%;
+    transform: translate(-50%, -50%);
+}

@@ -80,6 +80,17 @@ if (!empty($_POST)) {
                     <div class="col-md-10 offset-md-2 marg_top-60 text_sans-serif">
                         <a href="index.php">JEAN FORTEROCHE</a>
                     </div>
+                    <div class="col-md-8 offset-md-2 marg_top-60 add_btn">
+                        <a href="#">AJOUTER UN CHAPITRE</a>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 offset-md-2 marg_top-60 perso_btn">
+                            <a href="#">PERSONALISER LE BLOG</a>
+                        </div>
+                        <div class="col-md-1 offset-md-1 marg_top-60 round">
+                            <i class="fas fa-pencil-alt"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -130,7 +141,7 @@ if (!empty($_POST)) {
                             <h4 class="marg_top-30">Ajouter une photo :</h4>
                             <div class="row">
                                 <div class="col-md-8">
-                                    <input type="file" name="photo" accept="image/png, image/jpeg" class="marg_top-15"/>
+                                    <input type="file" name="photo" accept="image/png, image/jpeg" class="marg_top-15" />
                                 </div>
                                 <div class="col-md-2 offset-md-2">
                                     <button class="btn btn-primary" type="submit" id="bt_post">Envoyer</button>
