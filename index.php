@@ -1,3 +1,19 @@
+<?php
+// Appel vers la base de donnée
+try {
+    $db = new PDO('mysql:host=localhost;dbname=Alaska;charset=utf8', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+}
+// Gérer les erreurs
+catch (Exception $e) {
+    die('Erreur : ' . $e->getMessage());
+}
+// Aller chercher les données dans la table
+$reponse = $db->query('SELECT chapter_number FROM livre ORDER BY ID DESC LIMIT 1');
+$data = $reponse->fetch();
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -42,6 +58,7 @@
 
 <body>
     <div class="container-fluid home">
+
         <!-- Menu -->
         <div class="row menunav">
             <div class="col-md-10 offset-md-1 back_home text_sans-serif"><a href="index.php">JEAN FORTEROCHE</a></div>
@@ -58,16 +75,16 @@
         <div class="row photo">
             <div class="col-md-7 offset-md-4"><img class="img-fluid" src="img/photo1.jpg" alt="Alaska"></div>
         </div>
-
         <!-- Background -->
+        
         <div class="row footer">
             <div class="col-md-8 rectangle bleu"></div>
             <div class="col-md-4"></div>
-            <div class="col-md-8 last_chapter">Lire le dernier chapitre publié</div>
+            <div class="col-md-8 last_chapter"><a href="chapter.php?chapitre=<?php echo $data['chapter_number']; ?>">Lire le dernier chapitre publié</a></div>
+
             <div class="col-md-4 all_chapter"><a href="all_chapter.php">Liste des chapitres</a></div>
         </div>
+
     </div>
 
 </body>
-
-</html>

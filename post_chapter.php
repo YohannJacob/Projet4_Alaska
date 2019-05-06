@@ -9,13 +9,29 @@ catch (Exception $e) {
     die('Erreur : ' . $e->getMessage());
 }
 
+function upload($index, $destination, $maxsize, $extensions)
+{
+    //Test1: fichier correctement uploadé
+    if (!isset($_FILES[$index]) or $_FILES[$index]['error'] == 0);
+    echo ('erreur');
+    //Test2: taille limite
+    if ($maxsize !== FALSE and $_FILES[$index]['size'] > $maxsize) return FALSE;
+    //Test3: extension
+    $ext = substr(strrchr($_FILES[$index]['name'], '.'), 1);
+    if ($extensions !== FALSE and !in_array($ext, $extensions)) return FALSE;
+    //Déplacement
+    return move_uploaded_file($_FILES[$index]['tmp_name'], $destination);
+}
+
 if (!empty($_POST)) {
-    $req = $db->prepare('INSERT INTO livre(chapter_number, title, text_chapter, couleur) VALUES(:chapter_number, :title, :text_chapter, :couleur)');
+    $req = $db->prepare('INSERT INTO livre(chapter_number, title, text_chapter, couleur, image_chapter) VALUES(:chapter_number, :title, :text_chapter, :couleur :image_chapter)');
     $req->execute(array(
         'chapter_number' => $_POST['chapter_number'],
         'title' => $_POST['title'],
         'text_chapter' => $_POST['text_chapter'],
         'couleur' => $_POST['couleur'],
+        'image_chapter' => $upload1 = upload('image_chapter', 'uploads/img_chapter1', 15360, array('png', 'gif', 'jpg', 'jpeg')),
+
     ));
 }
 ?>
@@ -80,16 +96,12 @@ if (!empty($_POST)) {
                     <div class="col-md-10 offset-md-2 marg_top-60 text_sans-serif">
                         <a href="index.php">JEAN FORTEROCHE</a>
                     </div>
-                    <div class="col-md-8 offset-md-2 marg_top-60 add_btn">
+                    <div class="col-md-8 offset-md-2 marg_top-60">
                         <a href="#">AJOUTER UN CHAPITRE</a>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6 offset-md-2 marg_top-60 perso_btn">
-                            <a href="#">PERSONALISER LE BLOG</a>
-                        </div>
-                        <div class="col-md-1 offset-md-1 marg_top-60 round">
-                            <i class="fas fa-pencil-alt"></i>
-                        </div>
+                    <div class="col-md-8 offset-md-2 marg_top-60">
+                        <a href="#">PERSONALISER LE BLOG</a>
+                        <i class="fas fa-pencil-alt"></i>
                     </div>
                 </div>
             </div>
@@ -141,12 +153,12 @@ if (!empty($_POST)) {
                             <h4 class="marg_top-30">Ajouter une photo :</h4>
                             <div class="row">
                                 <div class="col-md-8">
-                                    <input type="file" name="photo" accept="image/png, image/jpeg" class="marg_top-15" />
+                                    <input type="file" name="image_chapter" class="marg_top-15" />
                                 </div>
                                 <div class="col-md-2 offset-md-2">
                                     <button class="btn btn-primary" type="submit" id="bt_post">Envoyer</button>
                                 </div>
-                                <!-- <input type="submit" value="Valider" id="bt_post" class="form-control" /> -->
+
                             </div>
                         </div>
                     </form>
