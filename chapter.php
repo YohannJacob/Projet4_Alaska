@@ -9,16 +9,30 @@ catch (Exception $e) {
     die('Erreur : ' . $e->getMessage());
 }
 // Aller chercher les données dans la table
-$req = $db->prepare('SELECT chapter_number, date_publi, title, text_chapter, couleur FROM livre WHERE chapter_number = ?');
+$req = $db->prepare('SELECT * FROM livre WHERE id = ?');
 $req->execute(array($_GET['chapitre']));
 
 if (!empty($_POST)) {
-    $req2 = $db->prepare('INSERT INTO Comments(pseudo, comment) VALUES(:pseudo, :comment)');
-    $req2->execute(array(
-        'pseudo' => $_POST['pseudo'],
-        'comment' => $_POST['comment'],
+    $validation = true;
 
-    ));
+    if (empty($_POST['pseudo'])) {
+        $erreurPseudo = 'le pseudo est vide';
+        $validation = false;
+    }
+    if (empty($_POST['comment'])) {
+        $erreurComment = 'le commentaire est vide';
+        $validation = false;
+    }
+    if ($validation == true) {
+        $req2 = $db->prepare('INSERT INTO Comments(pseudo, comment, id_article) VALUES(:pseudo, :comment, :id_article)');
+        $req2->execute(array(
+            'pseudo' => $_POST['pseudo'],
+            'comment' => $_POST['comment'],
+            'id_article' => $_GET['chapitre'],
+        ));
+        header('Location: chapter.php?chapitre=' . $_GET['chapitre']);
+        exit();
+    }
 }
 ?>
 
@@ -84,7 +98,7 @@ if (!empty($_POST)) {
 
                 <!-- photo  -->
                 <div class="row photo_chapter">
-                    <div class="col-md-7 offset-md-4"><img class="img-fluid" src="img/photo1.jpg" alt="Alaska"></div>
+                    <div class="col-md-7 offset-md-4"><img class="img-fluid" src="uploads/<?= htmlspecialchars($data['image_chapter']) ?>" alt="Alaska"></div>
                 </div>
             </div>
 
@@ -129,9 +143,12 @@ if (!empty($_POST)) {
                 <div class="col-md-4 add_comment">
                     <div class="col-md-11 title_add_comment"> Ajouter votre commentaire</div>
                     <div class="col-md-11">
-                        <form action=chapter.php?chapitre=<?php echo $data['chapter_number']; ?>" method="POST">
+                        <form action="chapter.php?chapitre=<?php echo $data['id']; ?>" method="POST">
                             <div class="col-md-11 form-group">
-                                <p><input type="text" id="pseudo" name="pseudo" placeholder="Pseudo" class="form-control commentaire_form"/></p>
+                                <p><input type="text" id="pseudo" name="pseudo" placeholder="Pseudo" class="form-control commentaire_form" /></p>
+                                <?php if (isset($erreurPseudo)) { ?>
+                                    <p> <?= $erreurPseudo ?> </p>
+                                <?php } ?>
                                 <p><textarea name="comment" id="comment" placeholder="Votre commentaire..." class="form-control commentaire_form"></textarea></p>
 
                                 <button class="btn btn-primary" type="submit" id="bt_post">Envoyer</button>

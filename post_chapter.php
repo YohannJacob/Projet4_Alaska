@@ -9,28 +9,52 @@ catch (Exception $e) {
     die('Erreur : ' . $e->getMessage());
 }
 
-function upload($index, $destination, $maxsize, $extensions)
+// function upload($index, $destination, $maxsize, $extensions)
+// {
+//     //Test1: fichier correctement uploadé
+//     if (!isset($_FILES[$index]) or $_FILES[$index]['error'] == 0);
+//     echo ('erreur');
+//     //Test2: taille limite
+//     if ($maxsize !== FALSE and $_FILES[$index]['size'] > $maxsize) return FALSE;
+//     //Test3: extension
+//     $ext = substr(strrchr($_FILES[$index]['name'], '.'), 1);
+//     if ($extensions !== FALSE and !in_array($ext, $extensions)) return FALSE;
+//     //Déplacement
+//     return move_uploaded_file($_FILES[$index]['tmp_name'], $destination);
+// };
+
+// $upload1 = upload('image_chapter','uploads/test',15360, array('png','gif','jpg','jpeg') );
+
+// Testons si le fichier a bien été envoyé et s'il n'y a pas d'erreur
+if (isset($_FILES['image_chapter']) AND $_FILES['image_chapter']['error'] == 0)
 {
-    //Test1: fichier correctement uploadé
-    if (!isset($_FILES[$index]) or $_FILES[$index]['error'] == 0);
-    echo ('erreur');
-    //Test2: taille limite
-    if ($maxsize !== FALSE and $_FILES[$index]['size'] > $maxsize) return FALSE;
-    //Test3: extension
-    $ext = substr(strrchr($_FILES[$index]['name'], '.'), 1);
-    if ($extensions !== FALSE and !in_array($ext, $extensions)) return FALSE;
-    //Déplacement
-    return move_uploaded_file($_FILES[$index]['tmp_name'], $destination);
+// Testons si le fichier n'est pas trop gros
+if ($_FILES['image_chapter']['size'] <= 1000000)
+{
+    echo'trop gros';
+// Testons si l'extension est autorisée
+$infosfichier = pathinfo($_FILES['image_chapter']['name']);
+$extension_upload = $infosfichier['extension'];
+$extensions_autorisees = array('jpg', 'jpeg', 'gif', 'png');
+if (in_array($extension_upload, $extensions_autorisees))
+{
+// On peut valider le fichier et le stocker définitivement
+move_uploaded_file($_FILES['image_chapter']['tmp_name'], 'uploads/' . basename($_FILES['image_chapter']['name']));
+echo "L'envoi a bien été effectué !";
+}
+}
 }
 
+
 if (!empty($_POST)) {
-    $req = $db->prepare('INSERT INTO livre(chapter_number, title, text_chapter, couleur, image_chapter) VALUES(:chapter_number, :title, :text_chapter, :couleur :image_chapter)');
+
+    $req = $db->prepare('INSERT INTO livre(chapter_number, title, text_chapter, couleur, image_chapter) VALUES(:chapter_number, :title, :text_chapter, :couleur, :image_chapter)');
     $req->execute(array(
         'chapter_number' => $_POST['chapter_number'],
         'title' => $_POST['title'],
         'text_chapter' => $_POST['text_chapter'],
         'couleur' => $_POST['couleur'],
-        'image_chapter' => $upload1 = upload('image_chapter', 'uploads/img_chapter1', 15360, array('png', 'gif', 'jpg', 'jpeg')),
+        'image_chapter' => $_FILES['image_chapter']['name'],
 
     ));
 }

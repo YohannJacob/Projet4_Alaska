@@ -8,7 +8,7 @@ catch (Exception $e) {
     die('Erreur : ' . $e->getMessage());
 }
 // Aller chercher les données dans la table
-$reponse = $db->query('SELECT chapter_number, date_publi, title, text_chapter, couleur FROM livre ORDER BY date_publi');
+$reponse = $db->query('SELECT * FROM livre ORDER BY id');
 ?>
 
 
@@ -67,7 +67,7 @@ $reponse = $db->query('SELECT chapter_number, date_publi, title, text_chapter, c
                 <!-- Titre / sous titre -->
                 <div class="row">
                     <div class="col-md-6 offset-md-1 chapter text_sans-serif">Chapitre N° <?= htmlspecialchars($data['chapter_number']) ?></div>
-                    <a href="chapter.php?chapitre=<?php echo $data['chapter_number']; ?>">
+                    <a href="chapter.php?chapitre=<?php echo $data['id']; ?>">
                         <h1 class="col-md-4 offset-md-1 titre"><?= htmlspecialchars($data['title']) ?></h1>
                     </a>
                 </div>

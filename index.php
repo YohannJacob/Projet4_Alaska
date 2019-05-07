@@ -8,7 +8,7 @@ catch (Exception $e) {
     die('Erreur : ' . $e->getMessage());
 }
 // Aller chercher les données dans la table
-$reponse = $db->query('SELECT chapter_number FROM livre ORDER BY ID DESC LIMIT 1');
+$reponse = $db->query('SELECT id FROM livre ORDER BY id DESC LIMIT 1');
 $data = $reponse->fetch();
 
 ?>
@@ -80,7 +80,7 @@ $data = $reponse->fetch();
         <div class="row footer">
             <div class="col-md-8 rectangle bleu"></div>
             <div class="col-md-4"></div>
-            <div class="col-md-8 last_chapter"><a href="chapter.php?chapitre=<?php echo $data['chapter_number']; ?>">Lire le dernier chapitre publié</a></div>
+            <div class="col-md-8 last_chapter"><a href="chapter.php?chapitre=<?php echo $data['id']; ?>">Lire le dernier chapitre publié</a></div>
 
             <div class="col-md-4 all_chapter"><a href="all_chapter.php">Liste des chapitres</a></div>
         </div>
