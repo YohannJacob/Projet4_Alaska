@@ -307,6 +307,11 @@
 }
 
 
+/* Commentaires front */
+
+.commentaire_form {
+    background-color: rgb(232, 232, 232);
+}
 /* Back - Manager */
 
 .titre_manager {

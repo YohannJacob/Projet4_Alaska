@@ -1,4 +1,5 @@
 <?php
+session_start();
 // Appel vers la base de donnée
 try {
     $db = new PDO('mysql:host=localhost;dbname=Alaska;charset=utf8', 'root', 'root');
@@ -11,6 +12,14 @@ catch (Exception $e) {
 $req = $db->prepare('SELECT chapter_number, date_publi, title, text_chapter, couleur FROM livre WHERE chapter_number = ?');
 $req->execute(array($_GET['chapitre']));
 
+if (!empty($_POST)) {
+    $req2 = $db->prepare('INSERT INTO Comments(pseudo, comment) VALUES(:pseudo, :comment)');
+    $req2->execute(array(
+        'pseudo' => $_POST['pseudo'],
+        'comment' => $_POST['comment'],
+
+    ));
+}
 ?>
 
 
@@ -120,12 +129,12 @@ $req->execute(array($_GET['chapitre']));
                 <div class="col-md-4 add_comment">
                     <div class="col-md-11 title_add_comment"> Ajouter votre commentaire</div>
                     <div class="col-md-11">
-                        <form action="post_chapter.php" method="POST">
-                            <div class="col-md-11">
-                                <p><input type="textarea" id="pseudo" name="pseudo" placeholder="Pseudo" /></p>
-                                <p><textarea name="comment" id="comment" placeholder="Votre commentaire..."></textarea></p>
+                        <form action=chapter.php?chapitre=<?php echo $data['chapter_number']; ?>" method="POST">
+                            <div class="col-md-11 form-group">
+                                <p><input type="text" id="pseudo" name="pseudo" placeholder="Pseudo" class="form-control commentaire_form"/></p>
+                                <p><textarea name="comment" id="comment" placeholder="Votre commentaire..." class="form-control commentaire_form"></textarea></p>
 
-                                <p><input type="submit" value="Valider" id="bt_post" /></p>
+                                <button class="btn btn-primary" type="submit" id="bt_post">Envoyer</button>
                             </div>
                         </form>
                     </div>
