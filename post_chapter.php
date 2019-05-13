@@ -26,37 +26,58 @@ catch (Exception $e) {
 // $upload1 = upload('image_chapter','uploads/test',15360, array('png','gif','jpg','jpeg') );
 
 // Testons si le fichier a bien été envoyé et s'il n'y a pas d'erreur
-if (isset($_FILES['image_chapter']) AND $_FILES['image_chapter']['error'] == 0)
-{
-// Testons si le fichier n'est pas trop gros
-if ($_FILES['image_chapter']['size'] <= 1000000)
-{
-    echo'trop gros';
-// Testons si l'extension est autorisée
-$infosfichier = pathinfo($_FILES['image_chapter']['name']);
-$extension_upload = $infosfichier['extension'];
-$extensions_autorisees = array('jpg', 'jpeg', 'gif', 'png');
-if (in_array($extension_upload, $extensions_autorisees))
-{
-// On peut valider le fichier et le stocker définitivement
-move_uploaded_file($_FILES['image_chapter']['tmp_name'], 'uploads/' . basename($_FILES['image_chapter']['name']));
-echo "L'envoi a bien été effectué !";
-}
-}
+if (isset($_FILES['image_chapter']) and $_FILES['image_chapter']['error'] == 0) {
+    // Testons si le fichier n'est pas trop gros
+    if ($_FILES['image_chapter']['size'] <= 1000000) {
+        echo 'trop gros';
+        // Testons si l'extension est autorisée
+        $infosfichier = pathinfo($_FILES['image_chapter']['name']);
+        $extension_upload = $infosfichier['extension'];
+        $extensions_autorisees = array('jpg', 'jpeg', 'gif', 'png');
+        if (in_array($extension_upload, $extensions_autorisees)) {
+            // On peut valider le fichier et le stocker définitivement
+            move_uploaded_file($_FILES['image_chapter']['tmp_name'], 'uploads/' . basename($_FILES['image_chapter']['name']));
+            echo "L'envoi a bien été effectué !";
+        }
+    }
 }
 
 
 if (!empty($_POST)) {
+    $validation = true;
 
-    $req = $db->prepare('INSERT INTO livre(chapter_number, title, text_chapter, couleur, image_chapter) VALUES(:chapter_number, :title, :text_chapter, :couleur, :image_chapter)');
-    $req->execute(array(
-        'chapter_number' => $_POST['chapter_number'],
-        'title' => $_POST['title'],
-        'text_chapter' => $_POST['text_chapter'],
-        'couleur' => $_POST['couleur'],
-        'image_chapter' => $_FILES['image_chapter']['name'],
-
-    ));
+    if (empty($_POST['chapter_number'])) {
+        $erreurChapNumber = 'Le numero de chapitre est invalide';
+        $validation = false;
+    }
+    if (empty($_POST['title'])) {
+        $erreurTitle = 'Le titre est vide';
+        $validation = false;
+    }
+    if (empty($_POST['text_chapter'])) {
+        $erreurText = 'Le texte du chapitre est vide';
+        $validation = false;
+    }
+    if (empty($_POST['couleur'])) {
+        $erreurCouleur = 'Merci de choisir une couleur';
+        $validation = false;
+    }
+    if (empty($_FILES['image_chapter']['name'])) {
+        $erreurImage = 'Merci de choisir une image';
+        $validation = false;
+    }
+    if ($validation == true) {
+        $req = $db->prepare('INSERT INTO livre(chapter_number, title, text_chapter, couleur, image_chapter) VALUES(:chapter_number, :title, :text_chapter, :couleur, :image_chapter)');
+        $req->execute(array(
+            'chapter_number' => $_POST['chapter_number'],
+            'title' => $_POST['title'],
+            'text_chapter' => $_POST['text_chapter'],
+            'couleur' => $_POST['couleur'],
+            'image_chapter' => $_FILES['image_chapter']['name'],
+        ));
+        header('Location: chapter.php?chapitre=' . $_GET['chapitre']);
+        exit();
+    }
 }
 ?>
 
@@ -114,8 +135,8 @@ if (!empty($_POST)) {
 
 <body>
     <div class="container-fluid home">
-        <div class="row menu">
-            <div class="col-md-3 bleu">
+        <div class="row">
+            <div class="col-md-3 menu bleu">
                 <div class="row">
                     <div class="col-md-10 offset-md-2 marg_top-60 text_sans-serif">
                         <a href="index.php">JEAN FORTEROCHE</a>
@@ -138,17 +159,26 @@ if (!empty($_POST)) {
                         <div class="row marg_top-60">
                             <div class="col-md-9 form-group">
                                 <input type="text" placeholder="Titre du chapitre" id="title" name="title" class="form-control manager_form" />
+                                <?php if (isset($erreurTitle)) { ?>
+                                    <p> <?= $erreurTitle ?> </p>
+                                <?php } ?>
                             </div>
 
                             <div class="col-md-3 form-group">
 
                                 <input type="text" placeholder="N° de chapitre" id="chapter_number" name="chapter_number" class="form-control manager_form" />
+                                <?php if (isset($erreurChapNumber)) { ?>
+                                    <p> <?= $erreurChapNumber ?> </p>
+                                <?php } ?>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <h4 class="marg_top-30">Contenu du chapitre :</h4>
                             <textarea name="text_chapter" id="text_chapter" cols="50" rows="15" class="form-control manager_form marg_top-30"></textarea>
+                            <?php if (isset($erreurText)) { ?>
+                                <p> <?= $erreurText ?> </p>
+                            <?php } ?>
                         </div>
 
                         <div class="form-group ">
@@ -169,7 +199,11 @@ if (!empty($_POST)) {
                                 <div class="col-md-3 radio marg_top-15">
                                     <label for="Bleu" class="radio radio_marg"><input type="radio" name="couleur" value="bleu" class="radio_marg" /> Bleu </label>
                                 </div>
-
+                                <div class="col-md-12 marg_top-15">
+                                    <?php if (isset($erreurCouleur)) { ?>
+                                        <p> <?= $erreurCouleur ?> </p>
+                                    <?php } ?>
+                                </div>
                             </div>
                         </div>
 
@@ -179,10 +213,15 @@ if (!empty($_POST)) {
                                 <div class="col-md-8">
                                     <input type="file" name="image_chapter" class="marg_top-15" />
                                 </div>
+
                                 <div class="col-md-2 offset-md-2">
                                     <button class="btn btn-primary" type="submit" id="bt_post">Envoyer</button>
                                 </div>
-
+                                <div class="col-md-12 marg_top-15">
+                                <?php if (isset($erreurImage)) { ?>
+                                        <p> <?= $erreurImage ?> </p>
+                                    <?php } ?>
+                                </div>
                             </div>
                         </div>
                     </form>
