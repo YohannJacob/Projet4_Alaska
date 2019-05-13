@@ -20,6 +20,7 @@
     z-index: 20;
 
 }
+
 /* Ebauche d'un css pour le menu */
 /* .menu {
     background-color: #000000;
@@ -322,6 +323,7 @@
 .commentaire_form {
     background-color: rgb(232, 232, 232);
 }
+
 /* Back - Manager */
 .titre_manager {
     font-family: "Volkhov", serif;
@@ -350,8 +352,81 @@
 
 }
 
-.titre_module_chapitre{
+.titre_module_chapitre {
     background-color: #CFAD5E;
     height: 40px;
-    padding-right: 30px;
+    line-height: 40px;
+    text-transform: uppercase;
+    font-family: "PT Sans Narrow";
+    font-weight: bold;
+    font-size: 24px;
+    text-align: center;
+    color: #fff;
+
+}
+
+.titre_module_commentaires {
+    background-color: #656565;
+    height: 40px;
+    line-height: 40px;
+    text-transform: uppercase;
+    font-family: "PT Sans Narrow";
+    font-weight: bold;
+    font-size: 24px;
+    text-align: center;
+    color: #fff;
+}
+
+.contenu_module_chapitre {
+    background: #fcfaf2;
+    height: 160px;
+}
+
+.contenu_padding {
+    padding: 10px;
+}
+
+h5 {
+    font-family: "PT Sans Narrow";
+    font-weight: bold;
+    font-size: 18px;
+    color: #cfad5e;
+}
+
+.titre_module {
+    font-family: "Arial", sans-serif;
+    font-size: 18px;
+    color: #000;
+
+}
+
+.date_publi {
+    font-size: 16px;
+    color: #676767;
+}
+
+.separation_gauche {
+    border-left: 1px solid #707070;
+
+}
+
+.bouton_module {
+    height: 80px;
+    margin: 0 !important;
+    line-height: 80px;
+}
+
+.supprimer {
+    font-family: "Arial", sans-serif;
+    font-size: 16px;
+    color: #cf5e62;
+    border-top: 1px solid #707070;
+    text-align: center;
+}
+
+.modifier {
+    font-family: "Arial", sans-serif;
+    font-size: 16px;
+    color: #489F6B;
+    text-align: center;
 }

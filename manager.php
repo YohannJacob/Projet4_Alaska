@@ -85,7 +85,26 @@ catch (Exception $e) {
                                 <div class="col-md-11 titre_module_chapitre">LES DERNIERS CHAPITRES POSTÉS</div>
 
                                 <!-- Modules chapitre -->
-                                <div class="col-md-12">UN MODULE</div>
+                                <div class="col-md-11 marg_top-30">
+                                    <div class="row contenu_module_chapitre">
+                                        <!-- Contenu Num chapitre, titre et date de publication -->
+                                        <div class="col-md-8 contenu_padding ">
+                                        <div class="row">
+                                                <h5 class="col-md-12">Chapitre N°</h5>
+                                                <p class="col-md-12 titre_module">Titre, titre, titre, titre, titre, titre, titre, titre, titre</p>
+                                                <p class="col-md-12 date_publi">Date publication</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- Les boutons -->
+                                        <div class="col-md-4 separation_gauche">
+                                            <div class="row">
+                                                <p class="col-md-12 bouton_module modifier">Modifier</p>
+                                                <p class="col-md-12 bouton_module supprimer">Supprimer</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
 
 
@@ -94,10 +113,10 @@ catch (Exception $e) {
                         <!-- Colonne derniers Commentaires postés -->
                         <div class="col-md-6">
                             <div class="row">
-                                <div class="col-md-11 grey">LES DERNIERS COMMENTAIRES POSTÉS</div>
+                                <div class="col-md-11 titre_module_commentaires">LES DERNIERS COMMENTAIRES POSTÉS</div>
 
                                 <!-- Modules chapitre -->
-                                <div class="col-md-12">UN MODULE</div>
+                                <div class="col-md-12 marg_top-30">UN MODULE</div>
 
                             </div>
                         </div>
