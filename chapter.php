@@ -8,9 +8,7 @@ try {
 catch (Exception $e) {
     die('Erreur : ' . $e->getMessage());
 }
-// Aller chercher les données dans la table
-$req = $db->prepare('SELECT * FROM livre WHERE id = ?');
-$req->execute(array($_GET['chapitre']));
+
 
 if (!empty($_POST)) {
     $validation = true;
@@ -24,16 +22,27 @@ if (!empty($_POST)) {
         $validation = false;
     }
     if ($validation == true) {
-        $req2 = $db->prepare('INSERT INTO Comments(pseudo, comment, id_article) VALUES(:pseudo, :comment, :id_article)');
+        $req2 = $db->prepare('INSERT INTO commentaires (pseudo, comment, id_chapter) VALUES(:pseudo, :comment, :id_chapter)');
         $req2->execute(array(
             'pseudo' => $_POST['pseudo'],
             'comment' => $_POST['comment'],
-            'id_article' => $_GET['chapitre'],
+            'id_chapter' => $_GET['chapitre'],
         ));
         header('Location: chapter.php?chapitre=' . $_GET['chapitre']);
         exit();
     }
 }
+// Aller chercher les données dans la table
+$req = $db->prepare('SELECT * FROM livre WHERE id = ?');
+$req->execute(array($_GET['chapitre']));
+
+$reponse = $db->prepare('SELECT commentaires.pseudo, commentaires.comment, commentaires.id_chapter, livre.id 
+FROM commentaires 
+INNER JOIN livre 
+ON livre.id = commentaires.id_chapter 
+WHERE id = ?');
+$reponse->execute(array($_GET['chapitre']));
+
 ?>
 
 
@@ -44,7 +53,7 @@ if (!empty($_POST)) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Billet simple pour l'Alaska - Chapitre N°</title> <!-- Inserer en PHP le num de cchapitre -->
+    <title>Billet simple pour l'Alaska</title>
     <meta name="description" content="Un billet pour l'alaska, le blog de l'écrivain Jean Forteroche">
 
     <!-- Twitter Card data -->
@@ -80,10 +89,9 @@ if (!empty($_POST)) {
 <body>
     <?php while ($data = $req->fetch()) { ?>
 
-        <!-- POURQUOI AUCUN DE MES LIENS NE FONCTIONNENT ??? -->
         <div class="container-fluid">
             <!-- Menu -->
-            <div class="row menunav"> test chapter comment
+            <div class="row menunav">
 
                 <div class="col-md-10 offset-md-1 back_home text_sans-serif"><a href="index.php">JEAN FORTEROCHE</a></div>
                 <div class="col-md-1"><i class="fas fa-bars"></i></div>
@@ -132,10 +140,11 @@ if (!empty($_POST)) {
                     <div class="col-md-3 offset-md-1 marg_top-60 text_sans-serif">commentaires</div>
                     <div class="col md-12">
                         <div class="row">
-                            <div class="col-md-11 offset-md-1 marg_top-60 pseudo">Pseudo</div>
-                            <div class="col-md-11 offset-md-1 comments">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                            <div class="col-md-3 offset-md-8 alert_comment">Signaler</div>
-
+                            <?php while ($data2 = $reponse->fetch()) { ?>
+                                <div class="col-md-11 offset-md-1 marg_top-60 pseudo"><?= htmlspecialchars($data2['pseudo']) ?></div>
+                                <div class="col-md-11 offset-md-1 comments"><?= htmlspecialchars($data2['comment']) ?></div>
+                                <div class="col-md-3 offset-md-8 alert_comment">Signaler</div>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>

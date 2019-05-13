@@ -141,6 +141,10 @@
     background: #489F6B;
 }
 
+.grey {
+    background: #656565;
+}
+
 .last_chapter {
     font-family: "PT Sans Narrow";
     font-weight: normal;
@@ -319,7 +323,6 @@
     background-color: rgb(232, 232, 232);
 }
 /* Back - Manager */
-
 .titre_manager {
     font-family: "Volkhov", serif;
     font-weight: bold;
@@ -345,4 +348,10 @@
 .fa-pencil-alt {
     color: #FFF;
 
+}
+
+.titre_module_chapitre{
+    background-color: #CFAD5E;
+    height: 40px;
+    padding-right: 30px;
 }
