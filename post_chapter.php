@@ -47,9 +47,14 @@ if (!empty($_POST)) {
     $validation = true;
 
     if (empty($_POST['chapter_number'])) {
-        $erreurChapNumber = 'Le numero de chapitre est invalide';
+        $erreurChapNumber = 'Merci de renseigner le numéro de chapitre';
         $validation = false;
     }
+    if (!is_numeric($_POST['chapter_number'])){
+        $erreurChapNumber = 'Le numero de chapitre n\'est pas un chiffre';
+        $validation = false;
+    }
+
     if (empty($_POST['title'])) {
         $erreurTitle = 'Le titre est vide';
         $validation = false;
@@ -154,31 +159,41 @@ if (!empty($_POST)) {
             <div class="col-md-7 offset-md-1">
                 <h1 class="text_serif marg_top-60 titre_manager">Ajouter un chapitre</h1>
                 <div class="content marg-top">
+                    <div class="row marg_top-15">
+                        <div class="col-md-9">
 
+                            <?php if (isset($erreurTitle)) { ?>
+                                <p class="problem"> • <?= $erreurTitle ?> </p>
+                            <?php } ?>
+                            <?php if (isset($erreurChapNumber)) { ?>
+                                <p class="problem"> • <?= $erreurChapNumber ?> </p>
+                            <?php } ?>
+                            <?php if (isset($erreurText)) { ?>
+                                <p class="problem"> • <?= $erreurText ?> </p>
+                            <?php } ?>
+                            <?php if (isset($erreurCouleur)) { ?>
+                                <p class="problem"> • <?= $erreurCouleur ?> </p>
+                            <?php } ?>
+                            <?php if (isset($erreurImage)) { ?>
+                                <p class="problem"> • <?= $erreurImage ?> </p>
+                            <?php } ?>
+                        </div>
+                    </div>
                     <form action="post_chapter.php" method="POST" enctype="multipart/form-data">
                         <div class="row marg_top-60">
                             <div class="col-md-9 form-group">
                                 <input type="text" placeholder="Titre du chapitre" id="title" name="title" class="form-control manager_form" />
-                                <?php if (isset($erreurTitle)) { ?>
-                                    <p> <?= $erreurTitle ?> </p>
-                                <?php } ?>
                             </div>
 
                             <div class="col-md-3 form-group">
 
                                 <input type="text" placeholder="N° de chapitre" id="chapter_number" name="chapter_number" class="form-control manager_form" />
-                                <?php if (isset($erreurChapNumber)) { ?>
-                                    <p> <?= $erreurChapNumber ?> </p>
-                                <?php } ?>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <h4 class="marg_top-30">Contenu du chapitre :</h4>
                             <textarea name="text_chapter" id="text_chapter" cols="50" rows="15" class="form-control manager_form marg_top-30"></textarea>
-                            <?php if (isset($erreurText)) { ?>
-                                <p> <?= $erreurText ?> </p>
-                            <?php } ?>
                         </div>
 
                         <div class="form-group ">
@@ -200,9 +215,7 @@ if (!empty($_POST)) {
                                     <label for="Bleu" class="radio radio_marg"><input type="radio" name="couleur" value="bleu" class="radio_marg" /> Bleu </label>
                                 </div>
                                 <div class="col-md-12 marg_top-15">
-                                    <?php if (isset($erreurCouleur)) { ?>
-                                        <p> <?= $erreurCouleur ?> </p>
-                                    <?php } ?>
+
                                 </div>
                             </div>
                         </div>
@@ -218,9 +231,7 @@ if (!empty($_POST)) {
                                     <button class="btn btn-primary" type="submit" id="bt_post">Envoyer</button>
                                 </div>
                                 <div class="col-md-12 marg_top-15">
-                                <?php if (isset($erreurImage)) { ?>
-                                        <p> <?= $erreurImage ?> </p>
-                                    <?php } ?>
+
                                 </div>
                             </div>
                         </div>
