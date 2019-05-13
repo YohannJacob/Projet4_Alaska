@@ -12,8 +12,6 @@ catch (Exception $e) {
 $req = $db->prepare('SELECT * FROM livre WHERE id = ?');
 $req->execute(array($_GET['chapitre']));
 
-
-// Insertion des commentaires dans la BD
 if (!empty($_POST)) {
     $validation = true;
 
@@ -26,17 +24,16 @@ if (!empty($_POST)) {
         $validation = false;
     }
     if ($validation == true) {
-        $req2 = $db->prepare('INSERT INTO commentaires(pseudo, comment, id_chapter) VALUES(:pseudo, :comment, :id_chapter)');
+        $req2 = $db->prepare('INSERT INTO Comments(pseudo, comment, id_article) VALUES(:pseudo, :comment, :id_article)');
         $req2->execute(array(
             'pseudo' => $_POST['pseudo'],
             'comment' => $_POST['comment'],
-            'id_chapter' => $_GET['chapitre'],
+            'id_article' => $_GET['chapitre'],
         ));
         header('Location: chapter.php?chapitre=' . $_GET['chapitre']);
         exit();
     }
 }
-
 ?>
 
 
@@ -135,7 +132,7 @@ if (!empty($_POST)) {
                     <div class="col-md-3 offset-md-1 marg_top-60 text_sans-serif">commentaires</div>
                     <div class="col md-12">
                         <div class="row">
-                            <div class="col-md-11 offset-md-1 marg_top-60 pseudo"><?= htmlspecialchars($data['pseudo']) ?></div>
+                            <div class="col-md-11 offset-md-1 marg_top-60 pseudo">Pseudo</div>
                             <div class="col-md-11 offset-md-1 comments">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
                             <div class="col-md-3 offset-md-8 alert_comment">Signaler</div>
 
