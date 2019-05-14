@@ -8,8 +8,10 @@ try {
 catch (Exception $e) {
     die('Erreur : ' . $e->getMessage());
 }
+// Aller chercher les données dans la table
+$reponse = $db->query('SELECT * FROM livre ORDER BY chapter_number DESC');
 
-
+$reponse2 = $db->query('SELECT * FROM commentaires ORDER BY date_comment DESC   ');
 ?>
 
 <!-- ici on commence le HTML -->
@@ -60,16 +62,31 @@ catch (Exception $e) {
         <div class="row">
             <div class="col-md-3 menu bleu">
                 <div class="row">
-                    <div class="col-md-10 offset-md-2 marg_top-60 text_sans-serif">
+                    <div class="col-md-8 offset-md-2 marg_top-60 d-flex justify-content-center text_sans-serif back_home">
                         <a href="index.php">JEAN FORTEROCHE</a>
                     </div>
-                    <div class="col-md-8 offset-md-2 marg_top-60">
-                        <a href="#">AJOUTER UN CHAPITRE</a>
+
+                    
+
+                    <div class="col-md-8 offset-md-2 marg_top-60 d-flex justify-content-center bouton_manager">
+                        <a href="post_chapter.php">
+                            <button type="button" class="btn d-flex justify-content-center">
+                                AJOUTER UN CHAPITRE
+                                <i class="fas fa-plus-circle"></i>
+                            </button>
+                        </a>
                     </div>
-                    <div class="col-md-8 offset-md-2 marg_top-60">
-                        <a href="#">PERSONALISER LE BLOG</a>
-                        <i class="fas fa-pencil-alt"></i>
+
+
+                    <div class="col-md-8 offset-md-2 marg_top-60 d-flex justify-content-center bouton_manager">
+                        <a href="#">
+                            <button type="button" class="btn d-flex justify-content-center">
+                                PERSONALISER LE BLOG
+                                <i class="fas fa-pencil-alt"></i>
+                            </button>
+                        </a>
                     </div>
+
                 </div>
             </div>
 
@@ -77,47 +94,72 @@ catch (Exception $e) {
                 <h1 class="text_serif marg_top-60 titre_manager">Bienvenue sur votre espace de gestion.</h1>
                 <p class="marg_top-15">Ici vous pourrez administrer les contenus de votre blog.</p>
 
-                <div class="content marg-top">
-                    <div class="row marg_top-15">
+                <div class="content">
+                    <div class="row marg_top-30">
                         <!-- Colonne derniers Chapitres postés -->
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col-md-11 titre_module_chapitre">LES DERNIERS CHAPITRES POSTÉS</div>
 
                                 <!-- Modules chapitre -->
-                                <div class="col-md-11 marg_top-30">
-                                    <div class="row contenu_module_chapitre">
-                                        <!-- Contenu Num chapitre, titre et date de publication -->
-                                        <div class="col-md-8 contenu_padding ">
-                                        <div class="row">
-                                                <h5 class="col-md-12">Chapitre N°</h5>
-                                                <p class="col-md-12 titre_module">Titre, titre, titre, titre, titre, titre, titre, titre, titre</p>
-                                                <p class="col-md-12 date_publi">Date publication</p>
-                                            </div>
-                                        </div>
+                                <?php while ($data = $reponse->fetch()) { ?>
+                                    <div class="col-md-11 marg_top-30">
+                                        <div class="row contenu_module_chapitre">
+                                            <!-- Contenu Num chapitre, titre et date de publication -->
 
-                                        <!-- Les boutons -->
-                                        <div class="col-md-4 separation_gauche">
-                                            <div class="row">
-                                                <p class="col-md-12 bouton_module modifier">Modifier</p>
-                                                <p class="col-md-12 bouton_module supprimer">Supprimer</p>
+                                            <div class="col-md-8 contenu_padding ">
+                                                <div class="row ">
+                                                    <h5 class="col-md-12">Chapitre N° <?= htmlspecialchars($data['chapter_number']) ?> </h5>
+                                                    <p class="col-md-12 titre_module"> <?= htmlspecialchars($data['title']) ?> </p>
+                                                    <p class="col-md-12 date_publi">Publié le <?= htmlspecialchars($data['date_publi']) ?> </p>
+                                                </div>
+                                            </div>
+
+                                            <!-- Les boutons -->
+                                            <div class="col-md-4 separation_gauche">
+                                                <div class="row">
+                                                    <p class="col-md-12 bouton_module modifier">Modifier</p>
+                                                    <p class="col-md-12 bouton_module supprimer">Supprimer</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-
-
-
+                                <?php } ?>
                             </div>
                         </div>
+
+
                         <!-- Colonne derniers Commentaires postés -->
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col-md-11 titre_module_commentaires">LES DERNIERS COMMENTAIRES POSTÉS</div>
 
                                 <!-- Modules chapitre -->
-                                <div class="col-md-12 marg_top-30">UN MODULE</div>
+                                <?php while ($data2 = $reponse2->fetch()) { ?>
+                                    <div class="col-md-11 marg_top-30">
+                                        <div class="row contenu_module_comments">
+                                            <!-- Contenu Num chapitre, titre et date de publication -->
 
+                                            <div class="col-md-8 contenu_padding ">
+                                                <div class="row">
+
+                                                    <p class="col-md-12 titre_module"> <?= htmlspecialchars($data2['comment']) ?></p>
+                                                    <p class="col-md-12 date_publi">Publié le <?= htmlspecialchars($data2['date_comment']) ?> </p>
+                                                    <p class="col-md-12 date_publi">Par <?= htmlspecialchars($data2['pseudo']) ?></p>
+
+                                                </div>
+                                            </div>
+
+                                            <!-- Les boutons -->
+                                            <div class="col-md-4 separation_gauche">
+                                                <div class="row">
+                                                    <p class="col-md-12 bouton_module modifier">Valider</p>
+                                                    <p class="col-md-12 bouton_module supprimer">Modérer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php } ?>
                             </div>
                         </div>
 

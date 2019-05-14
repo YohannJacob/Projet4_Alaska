@@ -9,21 +9,13 @@ catch (Exception $e) {
     die('Erreur : ' . $e->getMessage());
 }
 
-// function upload($index, $destination, $maxsize, $extensions)
-// {
-//     //Test1: fichier correctement uploadé
-//     if (!isset($_FILES[$index]) or $_FILES[$index]['error'] == 0);
-//     echo ('erreur');
-//     //Test2: taille limite
-//     if ($maxsize !== FALSE and $_FILES[$index]['size'] > $maxsize) return FALSE;
-//     //Test3: extension
-//     $ext = substr(strrchr($_FILES[$index]['name'], '.'), 1);
-//     if ($extensions !== FALSE and !in_array($ext, $extensions)) return FALSE;
-//     //Déplacement
-//     return move_uploaded_file($_FILES[$index]['tmp_name'], $destination);
-// };
-
-// $upload1 = upload('image_chapter','uploads/test',15360, array('png','gif','jpg','jpeg') );
+function verifdata($data){
+    if (isset($data)) {
+        echo $data;
+    } else{
+        echo'';
+    }
+}
 
 // Testons si le fichier a bien été envoyé et s'il n'y a pas d'erreur
 if (isset($_FILES['image_chapter']) and $_FILES['image_chapter']['error'] == 0) {
@@ -36,21 +28,23 @@ if (isset($_FILES['image_chapter']) and $_FILES['image_chapter']['error'] == 0) 
         $extensions_autorisees = array('jpg', 'jpeg', 'gif', 'png');
         if (in_array($extension_upload, $extensions_autorisees)) {
             // On peut valider le fichier et le stocker définitivement
-            move_uploaded_file($_FILES['image_chapter']['tmp_name'], 'uploads/' . basename($_FILES['image_chapter']['name']));
+           
             echo "L'envoi a bien été effectué !";
         }
-    }
+    } 
 }
 
 
 if (!empty($_POST)) {
     $validation = true;
+    move_uploaded_file($_FILES['image_chapter']['tmp_name'], 'uploads/' . basename($_FILES['image_chapter']['name']));
+
 
     if (empty($_POST['chapter_number'])) {
         $erreurChapNumber = 'Merci de renseigner le numéro de chapitre';
         $validation = false;
     }
-    if (!is_numeric($_POST['chapter_number'])){
+    if (!is_numeric($_POST['chapter_number'])) {
         $erreurChapNumber = 'Le numero de chapitre n\'est pas un chiffre';
         $validation = false;
     }
@@ -80,7 +74,7 @@ if (!empty($_POST)) {
             'couleur' => $_POST['couleur'],
             'image_chapter' => $_FILES['image_chapter']['name'],
         ));
-        header('Location: chapter.php?chapitre=' . $_GET['chapitre']);
+        header('Location: manager.php');
         exit();
     }
 }
@@ -143,16 +137,31 @@ if (!empty($_POST)) {
         <div class="row">
             <div class="col-md-3 menu bleu">
                 <div class="row">
-                    <div class="col-md-10 offset-md-2 marg_top-60 text_sans-serif">
+                    <div class="col-md-8 offset-md-2 marg_top-60 d-flex justify-content-center text_sans-serif back_home">
                         <a href="index.php">JEAN FORTEROCHE</a>
                     </div>
-                    <div class="col-md-8 offset-md-2 marg_top-60">
-                        <a href="#">AJOUTER UN CHAPITRE</a>
+
+
+
+                    <div class="col-md-8 offset-md-2 marg_top-60 d-flex justify-content-center bouton_manager">
+                        <a href="post_chapter.php">
+                            <button type="button" class="btn d-flex justify-content-center">
+                                AJOUTER UN CHAPITRE
+                                <i class="fas fa-plus-circle"></i>
+                            </button>
+                        </a>
                     </div>
-                    <div class="col-md-8 offset-md-2 marg_top-60">
-                        <a href="#">PERSONALISER LE BLOG</a>
-                        <i class="fas fa-pencil-alt"></i>
+
+
+                    <div class="col-md-8 offset-md-2 marg_top-60 d-flex justify-content-center bouton_manager">
+                        <a href="#">
+                            <button type="button" class="btn d-flex justify-content-center">
+                                PERSONALISER LE BLOG
+                                <i class="fas fa-pencil-alt"></i>
+                            </button>
+                        </a>
                     </div>
+
                 </div>
             </div>
 
@@ -182,9 +191,9 @@ if (!empty($_POST)) {
                     <form action="post_chapter.php" method="POST" enctype="multipart/form-data">
                         <div class="row marg_top-60">
                             <div class="col-md-9 form-group">
-                                <input type="text" placeholder="Titre du chapitre" id="title" name="title" class="form-control manager_form" />
+                                <input type="text" placeholder="Titre du chapitre" id="title" name="title" class="form-control manager_form" value=" <?php if (isset($_POST['title'])) {echo $_POST['title'];} ?> " />
                             </div>
-
+ 
                             <div class="col-md-3 form-group">
 
                                 <input type="text" placeholder="N° de chapitre" id="chapter_number" name="chapter_number" class="form-control manager_form" />

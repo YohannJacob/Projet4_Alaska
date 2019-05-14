@@ -38,9 +38,30 @@
 }
 
 .fas {
-    color: #285073;
-    font-size: 2em;
+    color: #ffffff;
+    font-size: 1em;
+    margin-left: 15px;
+    line-height: 1.5em;
 }
+
+.fas a:hover {
+    color: #285073;
+}
+
+  .btn { 
+    margin-bottom:10px;
+    background-color: #285073;
+    color: #ffffff;
+    border: solid 2px #FFF;
+    padding: 10px;
+    text-decoration: none !important;
+  }
+  .btn:hover {
+    background-color: #ffffff !important;
+    text-decoration: none !important;
+    color: #285073;
+
+  }
 
 .contenu {
     position: absolute;
@@ -363,6 +384,7 @@
     text-align: center;
     color: #fff;
 
+
 }
 
 .titre_module_commentaires {
@@ -375,10 +397,16 @@
     font-size: 24px;
     text-align: center;
     color: #fff;
+
 }
 
 .contenu_module_chapitre {
     background: #fcfaf2;
+    height: 160px;
+}
+
+.contenu_module_comments {
+    background: #E8E8E8;
     height: 160px;
 }
 
@@ -397,6 +425,7 @@ h5 {
     font-family: "Arial", sans-serif;
     font-size: 18px;
     color: #000;
+    margin-bottom: 5px;
 
 }
 

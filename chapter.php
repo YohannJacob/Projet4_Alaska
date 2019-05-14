@@ -35,13 +35,10 @@ if (!empty($_POST)) {
 // Aller chercher les données dans la table
 $req = $db->prepare('SELECT * FROM livre WHERE id = ?');
 $req->execute(array($_GET['chapitre']));
+$data = $req->fetch();
 
-$reponse = $db->prepare('SELECT commentaires.pseudo, commentaires.comment, commentaires.id_chapter, livre.id 
-FROM commentaires 
-INNER JOIN livre 
-ON livre.id = commentaires.id_chapter 
-WHERE id = ?');
-$reponse->execute(array($_GET['chapitre']));
+$req = $db->prepare('SELECT * FROM commentaires WHERE id_chapter = ?');
+$req->execute(array($_GET['chapitre']));
 
 ?>
 
@@ -87,7 +84,7 @@ $reponse->execute(array($_GET['chapitre']));
 </head>
 
 <body>
-    <?php while ($data = $req->fetch()) { ?>
+
 
         <div class="container-fluid">
             <!-- Menu -->
@@ -140,9 +137,9 @@ $reponse->execute(array($_GET['chapitre']));
                     <div class="col-md-3 offset-md-1 marg_top-60 text_sans-serif">commentaires</div>
                     <div class="col md-12">
                         <div class="row">
-                            <?php while ($data2 = $reponse->fetch()) { ?>
-                                <div class="col-md-11 offset-md-1 marg_top-60 pseudo"><?= htmlspecialchars($data2['pseudo']) ?></div>
-                                <div class="col-md-11 offset-md-1 comments"><?= htmlspecialchars($data2['comment']) ?></div>
+                            <?php while ($commentaire = $req->fetch()) { ?>
+                                <div class="col-md-11 offset-md-1 marg_top-60 pseudo"><?= htmlspecialchars($commentaire['pseudo']) ?></div>
+                                <div class="col-md-11 offset-md-1 comments"><?= htmlspecialchars($commentaire['comment']) ?></div>
                                 <div class="col-md-3 offset-md-8 alert_comment">Signaler</div>
                             <?php } ?>
                         </div>
@@ -166,7 +163,7 @@ $reponse->execute(array($_GET['chapitre']));
                     </div>
                 </div>
             </div>
-        <?php } ?>
+
 </body>
 
 </html>
