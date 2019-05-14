@@ -9,36 +9,34 @@ catch (Exception $e) {
     die('Erreur : ' . $e->getMessage());
 }
 
-function verifdata($data){
+function verifdata($data)
+{
     if (isset($data)) {
         echo $data;
-    } else{
-        echo'';
+    } else {
+        echo '';
     }
 }
 
-// Testons si le fichier a bien été envoyé et s'il n'y a pas d'erreur
-if (isset($_FILES['image_chapter']) and $_FILES['image_chapter']['error'] == 0) {
-    // Testons si le fichier n'est pas trop gros
-    if ($_FILES['image_chapter']['size'] <= 1000000) {
-        echo 'trop gros';
-        // Testons si l'extension est autorisée
-        $infosfichier = pathinfo($_FILES['image_chapter']['name']);
-        $extension_upload = $infosfichier['extension'];
-        $extensions_autorisees = array('jpg', 'jpeg', 'gif', 'png');
-        if (in_array($extension_upload, $extensions_autorisees)) {
-            // On peut valider le fichier et le stocker définitivement
-           
-            echo "L'envoi a bien été effectué !";
-        }
-    } 
-}
+// // Testons si le fichier a bien été envoyé et s'il n'y a pas d'erreur
+// if (isset($_FILES['image_chapter']) and $_FILES['image_chapter']['error'] == 0) {
+//     // Testons si le fichier n'est pas trop gros
+//     if ($_FILES['image_chapter']['size'] <= 1000000) {
+//         echo 'trop gros';
+//         // Testons si l'extension est autorisée
+//         $infosfichier = pathinfo($_FILES['image_chapter']['name']);
+//         $extension_upload = $infosfichier['extension'];
+//         $extensions_autorisees = array('jpg', 'jpeg', 'gif', 'png');
+//         if (in_array($extension_upload, $extensions_autorisees)) {
+//             // On peut valider le fichier et le stocker définitivement
+//             echo "L'envoi a bien été effectué !";
+//         }
+//     } 
+// }
 
 
 if (!empty($_POST)) {
     $validation = true;
-    move_uploaded_file($_FILES['image_chapter']['tmp_name'], 'uploads/' . basename($_FILES['image_chapter']['name']));
-
 
     if (empty($_POST['chapter_number'])) {
         $erreurChapNumber = 'Merci de renseigner le numéro de chapitre';
@@ -65,6 +63,20 @@ if (!empty($_POST)) {
         $erreurImage = 'Merci de choisir une image';
         $validation = false;
     }
+
+    if (filesize($_FILES['image_chapter']['tmp_name']) > 2000000) {
+        $erreurTailleImage = "Votre photo est trop grosse la taille limite est de 2 MO";
+        $validation = false;
+    }
+
+    $extensions = array('.png', '.gif', '.jpg', '.jpeg');
+    $extension = strrchr($_FILES['image_chapter']['name'], '.'); 
+    if (!in_array($extension, $extensions)) {
+        $erreurFormatImage = 'Vous devez uploader un fichier de type png, gif, jpg ou jpeg';
+        $validation = false;
+
+    }
+
     if ($validation == true) {
         $req = $db->prepare('INSERT INTO livre(chapter_number, title, text_chapter, couleur, image_chapter) VALUES(:chapter_number, :title, :text_chapter, :couleur, :image_chapter)');
         $req->execute(array(
@@ -72,8 +84,9 @@ if (!empty($_POST)) {
             'title' => $_POST['title'],
             'text_chapter' => $_POST['text_chapter'],
             'couleur' => $_POST['couleur'],
-            'image_chapter' => $_FILES['image_chapter']['name'],
+            'image_chapter' => $_POST['chapter_number']. "-" .$_FILES['image_chapter']['name'],
         ));
+        move_uploaded_file($_FILES['image_chapter']['tmp_name'], 'uploads/' . basename($_POST['chapter_number']. "-" .$_FILES['image_chapter']['name']));
         header('Location: manager.php');
         exit();
     }
@@ -186,23 +199,34 @@ if (!empty($_POST)) {
                             <?php if (isset($erreurImage)) { ?>
                                 <p class="problem"> • <?= $erreurImage ?> </p>
                             <?php } ?>
+                            <?php if (isset($erreurTailleImage)) { ?>
+                                <p class="problem"> • <?= $erreurTailleImage ?> </p>
+                            <?php } ?>
+                            <?php if (isset($erreurFormatImage)) { ?>
+                                <p class="problem"> • <?= $erreurFormatImage ?> </p>
+                            <?php } ?>
                         </div>
                     </div>
                     <form action="post_chapter.php" method="POST" enctype="multipart/form-data">
                         <div class="row marg_top-60">
                             <div class="col-md-9 form-group">
-                                <input type="text" placeholder="Titre du chapitre" id="title" name="title" class="form-control manager_form" value=" <?php if (isset($_POST['title'])) {echo $_POST['title'];} ?> " />
+                                <input type="text" placeholder="Titre du chapitre" id="title" name="title" class="form-control manager_form" value="<?php if (isset($_POST['title'])) {
+                                                                                                                                                        echo $_POST['title'];
+                                                                                                                                                    } ?>" />
                             </div>
- 
-                            <div class="col-md-3 form-group">
 
-                                <input type="text" placeholder="N° de chapitre" id="chapter_number" name="chapter_number" class="form-control manager_form" />
+                            <div class="col-md-3 form-group">
+                                <input type="text" placeholder="N° de chapitre" id="chapter_number" name="chapter_number" class="form-control manager_form" value="<?php if (isset($_POST['chapter_number'])) {
+                                                                                                                                                                        echo $_POST['chapter_number'];
+                                                                                                                                                                    } ?>" />
                             </div>
                         </div>
 
                         <div class="form-group">
                             <h4 class="marg_top-30">Contenu du chapitre :</h4>
-                            <textarea name="text_chapter" id="text_chapter" cols="50" rows="15" class="form-control manager_form marg_top-30"></textarea>
+                            <textarea name="text_chapter" id="text_chapter" cols="50" rows="15" class="form-control manager_form marg_top-30"> <?php if (isset($_POST['text_chapter'])) {
+                                                                                                                                                    echo $_POST['text_chapter'];
+                                                                                                                                                } ?> </textarea>
                         </div>
 
                         <div class="form-group ">
