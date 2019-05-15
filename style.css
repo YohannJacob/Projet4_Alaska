@@ -109,9 +109,10 @@
     z-index: 20;
     padding-bottom: 25px;
 }
+
 .bt_lire {
-    font-family: "Arial", sans-serif;
-    font-weight: 200;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
     font-size: 20px;
     text-align: left;
     color: #fff;
@@ -284,8 +285,8 @@
 }
 
 .pseudo {
-    font-family: "Arial", sans-serif;
-    font-weight: 600;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
     font-size: 22px;
     line-height: 21px;
     text-align: left;
@@ -294,8 +295,8 @@
 }
 
 .comments {
-    font-family: "Arial", sans-serif;
-    font-weight: 500;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
     font-size: 18px;
     line-height: 21px;
     text-align: left;
@@ -320,8 +321,8 @@
 }
 
 .title_add_comment {
-    font-family: "Arial", sans-serif;
-    font-weight: 500;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
     font-size: 23px;
     line-height: 21px;
     text-align: left;
@@ -415,7 +416,8 @@ h5 {
 }
 
 .titre_module {
-    font-family: "Arial", sans-serif;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
     font-size: 18px;
     color: #000;
     margin-bottom: 5px;
@@ -439,7 +441,8 @@ h5 {
 }
 
 .supprimer {
-    font-family: "Arial", sans-serif;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
     font-size: 16px;
     color: #cf5e62;
     border-top: 1px solid #707070;
@@ -447,7 +450,8 @@ h5 {
 }
 
 .modifier {
-    font-family: "Arial", sans-serif;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
     font-size: 16px;
     color: #489F6B;
     text-align: center;
