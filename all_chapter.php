@@ -11,7 +11,6 @@ catch (Exception $e) {
 $reponse = $db->query('SELECT * FROM livre ORDER BY id');
 ?>
 
-
 <!-- ici on commence le HTML -->
 <!DOCTYPE html>
 <html lang="fr">
@@ -43,6 +42,7 @@ $reponse = $db->query('SELECT * FROM livre ORDER BY id');
     <link href="https://fonts.googleapis.com/css?family=Volkhov:400,400i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="style.css" rel="stylesheet">
+    <link href="menu.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -57,11 +57,10 @@ $reponse = $db->query('SELECT * FROM livre ORDER BY id');
     <div class="container-fluid">
         <!-- Menu -->
         <div class="row menunav">
-            <div class="col-md-10 offset-md-1 back_home text_sans-serif"><a href="index.php">JEAN FORTEROCHE</a></div>
-            <div class="col-md-1"><i class="fas fa-bars"></i></div>
+            <div class="col-md-4 offset-md-1 back_home text_sans-serif"><a href="index.php">JEAN FORTEROCHE</a></div>
+            <div class="col-md-4 offset-md-3"><?php include("menu.php"); ?></i></div>
         </div>
         <?php while ($data = $reponse->fetch()) { ?>
-
             <!-- Contenu -->
             <div class="contenu">
                 <!-- Titre / sous titre -->

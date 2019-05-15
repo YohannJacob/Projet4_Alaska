@@ -73,6 +73,7 @@ $req->execute(array($_GET['chapitre']));
     <link href="https://fonts.googleapis.com/css?family=Volkhov:400,400i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="style.css" rel="stylesheet">
+    <link href="menu.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -86,83 +87,82 @@ $req->execute(array($_GET['chapitre']));
 <body>
 
 
-        <div class="container-fluid">
-            <!-- Menu -->
-            <div class="row menunav">
+    <div class="container-fluid">
+        <!-- Menu -->
+        <div class="row menunav">
+            <div class="col-md-4 offset-md-1 back_home text_sans-serif"><a href="index.php">JEAN FORTEROCHE</a></div>
+            <div class="col-md-4 offset-md-3"><?php include("menu.php"); ?></i></div>
+        </div>
 
-                <div class="col-md-10 offset-md-1 back_home text_sans-serif"><a href="index.php">JEAN FORTEROCHE</a></div>
-                <div class="col-md-1"><i class="fas fa-bars"></i></div>
-            </div>
-
-            <div class="contenu">
-                <!-- Titre / sous titre -->
-                <div class="row">
-                    <h1 class="col-md-6 offset-md-1 titre"><?= htmlspecialchars($data['title']) ?> </h1>
-                    <div class="col-md-4 offset-md-1 sous-titre">Un livre-blog publié par Jean Forteroche</div>
-                </div>
-
-                <!-- photo  -->
-                <div class="row photo_chapter">
-                    <div class="col-md-7 offset-md-4"><img class="img-fluid" src="uploads/<?= htmlspecialchars($data['image_chapter']) ?>" alt="Alaska"></div>
-                </div>
-            </div>
-
-            <!-- Menu footer -->
-            <div class="row background">
-                <div class="col-md-8 rectangle <?= htmlspecialchars($data['couleur']) ?>"></div>
-                <div class="col-md-4"></div>
-                <div class="col-md-4 offset-md-8 all_chapter fixed"><a href="all_chapter.php">Liste des chapitres</a></div>
-            </div>
-
-            <!-- Contenu -->
+        <div class="contenu">
+            <!-- Titre / sous titre -->
             <div class="row">
-                <div class="col-md-8 text">
-                    <div class="col-md-3 offset-md-1 marg_top-60 text_sans-serif">CHAPITRE N° <?= htmlspecialchars($data['chapter_number']) ?> </div>
-                    <div class="col-md-10 offset-md-1 marg_top-60 text_serif">
-                        <?= $data['text_chapter'] ?>
-                    </div>
-                    <div class="col md-12">
-                        <div class="row">
-                            <div class="col-md-5 offset-md-1 marg_top-60 prev">Chapitre précédent</div>
-                            <div class="col-md-4 offset-md-1 marg_top-60 next">Chapitre suivant</div>
-                        </div>
+                <h1 class="col-md-6 offset-md-1 titre"><?= htmlspecialchars($data['title']) ?> </h1>
+                <div class="col-md-4 offset-md-1 sous-titre">Un livre-blog publié par Jean Forteroche</div>
+            </div>
+
+            <!-- photo  -->
+            <div class="row photo_chapter">
+                <div class="col-md-7 offset-md-4"><img class="img-fluid" src="uploads/<?= htmlspecialchars($data['image_chapter']) ?>" alt="Alaska"></div>
+            </div>
+        </div>
+
+        <!-- Menu footer -->
+        <div class="row background">
+            <div class="col-md-8 rectangle <?= htmlspecialchars($data['couleur']) ?>"></div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4 offset-md-8 all_chapter fixed"><a href="all_chapter.php">Liste des chapitres</a></div>
+        </div>
+
+        <!-- Contenu -->
+        <div class="row">
+            <div class="col-md-8 text">
+                <div class="col-md-3 offset-md-1 marg_top-60 text_sans-serif">CHAPITRE N° <?= htmlspecialchars($data['chapter_number']) ?> </div>
+                <div class="col-md-10 offset-md-1 marg_top-60 text_serif">
+                    <?= $data['text_chapter'] ?>
+                </div>
+                <div class="col md-12">
+                    <div class="row">
+                        <div class="col-md-5 offset-md-1 marg_top-60 prev">Chapitre précédent</div>
+                        <div class="col-md-4 offset-md-1 marg_top-60 next">Chapitre suivant</div>
                     </div>
                 </div>
             </div>
+        </div>
 
 
-            <!-- Commentaires -->
-            <div class="row">
-                <div class="col-md-8 text grey_line">
-                    <div class="col-md-3 offset-md-1 marg_top-60 text_sans-serif">commentaires</div>
-                    <div class="col md-12">
-                        <div class="row">
-                            <?php while ($commentaire = $req->fetch()) { ?>
-                                <div class="col-md-11 offset-md-1 marg_top-60 pseudo"><?= htmlspecialchars($commentaire['pseudo']) ?></div>
-                                <div class="col-md-11 offset-md-1 comments"><?= htmlspecialchars($commentaire['comment']) ?></div>
-                                <div class="col-md-3 offset-md-8 alert_comment">Signaler</div>
+        <!-- Commentaires -->
+        <div class="row">
+            <div class="col-md-8 text grey_line">
+                <div class="col-md-3 offset-md-1 marg_top-60 text_sans-serif">commentaires</div>
+                <div class="col md-12">
+                    <div class="row">
+                        <?php while ($commentaire = $req->fetch()) { ?>
+                            <div class="col-md-11 offset-md-1 marg_top-60 pseudo"><?= htmlspecialchars($commentaire['pseudo']) ?></div>
+                            <div class="col-md-11 offset-md-1 comments"><?= htmlspecialchars($commentaire['comment']) ?></div>
+                            <div class="col-md-3 offset-md-8 alert_comment">Signaler</div>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 add_comment">
+                <div class="col-md-11 title_add_comment"> Ajouter votre commentaire</div>
+                <div class="col-md-11">
+                    <form action="chapter.php?chapitre=<?php echo $data['id']; ?>" method="POST">
+                        <div class="col-md-11 form-group">
+                            <p><input type="text" id="pseudo" name="pseudo" placeholder="Pseudo" class="form-control commentaire_form" /></p>
+                            <?php if (isset($erreurPseudo)) { ?>
+                                <p> <?= $erreurPseudo ?> </p>
                             <?php } ?>
+                            <p><textarea name="comment" id="comment" placeholder="Votre commentaire..." class="form-control commentaire_form"></textarea></p>
+
+                            <button class="btn btn-primary" type="submit" id="bt_post">Envoyer</button>
                         </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4 add_comment">
-                    <div class="col-md-11 title_add_comment"> Ajouter votre commentaire</div>
-                    <div class="col-md-11">
-                        <form action="chapter.php?chapitre=<?php echo $data['id']; ?>" method="POST">
-                            <div class="col-md-11 form-group">
-                                <p><input type="text" id="pseudo" name="pseudo" placeholder="Pseudo" class="form-control commentaire_form" /></p>
-                                <?php if (isset($erreurPseudo)) { ?>
-                                    <p> <?= $erreurPseudo ?> </p>
-                                <?php } ?>
-                                <p><textarea name="comment" id="comment" placeholder="Votre commentaire..." class="form-control commentaire_form"></textarea></p>
-
-                                <button class="btn btn-primary" type="submit" id="bt_post">Envoyer</button>
-                            </div>
-                        </form>
-                    </div>
+                    </form>
                 </div>
             </div>
+        </div>
 
 </body>
 

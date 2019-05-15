@@ -45,6 +45,7 @@ $data = $reponse->fetch();
     <link href="https://fonts.googleapis.com/css?family=Volkhov:400,400i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="style.css" rel="stylesheet">
+    <link href="menu.css" rel="stylesheet">
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -61,8 +62,8 @@ $data = $reponse->fetch();
 
         <!-- Menu -->
         <div class="row menunav">
-            <div class="col-md-10 offset-md-1 back_home text_sans-serif"><a href="index.php">JEAN FORTEROCHE</a></div>
-            <div class="col-md-1"><i class="fas fa-bars"></i></div>
+            <div class="col-md-4 offset-md-1 back_home text_sans-serif"><a href="index.php">JEAN FORTEROCHE</a></div>
+            <div class="col-md-4 offset-md-3"><?php include("menu.php"); ?></i></div>
         </div>
 
         <!-- Titre / sous titre -->
@@ -82,7 +83,7 @@ $data = $reponse->fetch();
             <div class="col-md-4"></div>
             <div class="col-md-8 last_chapter"><a href="chapter.php?chapitre=<?php echo $data['id']; ?>">Lire le dernier chapitre publié</a></div>
 
-            <div class="col-md-4 all_chapter"><a href="all_chapter.php">Liste des chapitres</a></div>
+            <div class="col-md-4 all_chapter"><a href="all_chapter.php">Tous les chapitres</a></div>
         </div>
 
     </div>
