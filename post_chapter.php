@@ -70,11 +70,10 @@ if (!empty($_POST)) {
     }
 
     $extensions = array('.png', '.gif', '.jpg', '.jpeg');
-    $extension = strrchr($_FILES['image_chapter']['name'], '.'); 
+    $extension = strrchr($_FILES['image_chapter']['name'], '.');
     if (!in_array($extension, $extensions)) {
         $erreurFormatImage = 'Vous devez uploader un fichier de type png, gif, jpg ou jpeg';
         $validation = false;
-
     }
 
     if ($validation == true) {
@@ -84,9 +83,9 @@ if (!empty($_POST)) {
             'title' => $_POST['title'],
             'text_chapter' => $_POST['text_chapter'],
             'couleur' => $_POST['couleur'],
-            'image_chapter' => $_POST['chapter_number']. "-" .$_FILES['image_chapter']['name'],
+            'image_chapter' => $_POST['chapter_number'] . "-" . $_FILES['image_chapter']['name'],
         ));
-        move_uploaded_file($_FILES['image_chapter']['tmp_name'], 'uploads/' . basename($_POST['chapter_number']. "-" .$_FILES['image_chapter']['name']));
+        move_uploaded_file($_FILES['image_chapter']['tmp_name'], 'uploads/' . basename($_POST['chapter_number'] . "-" . $_FILES['image_chapter']['name']));
         header('Location: manager.php');
         exit();
     }
@@ -274,3 +273,9 @@ if (!empty($_POST)) {
         </div>
     </div>
 </body>
+
+<script type="text/javascript">
+    $(".menu").click(function() {
+        $(this).toggleClass("clicked");
+    });
+</script>

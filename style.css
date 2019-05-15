@@ -21,18 +21,9 @@
 
 }
 
-/* Ebauche d'un css pour le menu */
-/* .menu {
-    background-color: #000000;
-    display: none;
-    height: 100vh;
-    z-index: 25;
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px;
+/* css pour le burger */
 
-} */
-
+/* CSS pour le reste */
 .back_home a {
     color: #FFF;
 }
@@ -48,20 +39,21 @@
     color: #285073;
 }
 
-  .btn { 
-    margin-bottom:10px;
+.btn {
+    margin-bottom: 10px;
     background-color: #285073;
     color: #ffffff;
     border: solid 2px #FFF;
     padding: 10px;
     text-decoration: none !important;
-  }
-  .btn:hover {
+}
+
+.btn:hover {
     background-color: #ffffff !important;
     text-decoration: none !important;
     color: #285073;
 
-  }
+}
 
 .contenu {
     position: absolute;
