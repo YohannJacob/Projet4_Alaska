@@ -62,7 +62,7 @@
     margin: 0;
     padding: 0;
     opacity: 1;
-    z-index: 15;
+    z-index: 2;
 }
 
 .photo {
@@ -73,7 +73,9 @@
     padding: 0;
     opacity: 1;
     z-index: 2;
-    top: 120px;
+    top: 30vh;
+    transform: translate(0, -15vh);
+    max-height: 500px;
 
 }
 
@@ -84,7 +86,9 @@
     margin: 0;
     padding: 0;
     opacity: 1;
-    top: 120px;
+    top: 30vh;
+    transform: translate(0, -15vh);
+    max-height: 500px;
 
 }
 

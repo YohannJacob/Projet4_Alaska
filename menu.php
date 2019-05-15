@@ -35,7 +35,7 @@ $reponse = $db->query('SELECT * FROM livre ORDER BY id');
 
         <ul class="main">
             <?php while ($menu = $reponse->fetch()) { ?>
-                <li><a href="chapter.php?chapitre=<?php echo $menu['id']; ?>"> <?= htmlspecialchars($menu['title']) ?> </a></li>
+                <li><a href="chapter.php?chapitre=<?php echo $menu['id']; ?>"> <?= htmlspecialchars($menu['chapter_number']) ?> / <?= htmlspecialchars($menu['title']) ?> </a></li>
             <?php } ?>
         </ul>
 
