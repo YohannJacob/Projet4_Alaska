@@ -18,23 +18,6 @@ function verifdata($data)
     }
 }
 
-// // Testons si le fichier a bien été envoyé et s'il n'y a pas d'erreur
-// if (isset($_FILES['image_chapter']) and $_FILES['image_chapter']['error'] == 0) {
-//     // Testons si le fichier n'est pas trop gros
-//     if ($_FILES['image_chapter']['size'] <= 1000000) {
-//         echo 'trop gros';
-//         // Testons si l'extension est autorisée
-//         $infosfichier = pathinfo($_FILES['image_chapter']['name']);
-//         $extension_upload = $infosfichier['extension'];
-//         $extensions_autorisees = array('jpg', 'jpeg', 'gif', 'png');
-//         if (in_array($extension_upload, $extensions_autorisees)) {
-//             // On peut valider le fichier et le stocker définitivement
-//             echo "L'envoi a bien été effectué !";
-//         }
-//     } 
-// }
-
-
 if (!empty($_POST)) {
     $validation = true;
 
@@ -64,7 +47,7 @@ if (!empty($_POST)) {
         $validation = false;
     }
 
-    if (filesize($_FILES['image_chapter']['tmp_name']) > 2000000) {
+    if (filesize($_FILES['image_chapter']['tmp_name']) > 2500000) {
         $erreurTailleImage = "Votre photo est trop grosse la taille limite est de 2 MO";
         $validation = false;
     }
@@ -83,9 +66,9 @@ if (!empty($_POST)) {
             'title' => $_POST['title'],
             'text_chapter' => $_POST['text_chapter'],
             'couleur' => $_POST['couleur'],
-            'image_chapter' => $_POST['chapter_number'] . "-" . $_FILES['image_chapter']['name'],
+            'image_chapter' => "chapitre" . $_POST['chapter_number'] . "-" . $_FILES['image_chapter']['name'],
         ));
-        move_uploaded_file($_FILES['image_chapter']['tmp_name'], 'uploads/' . basename($_POST['chapter_number'] . "-" . $_FILES['image_chapter']['name']));
+        move_uploaded_file($_FILES['image_chapter']['tmp_name'], 'uploads/chapitre' . basename($_POST['chapter_number'] . "-" . $_FILES['image_chapter']['name']));
         header('Location: manager.php');
         exit();
     }

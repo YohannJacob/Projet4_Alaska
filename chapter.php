@@ -103,7 +103,7 @@ $req->execute(array($_GET['chapitre']));
 
             <!-- photo  -->
             <div class="row photo_chapter">
-                <div class="col-md-7 offset-md-4"><img class="img-fluid" src="uploads/<?= htmlspecialchars($data['image_chapter']) ?>" alt="Alaska"></div>
+                <div class="col-md-7 offset-md-4"><img class="img-fluid" src="uploads/<?= htmlspecialchars($data['image_chapter']) ?>" alt="<?= htmlspecialchars($data['title']) ?>"></div>
             </div>
         </div>
 
@@ -123,8 +123,14 @@ $req->execute(array($_GET['chapitre']));
                 </div>
                 <div class="col md-12">
                     <div class="row">
-                        <div class="col-md-5 offset-md-1 marg_top-60 prev">Chapitre précédent</div>
-                        <div class="col-md-4 offset-md-1 marg_top-60 next">Chapitre suivant</div>
+                        <?php
+                        if ($data['chapter_number'] > 1) {
+                           echo '<div class="col-md-5 offset-md-1 marg_top-60  prev">Chapitre précédent</div>';
+                        }else{
+                            echo '<div class="col-md-5 offset-md-1 marg_top-60  prev"></div>';
+                        }
+                        ?>
+                        <div class="col-md-4 offset-md-1 marg_top-60 next"><a href="chapter.php?chapitre=<?php echo ($data['id']++); ?>">Chapitre suivant</a></div>
                     </div>
                 </div>
             </div>

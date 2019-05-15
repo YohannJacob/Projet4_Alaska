@@ -95,9 +95,9 @@
 .titre {
     font-family: "Volkhov", serif;
     font-weight: bold;
-    font-size: 80px;
+    font-size: 70px;
     letter-spacing: 0.03em;
-    line-height: 100px;
+    line-height: 75px;
     text-align: left;
     color: #fff;
     position: absolute;
@@ -107,24 +107,21 @@
     top: 77vh;
     transform: translate(0, -40vh);
     z-index: 20;
+    padding-bottom: 25px;
 }
-
-.sous-titre {
-    font-family: "PT Sans Narrow";
-    font-weight: normal;
-    font-size: 21.5px;
-    letter-spacing: 0.05em;
-    line-height: 81px;
+.bt_lire {
+    font-family: "Arial", sans-serif;
+    font-weight: 200;
+    font-size: 20px;
     text-align: left;
     color: #fff;
-    position: absolute;
-    box-sizing: border-box;
-    overflow: hidden;
     opacity: 1;
+    z-index: 20;
+    position: absolute;
     top: 90vh;
     transform: translate(0, -25vh);
-    z-index: 20;
 }
+
 
 .footer {
     display: flex;

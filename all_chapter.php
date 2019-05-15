@@ -65,10 +65,10 @@ $reponse = $db->query('SELECT * FROM livre ORDER BY id');
             <div class="contenu">
                 <!-- Titre / sous titre -->
                 <div class="row">
-                    <div class="col-md-6 offset-md-1 chapter text_sans-serif">Chapitre N° <?= htmlspecialchars($data['chapter_number']) ?></div>
-                    <a href="chapter.php?chapitre=<?php echo $data['id']; ?>">
-                        <h1 class="col-md-4 offset-md-1 titre"><?= htmlspecialchars($data['title']) ?></h1>
-                    </a>
+
+                        <div class="col-md-6 offset-md-1 chapter text_sans-serif">Chapitre N° <?= htmlspecialchars($data['chapter_number']) ?></div>
+                            <h1 class="col-md-6 offset-md-1 titre"><?= htmlspecialchars($data['title']) ?></h1>
+                            <aside class="col-md-6 offset-md-1 bt_lire"><i class="fas fa-book-reader"></i> Lire le chapitre </aside>
                 </div>
 
                 <!-- photo  -->
