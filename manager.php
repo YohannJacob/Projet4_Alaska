@@ -66,7 +66,7 @@ $reponse2 = $db->query('SELECT * FROM commentaires ORDER BY date_comment DESC   
                         <a href="index.php">JEAN FORTEROCHE</a>
                     </div>
 
-                    
+
 
                     <div class="col-md-8 offset-md-2 marg_top-60 d-flex justify-content-center bouton_manager">
                         <a href="post_chapter.php">
@@ -113,12 +113,15 @@ $reponse2 = $db->query('SELECT * FROM commentaires ORDER BY date_comment DESC   
                                                     <p class="col-md-12 titre_module"> <?= htmlspecialchars($data['title']) ?> </p>
                                                     <p class="col-md-12 date_publi">Publié le <?= htmlspecialchars($data['date_publi']) ?> </p>
                                                 </div>
+
                                             </div>
 
                                             <!-- Les boutons -->
                                             <div class="col-md-4 separation_gauche">
                                                 <div class="row">
-                                                    <p class="col-md-12 bouton_module modifier">Modifier</p>
+                                                    <a href="update-chapter.php?chapitre=<?php echo $data['id']; ?>">
+                                                        <p class="col-md-12 bouton_module modifier">Modifier</p>
+                                                    </a>
                                                     <p class="col-md-12 bouton_module supprimer">Supprimer</p>
                                                 </div>
                                             </div>
