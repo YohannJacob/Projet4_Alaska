@@ -146,7 +146,7 @@ var_dump($_GET['chapitre']);
 
 
                     <div class="col-md-8 offset-md-2 marg_top-60 d-flex justify-content-center bouton_manager">
-                        <a href="post_chapter.php">
+                        <a href="update_chapter.php">
                             <button type="button" class="btn d-flex justify-content-center">
                                 AJOUTER UN CHAPITRE
                                 <i class="fas fa-plus-circle"></i>
