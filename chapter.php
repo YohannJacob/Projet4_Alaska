@@ -39,7 +39,8 @@ $data = $req->fetch();
 var_dump($data['id']);
 
 // $idPrec = $_GET['chapitre']-1; // marche pas car trou dans les id si je supprime un chapitre
-// $idSuiv = next($data['id']); // marche pas ???
+// $idSuiv = next($data['id']); // marche pas ??? Récupère toutes les ID du chapitre et récupère celle qui est supèrieure
+
 
 $req = $db->prepare('SELECT * FROM commentaires WHERE id_chapter = ?');
 $req->execute(array($_GET['chapitre']));

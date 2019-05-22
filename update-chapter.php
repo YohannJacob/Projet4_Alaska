@@ -198,7 +198,7 @@ $post_data = $req->fetch();
                             <?php } ?>
                         </div>
                     </div>
-                    <form action="update-chapter.php" method="POST" enctype="multipart/form-data">
+                    <form action="update-chapter.php?chapitre=<?php echo $_GET['chapitre']; ?>" method="POST" enctype="multipart/form-data">
                         <div class="row marg_top-60">
                             <div class="col-md-9 form-group">
                                 <input type="text" placeholder="Titre du chapitre" id="title" name="title" class="form-control manager_form" value="<?php echo $post_data['title'] ?>" />
