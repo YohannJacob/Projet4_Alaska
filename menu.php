@@ -7,8 +7,9 @@ try {
 catch (Exception $e) {
     die('Erreur : ' . $e->getMessage());
 }
-// Aller chercher les données dans la table
-$reponse = $db->query('SELECT * FROM livre ORDER BY id');
+// // Aller chercher les données dans la table
+$reponse2 = $db->query('SELECT * FROM livre ORDER BY id');
+
 ?>
 <!doctype html>
 <html>
@@ -34,7 +35,7 @@ $reponse = $db->query('SELECT * FROM livre ORDER BY id');
         </ul>
 
         <ul class="main">
-            <?php while ($menu = $reponse->fetch()) { ?>
+            <?php while ($menu = $reponse2->fetch()) { ?>
                 <li><a href="chapter.php?chapitre=<?php echo $menu['id']; ?>"> <?= htmlspecialchars($menu['chapter_number']) ?> / <?= htmlspecialchars($menu['title']) ?> </a></li>
             <?php } ?>
         </ul>
