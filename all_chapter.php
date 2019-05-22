@@ -59,7 +59,7 @@ $reponse = $db->query('SELECT * FROM livre ORDER BY id');
         <!-- Menu -->
         <div class="row menunav">
             <div class="col-md-4 offset-md-1 back_home text_sans-serif"><a href="index.php">JEAN FORTEROCHE</a></div>
-            <div class="col-md-4 offset-md-3"><?php include("menu.php"); ?></i></div>
+            <div class="col-md-4 offset-md-3"><?php include("menu.php"); ?></div>
         </div>
         <?php while ($data = $reponse->fetch()) { ?>
             <!-- Contenu -->

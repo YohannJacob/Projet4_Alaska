@@ -63,7 +63,7 @@ $reponse2 = $db->query('SELECT * FROM commentaires ORDER BY date_comment DESC   
             <div class="col-md-3 menu bleu">
                 <div class="row">
                     <div class="col-md-8 offset-md-2 marg_top-60 d-flex justify-content-center text_sans-serif back_home">
-                        <a href="index.php">JEAN FORTEROCHE</a>
+                        <a href="manager.php">JEAN FORTEROCHE</a>
                     </div>
 
 

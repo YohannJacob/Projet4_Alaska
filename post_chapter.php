@@ -133,7 +133,7 @@ if (!empty($_POST)) {
             <div class="col-md-3 menu bleu">
                 <div class="row">
                     <div class="col-md-8 offset-md-2 marg_top-60 d-flex justify-content-center text_sans-serif back_home">
-                        <a href="index.php">JEAN FORTEROCHE</a>
+                        <a href="manager.php">JEAN FORTEROCHE</a>
                     </div>
 
 
@@ -215,19 +215,35 @@ if (!empty($_POST)) {
                             <h4 class="marg_top-30">Couleur de fond :</h4>
                             <div class="row">
                                 <div class="col-md-3 radio marg_top-15">
-                                    <label for="jaune" class="radio radio_marg"><input type="radio" name="couleur" value="jaune" class="radio_marg" /> Jaune </label>
+                                    <label for="jaune" class="radio radio_marg"><input type="radio" name="couleur" value="jaune" class="radio_marg" <?php if (isset($_POST['couleur'])) {
+                                                                                                                                                        if ($_POST['couleur'] == "jaune") {
+                                                                                                                                                            echo 'checked';
+                                                                                                                                                        }
+                                                                                                                                                    } ?> /> Jaune </label>
                                 </div>
 
                                 <div class="col-md-3 radio marg_top-15">
-                                    <label for="Rouge" class="radio radio_marg"><input type="radio" name="couleur" value="rouge" class="radio_marg" /> Rouge </label>
+                                    <label for="Rouge" class="radio radio_marg"><input type="radio" name="couleur" value="rouge" class="radio_marg" <?php if (isset($_POST['couleur'])) {
+                                                                                                                                                        if ($_POST['couleur'] == "rouge") {
+                                                                                                                                                            echo 'checked';
+                                                                                                                                                        }
+                                                                                                                                                    } ?> /> Rouge </label>
                                 </div>
 
                                 <div class="col-md-3 radio marg_top-15">
-                                    <label for="Vert" class="radio radio_marg"><input type="radio" name="couleur" value="vert" class="radio_marg" /> Vert </label>
+                                    <label for="Vert" class="radio radio_marg"><input type="radio" name="couleur" value="vert" class="radio_marg" <?php if (isset($_POST['couleur'])) {
+                                                                                                                                                        if ($_POST['couleur'] == "vert") {
+                                                                                                                                                            echo 'checked';
+                                                                                                                                                        }
+                                                                                                                                                    } ?> /> Vert </label>
                                 </div>
 
                                 <div class="col-md-3 radio marg_top-15">
-                                    <label for="Bleu" class="radio radio_marg"><input type="radio" name="couleur" value="bleu" class="radio_marg" /> Bleu </label>
+                                    <label for="Bleu" class="radio radio_marg"><input type="radio" name="couleur" value="bleu" class="radio_marg" <?php if (isset($_POST['couleur'])) {
+                                                                                                                                                        if ($_POST['couleur'] == "bleu  ") {
+                                                                                                                                                            echo 'checked';
+                                                                                                                                                        }
+                                                                                                                                                    } ?> /> Bleu </label>
                                 </div>
                                 <div class="col-md-12 marg_top-15">
 

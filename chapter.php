@@ -36,6 +36,10 @@ if (!empty($_POST)) {
 $req = $db->prepare('SELECT * FROM livre WHERE id = ?');
 $req->execute(array($_GET['chapitre']));
 $data = $req->fetch();
+var_dump($data['id']);
+
+$idPrec = $_GET['chapitre']-1; // marche pas car trou dans les id si je supprime un chapitre
+$idSuiv = next($data['id']); // marche pas ???
 
 $req = $db->prepare('SELECT * FROM commentaires WHERE id_chapter = ?');
 $req->execute(array($_GET['chapitre']));
@@ -91,14 +95,13 @@ $req->execute(array($_GET['chapitre']));
         <!-- Menu -->
         <div class="row menunav">
             <div class="col-md-4 offset-md-1 back_home text_sans-serif"><a href="index.php">JEAN FORTEROCHE</a></div>
-            <div class="col-md-4 offset-md-3"><?php include("menu.php"); ?></i></div>
+            <div class="col-md-4 offset-md-3"><?php include("menu.php"); ?></div>
         </div>
 
         <div class="contenu">
             <!-- Titre / sous titre -->
             <div class="row">
                 <h1 class="col-md-6 offset-md-1 titre"><?= htmlspecialchars($data['title']) ?> </h1>
-                <div class="col-md-4 offset-md-1 sous-titre">Un livre-blog publié par Jean Forteroche</div>
             </div>
 
             <!-- photo  -->
@@ -130,7 +133,7 @@ $req->execute(array($_GET['chapitre']));
                             echo '<div class="col-md-5 offset-md-1 marg_top-60  prev"></div>';
                         }
                         ?>
-                        <div class="col-md-4 offset-md-1 marg_top-60 next"><a href="chapter.php?chapitre=<?php echo ($data['id']++); ?>">Chapitre suivant</a></div>
+                        <div class="col-md-4 offset-md-1 marg_top-60 next"><a href="chapter.php?chapitre=<?php echo $idSuiv; ?>">Chapitre suivant</a></div>
                     </div>
                 </div>
             </div>

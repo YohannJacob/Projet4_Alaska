@@ -60,14 +60,14 @@ if (!empty($_POST)) {
     }
 
     if ($validation == true) {
-        $req = $db->prepare('UPDATE livre SET chapter_number = :nvx_chapter_number, title = :nvx_title, text_chapter = :nvx_text_chapter, couleur = :nvx_couleur, image_chapter = :nvx_image_chapter WHERE id = ?');
+        $req = $db->prepare('UPDATE livre SET chapter_number = :chapter_number, title = :title, text_chapter = :text_chapter, couleur = :couleur, image_chapter = :image_chapter WHERE id = :id');
         $req->execute(array(
-            'nvx_chapter_number' => $_POST['chapter_number'],
-            'nvx_title' => $_POST['title'],
-            'nvx_text_chapter' => $_POST['text_chapter'],
-            'nvx_couleur' => $_POST['couleur'],
+            'chapter_number' => $_POST['chapter_number'],
+            'title' => $_POST['title'],
+            'text_chapter' => $_POST['text_chapter'],
+            'couleur' => $_POST['couleur'],
             'id' => $_GET['chapitre'],
-            'nvx_image_chapter' => "chapitre" . $_POST['chapter_number'] . "-" . $_FILES['image_chapter']['name'],
+            'image_chapter' => "chapitre" . $_POST['chapter_number'] . "-" . $_FILES['image_chapter']['name'],
         ));
         move_uploaded_file($_FILES['image_chapter']['tmp_name'], 'uploads/chapitre' . basename($_POST['chapter_number'] . "-" . $_FILES['image_chapter']['name']));
         header('Location: manager.php');
@@ -140,7 +140,7 @@ var_dump($_GET['chapitre']);
             <div class="col-md-3 menu bleu">
                 <div class="row">
                     <div class="col-md-8 offset-md-2 marg_top-60 d-flex justify-content-center text_sans-serif back_home">
-                        <a href="index.php">JEAN FORTEROCHE</a>
+                        <a href="manager.php">JEAN FORTEROCHE</a>
                     </div>
 
 
@@ -216,19 +216,35 @@ var_dump($_GET['chapitre']);
                             <h4 class="marg_top-30">Couleur de fond :</h4>
                             <div class="row">
                                 <div class="col-md-3 radio marg_top-15">
-                                    <label for="jaune" class="radio radio_marg"><input type="radio" name="couleur" value="jaune" class="radio_marg" /> Jaune </label>
+                                    <label for="jaune" class="radio radio_marg"><input type="radio" name="couleur" value="jaune" class="radio_marg" <?php if (isset($post_data['couleur'])) {
+                                                                                                                                                        if ($post_data['couleur'] == "jaune") {
+                                                                                                                                                            echo 'checked';
+                                                                                                                                                        }
+                                                                                                                                                    } ?> /> Jaune </label>
                                 </div>
 
                                 <div class="col-md-3 radio marg_top-15">
-                                    <label for="Rouge" class="radio radio_marg"><input type="radio" name="couleur" value="rouge" class="radio_marg" /> Rouge </label>
+                                    <label for="Rouge" class="radio radio_marg"><input type="radio" name="couleur" value="rouge" class="radio_marg" <?php if (isset($post_data['couleur'])) {
+                                                                                                                                                        if ($post_data['couleur'] == "rouge") {
+                                                                                                                                                            echo 'checked';
+                                                                                                                                                        }
+                                                                                                                                                    } ?> /> Rouge </label>
                                 </div>
 
                                 <div class="col-md-3 radio marg_top-15">
-                                    <label for="Vert" class="radio radio_marg"><input type="radio" name="couleur" value="vert" class="radio_marg" /> Vert </label>
+                                    <label for="Vert" class="radio radio_marg"><input type="radio" name="couleur" value="vert" class="radio_marg" <?php if (isset($post_data['couleur'])) {
+                                                                                                                                                        if ($post_data['couleur'] == "vert") {
+                                                                                                                                                            echo 'checked';
+                                                                                                                                                        }
+                                                                                                                                                    } ?> /> Vert </label>
                                 </div>
 
                                 <div class="col-md-3 radio marg_top-15">
-                                    <label for="Bleu" class="radio radio_marg"><input type="radio" name="couleur" value="bleu" class="radio_marg" /> Bleu </label>
+                                    <label for="Bleu" class="radio radio_marg"><input type="radio" name="couleur" value="bleu" class="radio_marg" <?php if (isset($post_data['couleur'])) {
+                                                                                                                                                        if ($post_data['couleur'] == "bleu") {
+                                                                                                                                                            echo 'checked';
+                                                                                                                                                        }
+                                                                                                                                                    } ?> /> Bleu </label>
                                 </div>
                                 <div class="col-md-12 marg_top-15">
 
