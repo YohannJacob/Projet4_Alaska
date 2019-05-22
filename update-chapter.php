@@ -74,10 +74,12 @@ if (!empty($_POST)) {
         exit();
     }
 }
+
+// récupération du post publié pour l'afficher dans le formulaire en vue de le modifier.
 $req = $db->prepare('SELECT * FROM livre WHERE id = ?');
 $req->execute(array($_GET['chapitre']));
 $post_data = $req->fetch();
-var_dump($_GET['chapitre']);
+// var_dump($_GET['chapitre']);
 
 ?>
 
@@ -196,7 +198,7 @@ var_dump($_GET['chapitre']);
                             <?php } ?>
                         </div>
                     </div>
-                    <form action="post_chapter.php" method="POST" enctype="multipart/form-data">
+                    <form action="update-chapter.php" method="POST" enctype="multipart/form-data">
                         <div class="row marg_top-60">
                             <div class="col-md-9 form-group">
                                 <input type="text" placeholder="Titre du chapitre" id="title" name="title" class="form-control manager_form" value="<?php echo $post_data['title'] ?>" />

@@ -110,6 +110,24 @@
     padding-bottom: 25px;
 }
 
+.sous-titre {
+    font-family: "PT Sans Narrow";
+    font-weight: normal;
+    font-size: 21.5px;
+    letter-spacing: 0.05em;
+    line-height: 81px;
+    text-align: left;
+    color: #fff;
+    position: absolute;
+    box-sizing: border-box;
+    overflow: hidden;
+    opacity: 1;
+    top: 90vh;
+    transform: translate(0, -25vh);
+    z-index: 20;
+}
+
+
 .bt_lire {
     font-family: 'Lato', sans-serif;
     font-weight: 400;
@@ -194,6 +212,45 @@
     color: #fff;
 }
 
+/* ------ RESPONSIVE moins de 375 ------ */
+@media screen and (max-width: 375px){
+    .titre {
+        font-family: "Volkhov", serif;
+        font-weight: bold;
+        font-size: 40px;
+        letter-spacing: 0.03em;
+        line-height: 55px;
+        text-align: left;
+        color: #fff;
+        position: absolute;
+        box-sizing: border-box;
+        overflow: hidden;
+        opacity: 1;
+        top: 77vh;
+        transform: translate(0, -40vh);
+        z-index: 20;
+        padding-bottom: 25px;
+    }
+    
+    .sous-titre {
+        font-family: "PT Sans Narrow";
+        font-weight: normal;
+        font-size: 18px;
+        letter-spacing: 0.05em;
+        line-height: 22px;
+        text-align: left;
+        color: #fff;
+        position: absolute;
+        box-sizing: border-box;
+        overflow: hidden;
+        opacity: 1;
+        top: 90vh;
+        transform: translate(0, -25vh);
+        z-index: 20;
+    }
+}
+
+/* CSS des chapitres */
 .chapter {
     font-family: "PT Sans Narrow";
     font-weight: normal;

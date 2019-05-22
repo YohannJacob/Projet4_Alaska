@@ -38,8 +38,8 @@ $req->execute(array($_GET['chapitre']));
 $data = $req->fetch();
 var_dump($data['id']);
 
-$idPrec = $_GET['chapitre']-1; // marche pas car trou dans les id si je supprime un chapitre
-$idSuiv = next($data['id']); // marche pas ???
+// $idPrec = $_GET['chapitre']-1; // marche pas car trou dans les id si je supprime un chapitre
+// $idSuiv = next($data['id']); // marche pas ???
 
 $req = $db->prepare('SELECT * FROM commentaires WHERE id_chapter = ?');
 $req->execute(array($_GET['chapitre']));
@@ -94,32 +94,32 @@ $req->execute(array($_GET['chapitre']));
     <div class="container-fluid">
         <!-- Menu -->
         <div class="row menunav">
-            <div class="col-md-4 offset-md-1 back_home text_sans-serif"><a href="index.php">JEAN FORTEROCHE</a></div>
+            <div class="col-8 offset-1 col-sm-8 col-md-4 offset-md-1 back_home text_sans-serif"><a href="index.php">JEAN FORTEROCHE</a></div>
             <div class="col-md-4 offset-md-3"><?php include("menu.php"); ?></div>
         </div>
 
         <div class="contenu">
             <!-- Titre / sous titre -->
             <div class="row">
-                <h1 class="col-md-6 offset-md-1 titre"><?= htmlspecialchars($data['title']) ?> </h1>
+                <h1 class="col-11 offset-1 col-md-6 offset-md-1 titre"><?= htmlspecialchars($data['title']) ?> </h1>
             </div>
 
             <!-- photo  -->
             <div class="row photo_chapter">
-                <div class="col-md-7 offset-md-4"><img class="img-fluid" src="uploads/<?= htmlspecialchars($data['image_chapter']) ?>" alt="<?= htmlspecialchars($data['title']) ?>"></div>
+                <div class="col-12 col-md-7 offset-md-4"><img class="img-fluid" src="uploads/<?= htmlspecialchars($data['image_chapter']) ?>" alt="<?= htmlspecialchars($data['title']) ?>"></div>
             </div>
         </div>
 
         <!-- Menu footer -->
         <div class="row background">
-            <div class="col-md-8 rectangle <?= htmlspecialchars($data['couleur']) ?>"></div>
-            <div class="col-md-4"></div>
-            <div class="col-md-4 offset-md-8 all_chapter fixed"><a href="all_chapter.php">Liste des chapitres</a></div>
+            <div class="col-12 col-md-8 rectangle <?= htmlspecialchars($data['couleur']) ?>"></div>
+            <div class="col-12 col-md-4"></div>
+            <div class="col-12 col-md-4 offset-md-8 all_chapter fixed"><a href="all_chapter.php">Liste des chapitres</a></div>
         </div>
 
         <!-- Contenu -->
         <div class="row">
-            <div class="col-md-8 text">
+            <div class="col-12 col-md-8 text">
                 <div class="col-md-3 offset-md-1 marg_top-60 text_sans-serif">CHAPITRE N° <?= htmlspecialchars($data['chapter_number']) ?> </div>
                 <div class="col-md-10 offset-md-1 marg_top-60 text_serif">
                     <?= $data['text_chapter'] ?>

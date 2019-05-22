@@ -63,19 +63,19 @@ $image = $reponse->fetch();
 
         <!-- Menu -->
         <div class="row menunav">
-            <div class="col-md-4 offset-md-1 back_home text_sans-serif"><a href="index.php">JEAN FORTEROCHE</a></div>
+            <div class="col-8 offset-1 col-sm-8 col-md-4 offset-md-1 back_home text_sans-serif"><a href="index.php">JEAN FORTEROCHE</a></div>
             <div class="col-md-4 offset-md-3"><?php include("menu.php"); ?></div>
         </div>
 
         <!-- Titre / sous titre -->
         <div class="row">
-            <h1 class="col-md-6 offset-md-1 titre">Billet simple pour l’Alaska</h1>
-            <div class="col-md-4 offset-md-1 sous-titre">Un livre-blog publié par Jean Forteroche</div>
+            <h1 class="col-11 offset-1 col-md-6 offset-md-1 titre">Billet simple pour l’Alaska</h1>
+            <div class="col-11 offset-1 col-md-4 offset-md-1 sous-titre">Un livre-blog publié par Jean Forteroche</div>
         </div>
 
         <!-- photo  -->
         <div class="row photo">
-            <div class="col-md-7 offset-md-4"><img class="img-fluid" src="uploads/<?= htmlspecialchars($image['image_chapter']) ?>" alt="Un billet pour l'alaska, le blog de l'écrivain Jean Forteroche"></div>
+            <div class="col-11 offset-1 col-md-7 offset-md-4"><img class="img-fluid" src="uploads/<?= htmlspecialchars($image['image_chapter']) ?>" alt="Un billet pour l'alaska, le blog de l'écrivain Jean Forteroche"></div>
         </div>
         <!-- Background -->
         
