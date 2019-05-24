@@ -114,6 +114,7 @@ $post_data = $req->fetch();
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Volkhov:400,400i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="style.css" rel="stylesheet">
 
@@ -155,17 +156,6 @@ $post_data = $req->fetch();
                             </button>
                         </a>
                     </div>
-
-
-                    <div class="col-md-8 offset-md-2 marg_top-60 d-flex justify-content-center bouton_manager">
-                        <a href="#">
-                            <button type="button" class="btn d-flex justify-content-center">
-                                PERSONALISER LE BLOG
-                                <i class="fas fa-pencil-alt"></i>
-                            </button>
-                        </a>
-                    </div>
-
                 </div>
             </div>
 

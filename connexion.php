@@ -1,21 +1,47 @@
 <?php
-session_start();
 // Appel vers la base de donnée
 try {
-    $db = new PDO('mysql:host=localhost;dbname=Alaska;charset=utf8', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+    $bdd = new PDO('mysql:host=localhost;dbname=Alaska;charset=utf8', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 }
 // Gérer les erreurs
 catch (Exception $e) {
     die('Erreur : ' . $e->getMessage());
 }
-// Aller chercher les données dans la table
-$reponse = $db->query('SELECT id FROM livre ORDER BY id DESC LIMIT 1');
-$data = $reponse->fetch();
-$reponse = $db->query('SELECT image_chapter FROM livre WHERE chapter_number = 1');
-$image = $reponse->fetch();
+
+session_start();
+if (!empty($_SESSION)) {
+    header('location: manager.php');
+}
+
+//  Récupération de l'utilisateur et de son pass hashé
+if (!empty($_POST)) {
+    $req = $bdd->prepare('SELECT id, pass FROM users WHERE pseudo = :pseudo');
+    $req->execute(array(
+        'pseudo' => $_POST['pseudo']
+    ));
+
+    $resultat = $req->fetch();
+
+    $isPasswordCorrect = password_verify($_POST['pass'], $resultat['pass']);
+
+    if (!$resultat) {
+        echo 'Mauvais identifiant ou mot de passe !';
+    } else {
+        if ($isPasswordCorrect) {
+            session_start();
+            $_SESSION['id'] = $resultat['id'];
+            $_SESSION['pseudo'] = $_POST['pseudo'];
+            // $_SESSION['pseudo'] = $pseudo;
+            header('location: manager.php');
+        } else {
+            echo $_POST['pseudo'] . 'Mauvais identifiant ou mot de passe !';
+        }
+    }
+}
+
 ?>
 
-
+<!-- ici on commence le HTML -->
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -61,34 +87,22 @@ $image = $reponse->fetch();
 </head>
 
 <body>
-    <div class="container-fluid home">
-        <!-- Menu -->
-        <div class="row menunav">
-            <div class="col-8 offset-1 col-sm-8 col-md-4 offset-md-1 back_home text_sans-serif"><a href="index.php">JEAN FORTEROCHE</a></div>
-            <div class="col-md-4 offset-md-3"><?php include("menu.php"); ?></div>
-        </div>
-
-        <!-- Titre / sous titre -->
+    <div class="container-fluid">
         <div class="row">
-            <h1 class="col-11 offset-1 col-md-6 offset-md-1 titre">Billet simple pour l’Alaska</h1>
-            <div class="col-11 offset-1 col-md-4 offset-md-1 sous-titre">Un livre-blog publié par Jean Forteroche</div>
-
+            <h1 class="col-11 offset-1 col-md-6 offset-md-1">Bonjour. Merci de vous identifier.</h1>
         </div>
+        <div class="row">
+            <div class="col-11 offset-1 col-md-6 offset-md-1">
+                <form action="connexion.php" method="POST">
 
-        <!-- photo  -->
-        <div class="row photo">
-            <div class="col-11 offset-1 col-md-7 offset-md-4"><img class="img-fluid" src="uploads/<?= htmlspecialchars($image['image_chapter']) ?>" alt="Un billet pour l'alaska, le blog de l'écrivain Jean Forteroche"></div>
+                    <p><label>Pseudo</label> : 
+                    <input type="text" id="pseudo" name="pseudo" /></p>
+                    <p><label>Mot de passe</label> : <input type="password" id="pass" name="pass" /></p>
+                    <p><input type="submit" value="Valider" id="bt_post" /></p>
+                    <p><a href="inscription.php">Pas encore inscrit ? Créez votre compte.</a></p>
+
+                </form>
+            </div>
         </div>
-        <!-- Background -->
-        
-        <div class="row footer">
-            <div class="col-md-8 rectangle bleu"></div>
-            <div class="col-md-4"></div>
-            <div class="col-md-8 last_chapter"><a href="chapter.php?chapitre=<?php echo $data['id']; ?>">Lire le dernier chapitre publié</a></div>
-
-            <div class="col-md-4 all_chapter"><a href="all_chapter.php">Tous les chapitres</a></div>
-        </div>
-
     </div>
-
 </body>

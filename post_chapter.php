@@ -146,17 +146,6 @@ if (!empty($_POST)) {
                             </button>
                         </a>
                     </div>
-
-
-                    <div class="col-md-8 offset-md-2 marg_top-60 d-flex justify-content-center bouton_manager">
-                        <a href="#">
-                            <button type="button" class="btn d-flex justify-content-center">
-                                PERSONALISER LE BLOG
-                                <i class="fas fa-pencil-alt"></i>
-                            </button>
-                        </a>
-                    </div>
-
                 </div>
             </div>
 

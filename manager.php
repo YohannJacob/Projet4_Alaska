@@ -10,9 +10,16 @@ catch (Exception $e) {
 }
 // Aller chercher les données dans la table
 $reponse = $db->query('SELECT * FROM livre ORDER BY chapter_number DESC');
+$reponse2 = $db->query('SELECT * FROM commentaires ORDER BY report DESC');
 
-$reponse2 = $db->query('SELECT * FROM commentaires ORDER BY date_comment DESC   ');
+if (!empty($_GET['DEL'])) {
+    $reponse3 = $db->prepare('DELETE FROM livre WHERE id = ?');
+    $reponse3->execute(array($_GET['chapitre']));
+    header('Location: manager.php');
+    exit();
+}
 ?>
+
 
 <!-- ici on commence le HTML -->
 <!DOCTYPE html>
@@ -44,8 +51,12 @@ $reponse2 = $db->query('SELECT * FROM commentaires ORDER BY date_comment DESC   
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Volkhov:400,400i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="style.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -67,7 +78,6 @@ $reponse2 = $db->query('SELECT * FROM commentaires ORDER BY date_comment DESC   
                     </div>
 
 
-
                     <div class="col-md-8 offset-md-2 marg_top-60 d-flex justify-content-center bouton_manager">
                         <a href="post_chapter.php">
                             <button type="button" class="btn d-flex justify-content-center">
@@ -75,23 +85,13 @@ $reponse2 = $db->query('SELECT * FROM commentaires ORDER BY date_comment DESC   
                                 <i class="fas fa-plus-circle"></i>
                             </button>
                         </a>
-                    </div>
-
-
-                    <div class="col-md-8 offset-md-2 marg_top-60 d-flex justify-content-center bouton_manager">
-                        <a href="#">
-                            <button type="button" class="btn d-flex justify-content-center">
-                                PERSONALISER LE BLOG
-                                <i class="fas fa-pencil-alt"></i>
-                            </button>
-                        </a>
-                    </div>
-
+                        <p><a href="deconnexion.php">Vous déconnecter</a></p>
+                    </div>  
                 </div>
             </div>
-
+  
             <div class="col-md-7 offset-md-1">
-                <h1 class="text_serif marg_top-60 titre_manager">Bienvenue sur votre espace de gestion.</h1>
+                <h1 class="text_serif marg_top-60 titre_manager"><?php echo $_SESSION['pseudo'] . ', bienvenue sur votre espace de gestion.' ?> </h1>
                 <p class="marg_top-15">Ici vous pourrez administrer les contenus de votre blog.</p>
 
                 <div class="content">
@@ -103,6 +103,30 @@ $reponse2 = $db->query('SELECT * FROM commentaires ORDER BY date_comment DESC   
 
                                 <!-- Modules chapitre -->
                                 <?php while ($data = $reponse->fetch()) { ?>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="delete_post" tabindex="-1" role="dialog" aria-labelledby="delete_postLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="delete_postLabel">Suppression d'un chapitre</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Êtes-vous certain de vouloir supprimer ce chapitre ?<br>Merci de confirmer votre choix.
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>
+                                                    <a href="manager.php?DEL=<?php echo $data['id']; ?>">
+                                                        <button type="button" class="btn btn-danger">Supprimer</button>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="col-md-11 marg_top-30">
                                         <div class="row contenu_module_chapitre">
                                             <!-- Contenu Num chapitre, titre et date de publication -->
@@ -119,12 +143,14 @@ $reponse2 = $db->query('SELECT * FROM commentaires ORDER BY date_comment DESC   
                                             <!-- Les boutons -->
                                             <div class="col-md-4 separation_gauche">
                                                 <div class="row">
-                                                    <a href="update-chapter.php?chapitre=<?php echo $data['id']; ?>">
-                                                        <p class="col-md-12 bouton_module modifier">Modifier</p>
-                                                    </a>
-                                                    <p class="col-md-12 bouton_module supprimer">Supprimer</p>
+                                                    <button type="button" class="col-md-12 btn btn-light bouton_modules modifier"> <a href="update-chapter.php?chapitre=<?php echo $data['id']; ?>">Modifier</a></button>
+
+                                                    <!-- Button trigger modal -->
+                                                    <button type="button" class="col-md-12 btn btn-light bouton_modules supprimer" data-toggle="modal" data-target="#delete_post">Supprimer</button>
                                                 </div>
                                             </div>
+
+
                                         </div>
                                     </div>
                                 <?php } ?>

@@ -213,7 +213,7 @@
 }
 
 /* ------ RESPONSIVE moins de 375 ------ */
-@media screen and (max-width: 375px){
+@media screen and (max-width: 375px) {
     .titre {
         font-family: "Volkhov", serif;
         font-weight: bold;
@@ -231,7 +231,7 @@
         z-index: 20;
         padding-bottom: 25px;
     }
-    
+
     .sous-titre {
         font-family: "PT Sans Narrow";
         font-weight: normal;
@@ -465,6 +465,13 @@
     padding: 10px;
 }
 
+h2 {
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    color: #ffffff;
+}
+
 h5 {
     font-family: "PT Sans Narrow";
     font-weight: bold;
@@ -491,10 +498,11 @@ h5 {
 
 }
 
-.bouton_module {
+.bouton_modules {
     height: 80px;
+    border: 0;
     margin: 0 !important;
-    line-height: 80px;
+    background: #fcfaf2 !important;
 }
 
 .supprimer {
@@ -504,12 +512,69 @@ h5 {
     color: #cf5e62;
     border-top: 1px solid #707070;
     text-align: center;
+    border-radius: 0%;
 }
 
-.modifier {
+.modifier a {
     font-family: 'Lato', sans-serif;
     font-weight: 400;
     font-size: 16px;
     color: #489F6B;
     text-align: center;
+    text-decoration: none;
 }
+
+.centered {
+    display: flex;
+    flex-direction: row;
+    place-content: center;
+    align-items: center;
+}
+
+.image_cover {
+    width: 100vw;
+    background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 1)), url('img/photo1.jpg');
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: scroll;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+
+}
+
+.hello{
+    font-family: "Volkhov", serif;
+    font-weight: bold;
+    font-size: 70px;
+    letter-spacing: 0.03em;
+    line-height: 75px;
+    text-align: left;
+    color: #fff;
+}
+
+.inscription p{
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #ffffff;
+    margin: 15px 0 5px 0;;
+}
+
+input{
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    color: #ffffff;
+    margin: 5px 0 5px 0;
+    width: 70%;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid white;
+}
+
+

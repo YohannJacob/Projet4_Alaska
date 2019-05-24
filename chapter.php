@@ -36,14 +36,25 @@ if (!empty($_POST)) {
 $req = $db->prepare('SELECT * FROM livre WHERE id = ?');
 $req->execute(array($_GET['chapitre']));
 $data = $req->fetch();
-var_dump($data['id']);
 
 // $idPrec = $_GET['chapitre']-1; // marche pas car trou dans les id si je supprime un chapitre
 // $idSuiv = next($data['id']); // marche pas ??? Récupère toutes les ID du chapitre et récupère celle qui est supèrieure
 
-
 $req = $db->prepare('SELECT * FROM commentaires WHERE id_chapter = ?');
 $req->execute(array($_GET['chapitre']));
+
+
+
+    // $req3 = $db->prepare('SELECT * FROM commentaires WHERE id_chapter = ?');
+    // $req3->execute(array($_GET['chapitre']));
+    // $comment_data = $req->fetch();
+    // var_dump($comment_data['id']);
+
+    // $reponse3 = $db->prepare('UPDATE commentaires SET report = "1" WHERE id = ?');
+    // $reponse3->execute(array($comment_data['id']));
+    // header('Location: chapter.php?chapitre=' . $comment_data['id_chapter']); // impossible de ce rendre à get chapitre comment faire pour retourner à la page maintenant que le get à changé
+    // exit();
+
 
 ?>
 
@@ -129,8 +140,8 @@ $req->execute(array($_GET['chapitre']));
                     <div class="row">
                         <?php
                         if ($data['chapter_number'] > 1) {
-                           echo '<div class="col-md-5 offset-md-1 marg_top-60  prev">Chapitre précédent</div>';
-                        }else{
+                            echo '<div class="col-md-5 offset-md-1 marg_top-60  prev">Chapitre précédent</div>';
+                        } else {
                             echo '<div class="col-md-5 offset-md-1 marg_top-60  prev"></div>';
                         }
                         ?>
@@ -148,9 +159,12 @@ $req->execute(array($_GET['chapitre']));
                 <div class="col md-12">
                     <div class="row">
                         <?php while ($commentaire = $req->fetch()) { ?>
-                            <div class="col-md-11 offset-md-1 marg_top-60 pseudo"><?= htmlspecialchars($commentaire['pseudo']) ?></div>
+                            <div class="col-md-11 offset-md-1 marg_top-30 pseudo"><?= htmlspecialchars($commentaire['pseudo']) ?></div>
                             <div class="col-md-11 offset-md-1 comments"><?= htmlspecialchars($commentaire['comment']) ?></div>
-                            <div class="col-md-3 offset-md-8 alert_comment">Signaler</div>
+                            <div class="col-md-3 offset-md-8 alert_comment">
+                            <form action="chapter.php?chapitre=<?php echo $data['id']; ?>" method="POST">
+                                <button class="btn btn-primary" type="submit" id="signaler" name="signaler">signaler</button>
+                            </div>
                         <?php } ?>
                     </div>
                 </div>
