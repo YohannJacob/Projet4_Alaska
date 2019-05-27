@@ -87,18 +87,20 @@ if (!empty($_POST)) {
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <h1 class="col-11 offset-1 col-md-6 offset-md-1">Bonjour. Merci de vous identifier.</h1>
-        </div>
-        <div class="row">
-            <div class="col-11 offset-1 col-md-6 offset-md-1">
+    <div class="container-fluid image_cover">
+        <div class="row centered">
+            <h1 class="col-12 offset-1 col-md-4 offset-md-1 hello">Bonjour. Merci de vous identifier.</h1>
+            <div class="col-12 offset-1 col-md-6 offset-md-1 inscription">
                 <form action="connexion.php" method="POST">
 
-                    <p><label>Pseudo</label> : 
-                    <input type="text" id="pseudo" name="pseudo" /></p>
-                    <p><label>Mot de passe</label> : <input type="password" id="pass" name="pass" /></p>
-                    <p><input type="submit" value="Valider" id="bt_post" /></p>
+                    <p><label>Pseudo :</label></p>
+                    <input type="text" id="pseudo" name="pseudo" />
+
+                    <p><label>Mot de passe :</label></p>
+                    <input type="password" id="pass" name="pass" />
+
+                    <input type="submit" value="Valider" id="bt_post" class="btn btn-primary marg_top-60" />
+
                     <p><a href="inscription.php">Pas encore inscrit ? Créez votre compte.</a></p>
 
                 </form>

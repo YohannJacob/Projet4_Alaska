@@ -577,4 +577,27 @@ input{
     border-bottom: 1px solid white;
 }
 
+nav ul.back {
+    list-style-type: none;
+    margin: auto;
+    width: 100%;
 
+}
+
+nav ul.back li a {
+    text-decoration: none;
+    font-size: 25px;
+    font-family: "PT Sans Narrow";
+    font-weight: normal;
+    color: #CFAD5E;
+
+}
+
+nav ul.back li a:hover {
+    color: #FFF;
+}
+
+.fa-igloo{
+    color: #CFAD5E;
+    margin-right: 10px;
+}

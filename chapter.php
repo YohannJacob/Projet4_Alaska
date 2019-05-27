@@ -43,18 +43,13 @@ $data = $req->fetch();
 $req = $db->prepare('SELECT * FROM commentaires WHERE id_chapter = ?');
 $req->execute(array($_GET['chapitre']));
 
-
-
-    // $req3 = $db->prepare('SELECT * FROM commentaires WHERE id_chapter = ?');
-    // $req3->execute(array($_GET['chapitre']));
-    // $comment_data = $req->fetch();
-    // var_dump($comment_data['id']);
-
-    // $reponse3 = $db->prepare('UPDATE commentaires SET report = "1" WHERE id = ?');
-    // $reponse3->execute(array($comment_data['id']));
-    // header('Location: chapter.php?chapitre=' . $comment_data['id_chapter']); // impossible de ce rendre à get chapitre comment faire pour retourner à la page maintenant que le get à changé
+//Signaler un commentaire en lui donnant un report = 1
+if (isset ($_GET['comment'])){
+    $req3 = $db->prepare('UPDATE commentaires SET report = "1" WHERE id = ?');
+    $req3->execute(array($_GET['comment']));
+    // header('Location: chapter.php?chapitre=' . $_GET['chapitre']);
     // exit();
-
+}
 
 ?>
 
@@ -151,7 +146,6 @@ $req->execute(array($_GET['chapitre']));
             </div>
         </div>
 
-
         <!-- Commentaires -->
         <div class="row">
             <div class="col-md-8 text grey_line">
@@ -162,8 +156,9 @@ $req->execute(array($_GET['chapitre']));
                             <div class="col-md-11 offset-md-1 marg_top-30 pseudo"><?= htmlspecialchars($commentaire['pseudo']) ?></div>
                             <div class="col-md-11 offset-md-1 comments"><?= htmlspecialchars($commentaire['comment']) ?></div>
                             <div class="col-md-3 offset-md-8 alert_comment">
-                            <form action="chapter.php?chapitre=<?php echo $data['id']; ?>" method="POST">
-                                <button class="btn btn-primary" type="submit" id="signaler" name="signaler">signaler</button>
+                                <form action="chapter.php?chapitre=<?= $_GET['chapitre'] ?>&comment=<?= $commentaire['id'] ?>" >
+                                    <button class="btn btn-primary" type="submit" id="signaler" name="signaler">signaler</button>
+                                </form>    
                             </div>
                         <?php } ?>
                     </div>

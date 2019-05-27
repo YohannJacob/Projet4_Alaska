@@ -91,15 +91,7 @@ if (isset($_POST['pseudo']) && isset($_POST['mail']) && isset($_POST['pass']) &&
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="style.css" rel="stylesheet">
 
-    <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=1rd4c31fs388eba9s75t6mispfypt4631kcx8z32nkwte487"></script>
 
-    <script>
-        tinymce.init({
-            selector: '#text_chapter'
-            // content_css : '/style.css'
-
-        });
-    </script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -121,10 +113,10 @@ if (isset($_POST['pseudo']) && isset($_POST['mail']) && isset($_POST['pass']) &&
                     <div class="col-md-12 form-group">
                         <h2>Veuillez choisir votre identifiant et mot de passe.</h2>
 
-                        <p><label>Pseudo</label> :</p>
+                        <p><label>Pseudo : </label></p>
                         <input type="text" id="pseudo" name="pseudo" />
 
-                        <p><label>Mot de passe</label> : </p>
+                        <p><label>Mot de passe :</label></p>
                         <input type="password" id="pass" name="pass" required />
 
                         <p><label>Confirmation mot de passe :</label></p>
@@ -133,7 +125,7 @@ if (isset($_POST['pseudo']) && isset($_POST['mail']) && isset($_POST['pass']) &&
                         <p><label>Email :</label></p>
                         <input type="text" id="mail" name="mail" />
 
-                        <p><input type="submit" value="Valider" id="bt_post" /></p>
+                        <p><input type="submit" value="Valider" id="bt_post" class="btn btn-primary marg_top-60" /></p>
 
                         <?php echo $erreurPseudo; ?>
                         <?php echo $erreurMail; ?>
