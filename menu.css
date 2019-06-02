@@ -233,6 +233,7 @@ nav ul.main li a {
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
+
 nav ul.main li a:after {
     content: '';
     width: 25px;
@@ -243,7 +244,7 @@ nav ul.main li a:after {
 }
 
 nav ul.main li a:hover {
-    
+
     color: #CFAD5E;
 }
 
@@ -284,10 +285,11 @@ nav ul.back li a:hover {
     color: #FFF;
 }
 
-.fa-igloo{
+.fa-igloo {
     color: #CFAD5E;
     margin-right: 10px;
 }
+
 nav ul.sub {
     list-style-type: none;
     display: block;
@@ -355,4 +357,36 @@ nav ul.sub li a:hover {
 .overlay.show {
     opacity: 0.8;
     visibility: visible;
+}
+
+/* ------ RESPONSIVE moins de 375 ------ */
+@media screen and (max-width: 425px) {
+
+    .burger span,
+    .burger span::before,
+    .burger span::after {
+        background-color: #ffffff;
+    }
+
+    nav {
+        background-color: #191919;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 5;
+        height: 100%;
+        max-width: 100%;
+        width: 100%;
+        padding: 100px 0 100px 0;
+        overflow-y: auto;
+        -webkit-transform: translateY(-100%);
+        -moz-transform: translateY(-100%);
+        -ms-transform: translateY(-100%);
+        -o-transform: translateY(-100%);
+        transform: translateY(-100%);
+        -webkit-transition: transform 0.55s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+        -moz-transition: transform 0.55s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+        -o-transition: transform 0.55s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+        transition: transform 0.55s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    }
 }

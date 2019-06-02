@@ -14,7 +14,6 @@
     font-weight: bold;
     font-size: 14.5px;
     letter-spacing: 0.25em;
-    line-height: 81px;
     text-align: left;
     color: #fff;
     z-index: 3;
@@ -72,7 +71,7 @@
     margin: 0;
     padding: 0;
     opacity: 1;
-    z-index: 2;
+    z-index: 1;
     top: 30vh;
     transform: translate(0, -15vh);
     max-height: 500px;
@@ -88,7 +87,7 @@
     opacity: 1;
     top: 30vh;
     transform: translate(0, -15vh);
-    max-height: 500px;
+    max-height: 600px;
 
 }
 
@@ -108,6 +107,7 @@
     transform: translate(0, -40vh);
     z-index: 20;
     padding-bottom: 25px;
+    
 }
 
 .sous-titre {
@@ -212,43 +212,7 @@
     color: #fff;
 }
 
-/* ------ RESPONSIVE moins de 375 ------ */
-@media screen and (max-width: 375px) {
-    .titre {
-        font-family: "Volkhov", serif;
-        font-weight: bold;
-        font-size: 40px;
-        letter-spacing: 0.03em;
-        line-height: 55px;
-        text-align: left;
-        color: #fff;
-        position: absolute;
-        box-sizing: border-box;
-        overflow: hidden;
-        opacity: 1;
-        top: 77vh;
-        transform: translate(0, -40vh);
-        z-index: 20;
-        padding-bottom: 25px;
-    }
 
-    .sous-titre {
-        font-family: "PT Sans Narrow";
-        font-weight: normal;
-        font-size: 18px;
-        letter-spacing: 0.05em;
-        line-height: 22px;
-        text-align: left;
-        color: #fff;
-        position: absolute;
-        box-sizing: border-box;
-        overflow: hidden;
-        opacity: 1;
-        top: 90vh;
-        transform: translate(0, -25vh);
-        z-index: 20;
-    }
-}
 
 /* CSS des chapitres */
 .chapter {
@@ -600,4 +564,86 @@ nav ul.back li a:hover {
 .fa-igloo{
     color: #CFAD5E;
     margin-right: 10px;
+}
+
+/* ------ RESPONSIVE moins de 425 ------ */
+@media screen and (max-width: 425px) {
+    .titre {
+
+        font-size: 40px;
+        letter-spacing: 0.03em;
+        line-height: 55px;
+        top: 91vh;
+        transform: translate(0, -40vh);
+        z-index: 2;
+        padding-bottom: 25px;
+    }
+
+    .sous-titre {
+        font-family: "PT Sans Narrow";
+        font-weight: normal;
+        font-size: 18px;
+        letter-spacing: 0.05em;
+        line-height: 20px;
+        text-align: left;
+        color: #fff;
+        position: absolute;
+        box-sizing: border-box;
+        overflow: hidden;
+        opacity: 1;
+        top: 94vh;
+        transform: translate(0, -25vh);
+        z-index: 2;
+    }
+
+    .photo {
+        left: 10px;
+    }
+
+    .footer {
+        height: 95vh;
+}
+
+
+/* ------ RESPONSIVE moins de 321px ------ */
+@media screen and (max-width: 321px) {
+    .titre {
+        font-size: 30px;
+        letter-spacing: 0.03em;
+        line-height: 35px;
+        top: 91vh;
+        transform: translate(0, -40vh);
+        z-index: 2;
+        padding-bottom: 25px;
+    }
+
+    .sous-titre {
+        font-size: 16px;
+        letter-spacing: 0.05em;
+        line-height: 20px;
+        text-align: left;
+        color: #fff;
+        position: absolute;
+        box-sizing: border-box;
+        overflow: hidden;
+        opacity: 1;
+        top: 92vh;
+        transform: translate(0, -25vh);
+        z-index: 2;
+    }
+
+    .text_sans-serif {
+        font-size: 15px;
+    }
+
+    .footer {
+        height: 90vh;
+    }
+    .back_home a {
+        color: #FFF;
+    }
+
+    .menunav {
+        top: 35px;
+    }
 }

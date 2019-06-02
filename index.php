@@ -77,7 +77,7 @@ $image = $reponse->fetch();
 
         <!-- photo  -->
         <div class="row photo">
-            <div class="col-11 offset-1 col-md-7 offset-md-4"><img class="img-fluid" src="uploads/<?= htmlspecialchars($image['image_chapter']) ?>" alt="Un billet pour l'alaska, le blog de l'écrivain Jean Forteroche"></div>
+            <div class="col-12 col-md-7 offset-md-4"><img class="img-fluid" src="uploads/<?= htmlspecialchars($image['image_chapter']) ?>" alt="Un billet pour l'alaska, le blog de l'écrivain Jean Forteroche"></div>
         </div>
         <!-- Background -->
         
