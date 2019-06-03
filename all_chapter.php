@@ -74,14 +74,14 @@ $reponse = $db->query('SELECT * FROM livre ORDER BY id');
                     </div>
                 </a>
                 <!-- photo  -->
-                <div class="row photo">
-                    <div class="col-md-7 offset-md-4"><img class="img-fluid" src="uploads/<?= htmlspecialchars($data['image_chapter']) ?>" alt="Alaska"></div>
+                <div class="row photo_chapter">
+                    <div class="col-12 col-md-7 offset-md-4"><img class="img-fluid" src="uploads/<?= htmlspecialchars($data['image_chapter']) ?>" alt="<?= htmlspecialchars($data['title']) ?>"></div>
                 </div>
             </div>
 
             <!-- Background -->
             <div class="row background">
-                <div class="col-md-8 rectangle <?= htmlspecialchars($data['couleur']) ?>"></div>
+                <div class="col-12 col-md-8 rectangle <?= htmlspecialchars($data['couleur']) ?>"></div>
             </div>
         <?php } ?>
     </div>

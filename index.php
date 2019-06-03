@@ -64,7 +64,7 @@ $image = $reponse->fetch();
     <div class="container-fluid home">
         <!-- Menu -->
         <div class="row menunav">
-            <div class="col-8 offset-1 col-sm-8 col-md-4 offset-md-1 back_home text_sans-serif"><a href="index.php">JEAN FORTEROCHE</a></div>
+        <div class="col-8 offset-1 col-sm-8 col-md-4 offset-md-1 back_home text_sans-serif"><a href="index.php">JEAN FORTEROCHE</a></div>
             <div class="col-md-4 offset-md-3"><?php include("menu.php"); ?></div>
         </div>
 
@@ -77,7 +77,7 @@ $image = $reponse->fetch();
 
         <!-- photo  -->
         <div class="row photo">
-            <div class="col-12 col-md-7 offset-md-4"><img class="img-fluid" src="uploads/<?= htmlspecialchars($image['image_chapter']) ?>" alt="Un billet pour l'alaska, le blog de l'écrivain Jean Forteroche"></div>
+        <div class="col-12 col-md-7 offset-md-4"><img class="img-fluid" src="uploads/<?= htmlspecialchars($image['image_chapter']) ?>" alt="Billet simple pour l’Alaska"></div>
         </div>
         <!-- Background -->
         

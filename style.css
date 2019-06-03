@@ -107,7 +107,7 @@
     transform: translate(0, -40vh);
     z-index: 20;
     padding-bottom: 25px;
-    
+
 }
 
 .sous-titre {
@@ -508,7 +508,7 @@ h5 {
 
 }
 
-.hello{
+.hello {
     font-family: "Volkhov", serif;
     font-weight: bold;
     font-size: 70px;
@@ -518,15 +518,16 @@ h5 {
     color: #fff;
 }
 
-.inscription p{
+.inscription p {
     font-family: 'Lato', sans-serif;
     font-weight: 400;
     font-size: 16px;
     color: #ffffff;
-    margin: 15px 0 5px 0;;
+    margin: 15px 0 5px 0;
+    ;
 }
 
-input{
+input {
     font-family: 'Lato', sans-serif;
     font-weight: 400;
     font-size: 20px;
@@ -561,7 +562,7 @@ nav ul.back li a:hover {
     color: #FFF;
 }
 
-.fa-igloo{
+.fa-igloo {
     color: #CFAD5E;
     margin-right: 10px;
 }
@@ -569,14 +570,16 @@ nav ul.back li a:hover {
 /* ------ RESPONSIVE moins de 425 ------ */
 @media screen and (max-width: 425px) {
     .titre {
-
         font-size: 40px;
         letter-spacing: 0.03em;
         line-height: 55px;
-        top: 91vh;
+        top: 95vh;
         transform: translate(0, -40vh);
         z-index: 2;
         padding-bottom: 25px;
+        text-align: center;
+        margin: 0px;
+
     }
 
     .sous-titre {
@@ -594,14 +597,42 @@ nav ul.back li a:hover {
         top: 94vh;
         transform: translate(0, -25vh);
         z-index: 2;
+        text-align: center;
+
+    }
+
+    .chapter {
+        font-size: 21.5px;
+        letter-spacing: 0.05em;
+        text-align: center;
+        color: #fff;
+        top: 360px;
+    }
+
+    .bt_lire {
+        top: 95vh;
+        transform: translate(0, -15vh);
+        text-align: center;
+
     }
 
     .photo {
-        left: 10px;
+        left: 5px;
+        width: 365px;
+        height: 223px;
+    }
+
+    
+    .photo_chapter {
+        left: 5px;
+        width: 365px;
+        height: 223px;
+        margin-left: -15px; 
     }
 
     .footer {
         height: 95vh;
+    }
 }
 
 
@@ -639,6 +670,7 @@ nav ul.back li a:hover {
     .footer {
         height: 90vh;
     }
+
     .back_home a {
         color: #FFF;
     }

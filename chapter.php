@@ -108,12 +108,12 @@ if (isset ($_GET['comment'])){
         <div class="contenu">
             <!-- Titre / sous titre -->
             <div class="row">
-                <h1 class="col-11 offset-1 col-md-6 offset-md-1 titre"><?= htmlspecialchars($data['title']) ?> </h1>
+                <h1 class="col-12 offset-1 col-md-6 offset-md-1 titre"><?= htmlspecialchars($data['title']) ?> </h1>
             </div>
 
             <!-- photo  -->
             <div class="row photo_chapter">
-                <div class="col-12 col-md-7 offset-md-4"><img class="img-fluid" src="uploads/<?= htmlspecialchars($data['image_chapter']) ?>" alt="<?= htmlspecialchars($data['title']) ?>"></div>
+            <div class="col-12 col-md-7 offset-md-4"><img class="img-fluid" src="uploads/<?= htmlspecialchars($data['image_chapter']) ?>" alt="<?= htmlspecialchars($data['title']) ?>"></div>
             </div>
         </div>
 
