@@ -1,13 +1,7 @@
 <?php
 session_start();
-// Appel vers la base de donnée
-try {
-    $db = new PDO('mysql:host=localhost;dbname=Alaska;charset=utf8', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-}
-// Gérer les erreurs
-catch (Exception $e) {
-    die('Erreur : ' . $e->getMessage());
-}
+require 'model/Chapter.php';
+require 'model/ChapterManager.php';
 
 function verifdata($data)
 {
@@ -60,14 +54,17 @@ if (!empty($_POST)) {
     }
 
     if ($validation == true) {
-        $req = $db->prepare('INSERT INTO livre(chapter_number, title, text_chapter, couleur, image_chapter) VALUES(:chapter_number, :title, :text_chapter, :couleur, :image_chapter)');
-        $req->execute(array(
+        $chapter = new Chapter([
             'chapter_number' => $_POST['chapter_number'],
             'title' => $_POST['title'],
             'text_chapter' => $_POST['text_chapter'],
             'couleur' => $_POST['couleur'],
             'image_chapter' => "chapitre" . $_POST['chapter_number'] . "-" . $_FILES['image_chapter']['name'],
-        ));
+        ]);
+        $ChapterManager = new ChapterManager();
+        $ChapterManager->add($chapter);
+
+        
         move_uploaded_file($_FILES['image_chapter']['tmp_name'], 'uploads/chapitre' . basename($_POST['chapter_number'] . "-" . $_FILES['image_chapter']['name']));
         header('Location: manager.php');
         exit();

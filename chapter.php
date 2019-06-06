@@ -1,5 +1,10 @@
 <?php
 session_start();
+require 'model/Commentaires.php';
+require 'model/CommentairesManager.php';
+require 'model/Chapter.php';
+require 'model/ChapterManager.php';
+
 // Appel vers la base de donnée
 try {
     $db = new PDO('mysql:host=localhost;dbname=Alaska;charset=utf8', 'root', 'root');
@@ -8,7 +13,6 @@ try {
 catch (Exception $e) {
     die('Erreur : ' . $e->getMessage());
 }
-
 
 if (!empty($_POST)) {
     $validation = true;
@@ -22,20 +26,27 @@ if (!empty($_POST)) {
         $validation = false;
     }
     if ($validation == true) {
-        $req2 = $db->prepare('INSERT INTO commentaires (pseudo, comment, id_chapter) VALUES(:pseudo, :comment, :id_chapter)');
-        $req2->execute(array(
+        $commentaire = new Commentaires([
             'pseudo' => $_POST['pseudo'],
             'comment' => $_POST['comment'],
             'id_chapter' => $_GET['chapitre'],
-        ));
-        header('Location: chapter.php?chapitre=' . $_GET['chapitre']);
-        exit();
+            //FIXME: il ne récupère pas le id_chapter ...
+        ]);
+        var_dump($commentaire);
+        $CommentairesManager = new CommentairesManager();
+        $CommentairesManager->add($commentaire);
+
+        // header('Location: chapter.php?chapitre=' . $_GET['chapitre']);
+        // exit();
     }
 }
 // Aller chercher les données dans la table
-$req = $db->prepare('SELECT * FROM livre WHERE id = ?');
-$req->execute(array($_GET['chapitre']));
-$data = $req->fetch();
+$chapterManager = new ChapterManager();
+$chapter = $chapterManager->get($_GET['chapitre']);
+
+// $req = $db->prepare('SELECT * FROM livre WHERE id = ?');
+// $req->execute(array($_GET['chapitre']));
+// $data = $req->fetch();
 
 // $idPrec = $_GET['chapitre']-1; // marche pas car trou dans les id si je supprime un chapitre
 // $idSuiv = next($data['id']); // marche pas ??? Récupère toutes les ID du chapitre et récupère celle qui est supèrieure
@@ -108,18 +119,18 @@ if (isset ($_GET['comment'])){
         <div class="contenu">
             <!-- Titre / sous titre -->
             <div class="row">
-                <h1 class="col-12 offset-1 col-md-6 offset-md-1 titre"><?= htmlspecialchars($data['title']) ?> </h1>
+                <h1 class="col-12 offset-1 col-md-6 offset-md-1 titre"><?= $chapter->title() ?> </h1>
             </div>
 
             <!-- photo  -->
             <div class="row photo_chapter">
-            <div class="col-12 col-md-7 offset-md-4"><img class="img-fluid" src="uploads/<?= htmlspecialchars($data['image_chapter']) ?>" alt="<?= htmlspecialchars($data['title']) ?>"></div>
+            <div class="col-12 col-md-7 offset-md-4"><img class="img-fluid" src="uploads/<?= $chapter->image_chapter() ?>" alt="<?= $chapter->title() ?>"></div>
             </div>
         </div>
 
         <!-- Menu footer -->
         <div class="row background">
-            <div class="col-12 col-md-8 rectangle <?= htmlspecialchars($data['couleur']) ?>"></div>
+            <div class="col-12 col-md-8 rectangle <?= $chapter->couleur() ?>"></div>
             <div class="col-12 col-md-4"></div>
             <div class="col-12 col-md-4 offset-md-8 all_chapter fixed"><a href="all_chapter.php">Liste des chapitres</a></div>
         </div>
@@ -127,14 +138,14 @@ if (isset ($_GET['comment'])){
         <!-- Contenu -->
         <div class="row">
             <div class="col-12 col-md-8 text">
-                <div class="col-md-3 offset-md-1 marg_top-60 text_sans-serif">CHAPITRE N° <?= htmlspecialchars($data['chapter_number']) ?> </div>
+                <div class="col-md-3 offset-md-1 marg_top-60 text_sans-serif">CHAPITRE N° <?= $chapter->chapter_number() ?> </div>
                 <div class="col-md-10 offset-md-1 marg_top-60 text_serif">
-                    <?= $data['text_chapter'] ?>
+                    <?= $chapter->text_chapter() ?>
                 </div>
                 <div class="col md-12">
                     <div class="row">
                         <?php
-                        if ($data['chapter_number'] > 1) {
+                        if ($chapter->chapter_number() > 1) {
                             echo '<div class="col-md-5 offset-md-1 marg_top-60  prev">Chapitre précédent</div>';
                         } else {
                             echo '<div class="col-md-5 offset-md-1 marg_top-60  prev"></div>';
@@ -168,7 +179,7 @@ if (isset ($_GET['comment'])){
             <div class="col-md-4 add_comment">
                 <div class="col-md-11 title_add_comment"> Ajouter votre commentaire</div>
                 <div class="col-md-11">
-                    <form action="chapter.php?chapitre=<?php echo $data['id']; ?>" method="POST">
+                    <form action="chapter.php?chapitre=<?php echo $chapter->id(); ?>" method="POST">
                         <div class="col-md-11 form-group">
                             <p><input type="text" id="pseudo" name="pseudo" placeholder="Pseudo" class="form-control commentaire_form" /></p>
                             <?php if (isset($erreurPseudo)) { ?>

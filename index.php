@@ -69,9 +69,9 @@ $image = $reponse->fetch();
         </div>
 
         <!-- Titre / sous titre -->
-        <div class="row">
-            <h1 class="col-11 offset-1 col-md-6 offset-md-1 titre">Billet simple pour l’Alaska</h1>
-            <div class="col-11 offset-1 col-md-4 offset-md-1 sous-titre">Un livre-blog publié par Jean Forteroche</div>
+        <div class="row ">
+            <h1 class="col-md-6 offset-md-1 titre">Billet simple pour l’Alaska</h1>
+            <div class="col-md-4 offset-md-1 sous-titre">Un livre-blog publié par Jean Forteroche</div>
 
         </div>
 

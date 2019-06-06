@@ -594,10 +594,11 @@ nav ul.back li a:hover {
         box-sizing: border-box;
         overflow: hidden;
         opacity: 1;
-        top: 94vh;
+        top: 98vh;
         transform: translate(0, -25vh);
         z-index: 2;
         text-align: center;
+        width: 100vw;
 
     }
 
