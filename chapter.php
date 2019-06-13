@@ -29,37 +29,31 @@ if (!empty($_POST)) {
         $commentaire = new Commentaires([
             'pseudo' => $_POST['pseudo'],
             'comment' => $_POST['comment'],
-            'id_chapter' => $_GET['chapitre'],
-            //FIXME: il ne récupère pas le id_chapter ...
+            'id_chapter' => $_GET['chapitre'],           
         ]);
-        var_dump($commentaire);
+
         $CommentairesManager = new CommentairesManager();
         $CommentairesManager->add($commentaire);
-
-        // header('Location: chapter.php?chapitre=' . $_GET['chapitre']);
-        // exit();
+        header('Location: chapter.php?chapitre=' . $_GET['chapitre']);
+        exit();
     }
 }
+
+$CommentairesManager = new CommentairesManager();
+$listComment = $CommentairesManager->getList($_GET['chapitre']);
+// $listComment = $CommentairesManager->getList($_GET['chapitre'], 'DESC');
+
 // Aller chercher les données dans la table
 $chapterManager = new ChapterManager();
 $chapter = $chapterManager->get($_GET['chapitre']);
 
-// $req = $db->prepare('SELECT * FROM livre WHERE id = ?');
-// $req->execute(array($_GET['chapitre']));
-// $data = $req->fetch();
-
-// $idPrec = $_GET['chapitre']-1; // marche pas car trou dans les id si je supprime un chapitre
-// $idSuiv = next($data['id']); // marche pas ??? Récupère toutes les ID du chapitre et récupère celle qui est supèrieure
-
-$req = $db->prepare('SELECT * FROM commentaires WHERE id_chapter = ?');
-$req->execute(array($_GET['chapitre']));
 
 //Signaler un commentaire en lui donnant un report = 1
 if (isset ($_GET['comment'])){
     $req3 = $db->prepare('UPDATE commentaires SET report = "1" WHERE id = ?');
     $req3->execute(array($_GET['comment']));
-    // header('Location: chapter.php?chapitre=' . $_GET['chapitre']);
-    // exit();
+    header('Location: chapter.php?chapitre=' . $_GET['chapitre']);
+    exit();
 }
 
 ?>
@@ -163,9 +157,9 @@ if (isset ($_GET['comment'])){
                 <div class="col-md-3 offset-md-1 marg_top-60 text_sans-serif">commentaires</div>
                 <div class="col md-12">
                     <div class="row">
-                        <?php while ($commentaire = $req->fetch()) { ?>
-                            <div class="col-md-11 offset-md-1 marg_top-30 pseudo"><?= htmlspecialchars($commentaire['pseudo']) ?></div>
-                            <div class="col-md-11 offset-md-1 comments"><?= htmlspecialchars($commentaire['comment']) ?></div>
+                        <?php foreach($listComment as $comment) {  ?>
+                            <div class="col-md-11 offset-md-1 marg_top-30 pseudo"><?= $comment->pseudo() ?></div>
+                            <div class="col-md-11 offset-md-1 comments"><?= $comment->comment() ?></div>
                             <div class="col-md-3 offset-md-8 alert_comment">
                                 <form action="chapter.php?chapitre=<?= $_GET['chapitre'] ?>&comment=<?= $commentaire['id'] ?>" >
                                     <button class="btn btn-primary" type="submit" id="signaler" name="signaler">signaler</button>

@@ -109,7 +109,7 @@ class Chapter
         // On vérifie que le text du chapitre est bien une chaine de caractère.
         if (is_string($text_chapter))
             // Si c'est le cas, on assigne la valeur à l'attribut correspondant.
-            $this->_text_chapter = htmlspecialchars($text_chapter);
+            $this->_text_chapter = $text_chapter;
     }
 
     public function setDatePubli($date_publi)

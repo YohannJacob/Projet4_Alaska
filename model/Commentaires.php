@@ -2,7 +2,7 @@
 class Commentaires
 {
     // Les atributs -----------------------------------  
-    private $_id,
+    private $_id_comment,
         $_id_chapter,
         $_pseudo,
         $_comment,
@@ -16,8 +16,8 @@ class Commentaires
     // Hydrater ---------------------------------------
     public function hydrate(array $commentaire)
     {
-        if (isset($commentaire['id'])) {
-            $this->setId($commentaire['id']);
+        if (isset($commentaire['id_comment'])) {
+            $this->setIdComment($commentaire['id_comment']);
         }
         if (isset($commentaire['id_chapter'])) {
             $this->setIdChapter($commentaire['id_chapter']);
@@ -36,16 +36,16 @@ class Commentaires
         }
     }
 
-    // Implémenter le constructeur --------------------
+    // Implémenter le constructeur -------------------
     public function __construct(array $commentaire)
     {
         $this->hydrate($commentaire);
     }
 
-    // Les getters ------------------------------------
-    public function id()
+    // Les getters -----------------------------------
+    public function idComment()
     {
-        return $this->_id;
+        return $this->_id_comment;
     }
 
     public function idChapter()
@@ -74,26 +74,14 @@ class Commentaires
     }
 
     // Les setters ------------------------------------
-    public function setId($id)
+    public function setIdComment($id_comment)
     {
-        // On convertit l'argument en nombre entier.
-        $id = (int)$id;
-        // On vérifie ensuite si ce nombre est bien strictement positif.
-        if ($id > 0) {
-            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
-            $this->_id = htmlspecialchars($id);
-        }
+        $this->_id_comment = $id_comment;
     }
 
-    public function setIdChapter($_id_chapter)
+    public function setIdChapter($id_chapter)
     {
-        // On convertit l'argument en nombre entier.
-        $_id_chapter = (int)$_id_chapter;
-        // On vérifie ensuite si ce nombre est bien strictement positif.
-        if ($_id_chapter > 0) {
-            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
-            $this->_id = htmlspecialchars($_id_chapter);
-        }
+        $this->_id_chapter = $id_chapter;
     }
 
     public function setPseudo($pseudo)
@@ -101,7 +89,7 @@ class Commentaires
         // On vérifie que le titre est bien une chaine de caractère.
         if (is_string($pseudo))
             // Si c'est le cas, on assigne la valeur à l'attribut correspondant.
-            $this->_pseudo = $pseudo;
+            $this->_pseudo = htmlspecialchars($pseudo);
     }
 
     public function setComment($comment)
@@ -109,7 +97,7 @@ class Commentaires
         // On vérifie que le titre est bien une chaine de caractère.
         if (is_string($comment))
             // Si c'est le cas, on assigne la valeur à l'attribut correspondant.
-            $this->_comment = $comment;
+            $this->_comment = htmlspecialchars($comment);
     }
 
     public function setDateComment($date_comment)

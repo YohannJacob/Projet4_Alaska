@@ -12,6 +12,7 @@ catch (Exception $e) {
 $reponse = $db->query('SELECT * FROM livre ORDER BY chapter_number DESC');
 $reponse2 = $db->query('SELECT * FROM commentaires ORDER BY report DESC');
 
+
 if (!empty($_GET['DEL'])) {
     $reponse3 = $db->prepare('DELETE FROM livre WHERE id = ?');
     $reponse3->execute(array($_GET['DEL']));   

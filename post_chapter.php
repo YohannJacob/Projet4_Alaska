@@ -61,13 +61,14 @@ if (!empty($_POST)) {
             'couleur' => $_POST['couleur'],
             'image_chapter' => "chapitre" . $_POST['chapter_number'] . "-" . $_FILES['image_chapter']['name'],
         ]);
+        var_dump($chapter);
         $ChapterManager = new ChapterManager();
         $ChapterManager->add($chapter);
 
         
         move_uploaded_file($_FILES['image_chapter']['tmp_name'], 'uploads/chapitre' . basename($_POST['chapter_number'] . "-" . $_FILES['image_chapter']['name']));
-        header('Location: manager.php');
-        exit();
+        // header('Location: manager.php');
+        // exit();
     }
 }
 ?>
