@@ -1,15 +1,13 @@
 <?php
 session_start();
-// Appel vers la base de donnée
-try {
-    $db = new PDO('mysql:host=localhost;dbname=Alaska;charset=utf8', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-}
-// Gérer les erreurs
-catch (Exception $e) {
-    die('Erreur : ' . $e->getMessage());
-}
-// Aller chercher les données dans la table
-$reponse = $db->query('SELECT * FROM livre ORDER BY id');
+require 'model/Commentaires.php';
+require 'model/CommentairesManager.php';
+require 'model/Chapter.php';
+require 'model/ChapterManager.php';
+
+$ChapterManager = new ChapterManager();
+$listChapter = $ChapterManager->getList('DESC');
+
 ?>
 
 <!-- ici on commence le HTML -->
@@ -56,32 +54,33 @@ $reponse = $db->query('SELECT * FROM livre ORDER BY id');
 </head>
 
 <body>
+
     <div class="container-fluid">
         <!-- Menu -->
         <div class="row menunav">
             <div class="col-md-4 offset-md-1 back_home text_sans-serif"><a href="index.php">JEAN FORTEROCHE</a></div>
             <div class="col-md-4 offset-md-3"><?php include("menu.php"); ?></div>
         </div>
-        <?php while ($data = $reponse->fetch()) { ?>
+        <?php foreach($listChapter as $chapter) {  ?>
             <!-- Contenu -->
             <div class="contenu">
                 <!-- Titre / sous titre -->
-                <a href="chapter.php?chapitre=<?php echo $data['id']; ?>">
+                <a href="chapter.php?chapitre=<?php echo $chapter->id() ?>">
                     <div class="row">
-                        <div class="col-md-6 offset-md-1 chapter text_sans-serif">Chapitre N° <?= htmlspecialchars($data['chapter_number']) ?></div>
-                        <h1 class="col-md-6 offset-md-1 titre"><?= htmlspecialchars($data['title']) ?></h1>
+                        <div class="col-md-6 offset-md-1 chapter text_sans-serif">Chapitre N° <?= $chapter->chapter_number() ?></div>
+                        <h1 class="col-md-6 offset-md-1 titre"><?= $chapter->title() ?></h1>
                         <aside class="col-md-6 offset-md-1 bt_lire"><i class="fas fa-book-reader"></i> Lire le chapitre </aside>
                     </div>
                 </a>
                 <!-- photo  -->
                 <div class="row photo_chapter">
-                    <div class="col-12 col-md-7 offset-md-4"><img class="img-fluid" src="uploads/<?= htmlspecialchars($data['image_chapter']) ?>" alt="<?= htmlspecialchars($data['title']) ?>"></div>
+                    <div class="col-12 col-md-7 offset-md-4"><img class="img-fluid" src="uploads/<?= $chapter->image_chapter() ?>" alt="<?= $chapter->title() ?>"></div>
                 </div>
             </div>
 
             <!-- Background -->
             <div class="row background">
-                <div class="col-12 col-md-8 rectangle <?= htmlspecialchars($data['couleur']) ?>"></div>
+                <div class="col-12 col-md-8 rectangle <?= $chapter->couleur() ?>"></div>
             </div>
         <?php } ?>
     </div>

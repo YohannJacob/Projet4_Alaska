@@ -1,6 +1,8 @@
 <?php
 session_start();
-// Appel vers la base de donnée
+require 'model/Chapter.php';
+require 'model/ChapterManager.php';
+
 try {
     $db = new PDO('mysql:host=localhost;dbname=Alaska;charset=utf8', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 }
@@ -60,27 +62,28 @@ if (!empty($_POST)) {
     }
 
     if ($validation == true) {
-        $req = $db->prepare('UPDATE livre SET chapter_number = :chapter_number, title = :title, text_chapter = :text_chapter, couleur = :couleur, image_chapter = :image_chapter WHERE id = :id');
-        $req->execute(array(
+        $chapter = new Chapter([
             'chapter_number' => $_POST['chapter_number'],
             'title' => $_POST['title'],
             'text_chapter' => $_POST['text_chapter'],
             'couleur' => $_POST['couleur'],
             'id' => $_GET['chapitre'],
             'image_chapter' => "chapitre" . $_POST['chapter_number'] . "-" . $_FILES['image_chapter']['name'],
-        ));
+        ]);
+        $ChapterManager = new ChapterManager();
+        $ChapterManager->update($chapter);
+
         move_uploaded_file($_FILES['image_chapter']['tmp_name'], 'uploads/chapitre' . basename($_POST['chapter_number'] . "-" . $_FILES['image_chapter']['name']));
         header('Location: manager.php');
         exit();
+
+
     }
 }
 
 // récupération du post publié pour l'afficher dans le formulaire en vue de le modifier.
-$req = $db->prepare('SELECT * FROM livre WHERE id = ?');
-$req->execute(array($_GET['chapitre']));
-$post_data = $req->fetch();
-// var_dump($_GET['chapitre']);
-
+$ChapterManager = new ChapterManager();
+$post_data = $ChapterManager->get($_GET['chapitre']);
 ?>
 
 
@@ -131,9 +134,9 @@ $post_data = $req->fetch();
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+              <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+              <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+            <![endif]-->
 
 </head>
 
@@ -191,49 +194,49 @@ $post_data = $req->fetch();
                     <form action="update-chapter.php?chapitre=<?php echo $_GET['chapitre']; ?>" method="POST" enctype="multipart/form-data">
                         <div class="row marg_top-60">
                             <div class="col-md-9 form-group">
-                                <input type="text" placeholder="Titre du chapitre" id="title" name="title" class="form-control manager_form" value="<?php echo $post_data['title'] ?>" />
+                                <input type="text" placeholder="Titre du chapitre" id="title" name="title" class="form-control manager_form" value="<?php echo $post_data->title() ?>" />
                             </div>
 
                             <div class="col-md-3 form-group">
-                                <input type="text" placeholder="N° de chapitre" id="chapter_number" name="chapter_number" class="form-control manager_form" value="<?php echo $post_data['chapter_number'] ?>" />
+                                <input type="text" placeholder="N° de chapitre" id="chapter_number" name="chapter_number" class="form-control manager_form" value="<?php echo $post_data->chapter_number() ?>" />
                             </div>
                         </div>
 
                         <div class="form-group">
                             <h4 class="marg_top-30">Contenu du chapitre :</h4>
-                            <textarea name="text_chapter" id="text_chapter" cols="50" rows="15" class="form-control manager_form marg_top-30"> <?php echo $post_data['text_chapter'] ?> </textarea>
+                            <textarea name="text_chapter" id="text_chapter" cols="50" rows="15" class="form-control manager_form marg_top-30"> <?php echo $post_data->text_chapter() ?> </textarea>
                         </div>
 
                         <div class="form-group ">
                             <h4 class="marg_top-30">Couleur de fond :</h4>
                             <div class="row">
                                 <div class="col-md-3 radio marg_top-15">
-                                    <label for="jaune" class="radio radio_marg"><input type="radio" name="couleur" value="jaune" class="radio_marg" <?php if (isset($post_data['couleur'])) {
-                                                                                                                                                        if ($post_data['couleur'] == "jaune") {
+                                    <label for="jaune" class="radio radio_marg"><input type="radio" name="couleur" value="jaune" class="radio_marg" <?php if (!empty($post_data->couleur())) {
+                                                                                                                                                        if ($post_data->couleur() == "jaune") {
                                                                                                                                                             echo 'checked';
                                                                                                                                                         }
                                                                                                                                                     } ?> /> Jaune </label>
                                 </div>
 
                                 <div class="col-md-3 radio marg_top-15">
-                                    <label for="Rouge" class="radio radio_marg"><input type="radio" name="couleur" value="rouge" class="radio_marg" <?php if (isset($post_data['couleur'])) {
-                                                                                                                                                        if ($post_data['couleur'] == "rouge") {
+                                    <label for="Rouge" class="radio radio_marg"><input type="radio" name="couleur" value="rouge" class="radio_marg" <?php if (!empty($post_data->couleur())) {
+                                                                                                                                                        if ($post_data->couleur() == "rouge") {
                                                                                                                                                             echo 'checked';
                                                                                                                                                         }
                                                                                                                                                     } ?> /> Rouge </label>
                                 </div>
 
                                 <div class="col-md-3 radio marg_top-15">
-                                    <label for="Vert" class="radio radio_marg"><input type="radio" name="couleur" value="vert" class="radio_marg" <?php if (isset($post_data['couleur'])) {
-                                                                                                                                                        if ($post_data['couleur'] == "vert") {
+                                    <label for="Vert" class="radio radio_marg"><input type="radio" name="couleur" value="vert" class="radio_marg" <?php if (!empty($post_data->couleur())) {
+                                                                                                                                                        if ($post_data->couleur() == "vert") {
                                                                                                                                                             echo 'checked';
                                                                                                                                                         }
                                                                                                                                                     } ?> /> Vert </label>
                                 </div>
 
                                 <div class="col-md-3 radio marg_top-15">
-                                    <label for="Bleu" class="radio radio_marg"><input type="radio" name="couleur" value="bleu" class="radio_marg" <?php if (isset($post_data['couleur'])) {
-                                                                                                                                                        if ($post_data['couleur'] == "bleu") {
+                                    <label for="Bleu" class="radio radio_marg"><input type="radio" name="couleur" value="bleu" class="radio_marg" <?php if (!empty($post_data->couleur())) {
+                                                                                                                                                        if ($post_data->couleur() == "bleu") {
                                                                                                                                                             echo 'checked';
                                                                                                                                                         }
                                                                                                                                                     } ?> /> Bleu </label>

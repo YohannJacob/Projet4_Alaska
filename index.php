@@ -1,18 +1,20 @@
 <?php
 session_start();
-// Appel vers la base de donnée
-try {
-    $db = new PDO('mysql:host=localhost;dbname=Alaska;charset=utf8', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-}
-// Gérer les erreurs
-catch (Exception $e) {
-    die('Erreur : ' . $e->getMessage());
-}
+require 'model/Commentaires.php';
+require 'model/CommentairesManager.php';
+require 'model/Chapter.php';
+require 'model/ChapterManager.php';
+
 // Aller chercher les données dans la table
-$reponse = $db->query('SELECT id FROM livre ORDER BY id DESC LIMIT 1');
-$data = $reponse->fetch();
-$reponse = $db->query('SELECT image_chapter FROM livre WHERE chapter_number = 1');
-$image = $reponse->fetch();
+// $reponse = $db->query('SELECT id FROM livre ORDER BY id DESC LIMIT 1');
+// $data = $reponse->fetch();
+
+// $reponse = $db->query('SELECT image_chapter FROM livre WHERE chapter_number = 1');
+// $image = $reponse->fetch();
+
+$chapterManager = new ChapterManager();
+$chapter = $chapterManager->get(117);
+
 ?>
 
 
@@ -77,14 +79,14 @@ $image = $reponse->fetch();
 
         <!-- photo  -->
         <div class="row photo">
-        <div class="col-12 col-md-7 offset-md-4"><img class="img-fluid" src="uploads/<?= htmlspecialchars($image['image_chapter']) ?>" alt="Billet simple pour l’Alaska"></div>
+        <div class="col-12 col-md-8 offset-md-4"><img class="img-fluid" src="uploads/<?= $chapter->image_chapter() ?>" alt="Billet simple pour l’Alaska"></div>
         </div>
         <!-- Background -->
         
         <div class="row footer">
             <div class="col-md-8 rectangle bleu"></div>
             <div class="col-md-4"></div>
-            <div class="col-md-8 last_chapter"><a href="chapter.php?chapitre=<?php echo $data['id']; ?>">Lire le dernier chapitre publié</a></div>
+            <div class="col-md-8 last_chapter"><a href="chapter.php?chapitre=<?php echo $chapter->id(); ?>">Lire le dernier chapitre publié</a></div>
 
             <div class="col-md-4 all_chapter"><a href="all_chapter.php">Tous les chapitres</a></div>
         </div>

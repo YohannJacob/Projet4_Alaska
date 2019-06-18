@@ -2,7 +2,7 @@
 class Commentaires
 {
     // Les atributs -----------------------------------  
-    private $_id_comment,
+    private $_id,
         $_id_chapter,
         $_pseudo,
         $_comment,
@@ -16,8 +16,8 @@ class Commentaires
     // Hydrater ---------------------------------------
     public function hydrate(array $commentaire)
     {
-        if (isset($commentaire['id_comment'])) {
-            $this->setIdComment($commentaire['id_comment']);
+        if (isset($commentaire['id'])) {
+            $this->setId($commentaire['id']);
         }
         if (isset($commentaire['id_chapter'])) {
             $this->setIdChapter($commentaire['id_chapter']);
@@ -43,9 +43,11 @@ class Commentaires
     }
 
     // Les getters -----------------------------------
-    public function idComment()
+    
+    
+    public function id()
     {
-        return $this->_id_comment;
+        return $this->_id;
     }
 
     public function idChapter()
@@ -74,9 +76,9 @@ class Commentaires
     }
 
     // Les setters ------------------------------------
-    public function setIdComment($id_comment)
+    public function setId($id)
     {
-        $this->_id_comment = $id_comment;
+        $this->_id = $id;
     }
 
     public function setIdChapter($id_chapter)
@@ -107,12 +109,7 @@ class Commentaires
 
     public function setReport($report)
     {
-        // On convertit l'argument en nombre entier.
-        $report = (int)$report;
-        // On vérifie ensuite si ce nombre est bien strictement positif.
-        if ($report > 0) {
-            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
-            $this->_report = htmlspecialchars($report);
-        }
+        // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
+        $this->_report = htmlspecialchars($report);
     }
 }

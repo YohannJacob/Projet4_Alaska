@@ -35,4 +35,45 @@ class ChapterManager
         $data = $req->fetch();
         return new Chapter($data);
     }
+
+        /**
+     * description de la function
+     *
+     * @param string $id_chapter
+     * @param string $order
+     * @return array
+     */
+    public function getList($order)
+    {
+        $listChapter = [];
+        $req = $this->_db->prepare('SELECT * FROM livre ORDER BY ? ');
+        $req->execute(array($order));
+
+        while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+            $listChapter[] = new Chapter($data);
+        }
+
+        return $listChapter;
+    }
+
+    public function delete($delete)
+    {
+        $req = $this->_db->prepare('DELETE FROM livre WHERE id = ?');
+        $req->execute(array($delete));
+    }
+    
+    public function update(Chapter $chapter)
+    {
+        $req = $this->_db->prepare('UPDATE livre SET chapter_number = :chapter_number, title = :title, text_chapter = :text_chapter, couleur = :couleur, image_chapter = :image_chapter WHERE id = :id');
+        $req->execute(array(
+            'chapter_number' => $chapter->chapter_number(),
+            'title' => $chapter->title(),
+            'text_chapter' => $chapter->text_chapter(),
+            'couleur' => $chapter->couleur(),
+            'image_chapter' => $chapter->image_chapter(),
+            'id' => $chapter->id(),
+        ));
+    }
 }
+
+

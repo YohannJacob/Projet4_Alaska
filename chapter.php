@@ -5,15 +5,6 @@ require 'model/CommentairesManager.php';
 require 'model/Chapter.php';
 require 'model/ChapterManager.php';
 
-// Appel vers la base de donnée
-try {
-    $db = new PDO('mysql:host=localhost;dbname=Alaska;charset=utf8', 'root', 'root');
-}
-// Gérer les erreurs
-catch (Exception $e) {
-    die('Erreur : ' . $e->getMessage());
-}
-
 if (!empty($_POST)) {
     $validation = true;
 
@@ -29,7 +20,7 @@ if (!empty($_POST)) {
         $commentaire = new Commentaires([
             'pseudo' => $_POST['pseudo'],
             'comment' => $_POST['comment'],
-            'id_chapter' => $_GET['chapitre'],           
+            'id_chapter' => $_GET['chapitre'],
         ]);
 
         $CommentairesManager = new CommentairesManager();
@@ -41,21 +32,23 @@ if (!empty($_POST)) {
 
 $CommentairesManager = new CommentairesManager();
 $listComment = $CommentairesManager->getList($_GET['chapitre']);
-// $listComment = $CommentairesManager->getList($_GET['chapitre'], 'DESC');
+
 
 // Aller chercher les données dans la table
 $chapterManager = new ChapterManager();
 $chapter = $chapterManager->get($_GET['chapitre']);
 
-
 //Signaler un commentaire en lui donnant un report = 1
-if (isset ($_GET['comment'])){
-    $req3 = $db->prepare('UPDATE commentaires SET report = "1" WHERE id = ?');
-    $req3->execute(array($_GET['comment']));
+if (isset($_GET['comment'])) {
+    $commentaire = new Commentaires([
+        'report' => 1,
+    ]);
+
+    $CommentairesManager = new CommentairesManager();
+    $CommentairesManager->update($_GET['comment']);
     header('Location: chapter.php?chapitre=' . $_GET['chapitre']);
     exit();
 }
-
 ?>
 
 
@@ -118,7 +111,7 @@ if (isset ($_GET['comment'])){
 
             <!-- photo  -->
             <div class="row photo_chapter">
-            <div class="col-12 col-md-7 offset-md-4"><img class="img-fluid" src="uploads/<?= $chapter->image_chapter() ?>" alt="<?= $chapter->title() ?>"></div>
+                <div class="col-12 col-md-7 offset-md-4"><img class="img-fluid" src="uploads/<?= $chapter->image_chapter() ?>" alt="<?= $chapter->title() ?>"></div>
             </div>
         </div>
 
@@ -136,18 +129,6 @@ if (isset ($_GET['comment'])){
                 <div class="col-md-10 offset-md-1 marg_top-60 text_serif">
                     <?= $chapter->text_chapter() ?>
                 </div>
-                <div class="col md-12">
-                    <div class="row">
-                        <?php
-                        if ($chapter->chapter_number() > 1) {
-                            echo '<div class="col-md-5 offset-md-1 marg_top-60  prev">Chapitre précédent</div>';
-                        } else {
-                            echo '<div class="col-md-5 offset-md-1 marg_top-60  prev"></div>';
-                        }
-                        ?>
-                        <div class="col-md-4 offset-md-1 marg_top-60 next"><a href="chapter.php?chapitre=<?php echo $idSuiv; ?>">Chapitre suivant</a></div>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -157,13 +138,13 @@ if (isset ($_GET['comment'])){
                 <div class="col-md-3 offset-md-1 marg_top-60 text_sans-serif">commentaires</div>
                 <div class="col md-12">
                     <div class="row">
-                        <?php foreach($listComment as $comment) {  ?>
-                            <div class="col-md-11 offset-md-1 marg_top-30 pseudo"><?= $comment->pseudo() ?></div>
+                        <?php foreach ($listComment as $comment) { ?>
+                            <div class="col-md-11 offset-md-1 marg_top-30 pseudo"><?= $comment->id() ?></div>
                             <div class="col-md-11 offset-md-1 comments"><?= $comment->comment() ?></div>
                             <div class="col-md-3 offset-md-8 alert_comment">
-                                <form action="chapter.php?chapitre=<?= $_GET['chapitre'] ?>&comment=<?= $commentaire['id'] ?>" >
+                                <form action="chapter.php?chapitre=<?= $_GET['chapitre'] ?>&comment=<?= $comment->id() ?>" method="POST">
                                     <button class="btn btn-primary" type="submit" id="signaler" name="signaler">signaler</button>
-                                </form>    
+                                </form>
                             </div>
                         <?php } ?>
                     </div>
