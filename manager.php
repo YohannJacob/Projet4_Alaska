@@ -14,12 +14,13 @@ catch (Exception $e) {
 }
 // Aller chercher les données dans la table
 $ChapterManager = new ChapterManager();
-$listChapter = $ChapterManager->getList('DESC');
+$listChapter = $ChapterManager->getList();
 
-//FIXME: je dois récupérer tous les comments pas seulement celui d'un chapitre
 $CommentairesManager = new CommentairesManager();
-$listComment = $CommentairesManager->getList(118);
-// for ($comment->id() = 1; $comment->id()<= 1000000; $comment->id()++)
+$listComment = $CommentairesManager->getAllComment();
+
+$CommentairesManager = new CommentairesManager();
+$listCommentReported = $CommentairesManager->getAllCommentReported();
 
 if (!empty($_GET['DEL'])) {
     $ChapterManager = new ChapterManager();
@@ -31,6 +32,13 @@ if (!empty($_GET['DEL'])) {
 if (!empty($_GET['DEL_COMMENT'])) {
     $CommentairesManager = new CommentairesManager();
     $delete = $CommentairesManager->delete($_GET['DEL_COMMENT']);
+    header('Location: manager.php');
+    exit();
+}
+
+if (!empty($_GET['VALIDATE_COMMENT'])) {
+    $CommentairesManager = new CommentairesManager();
+    $validate = $CommentairesManager->validate($_GET['VALIDATE_COMMENT']);
     header('Location: manager.php');
     exit();
 }
@@ -107,7 +115,7 @@ if (!empty($_GET['DEL_COMMENT'])) {
                             </div>
 
                             <div class="col-md-12 marg_top-30">
-                                <a href="deconnexion.php" class="nounderline">
+                                <a href="index.php" class="nounderline">
                                     <button type="button" class="btn btn-block ">
                                         visiter
                                     </button>
@@ -125,8 +133,6 @@ if (!empty($_GET['DEL_COMMENT'])) {
 
                         </div>
 
-
-
                     </div>
                 </div>
             </div>
@@ -140,7 +146,7 @@ if (!empty($_GET['DEL_COMMENT'])) {
                         <!-- Colonne derniers Chapitres postés -->
                         <div class="col-md-6">
                             <div class="row">
-                                <div class="col-md-11 titre_module_chapitre">LES DERNIERS CHAPITRES POSTÉS</div>
+                                <div class="col-md-11 titre_module_top jaune">LES DERNIERS CHAPITRES POSTÉS</div>
 
                                 <!-- Modules chapitre -->
                                 <?php foreach ($listChapter as $chapter) {  ?>
@@ -199,15 +205,122 @@ if (!empty($_GET['DEL_COMMENT'])) {
                         </div>
 
 
-                        <!-- Colonne derniers Commentaires postés -->
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-11 titre_module_commentaires">LES DERNIERS COMMENTAIRES POSTÉS</div>
 
-                                <!-- Modules comments -->
+                        <div class="col-md-6">
+
+                            <!-- Colonne commentaires à valider -->
+                            <div class="row">
+                                <div class="col-md-11 titre_module_top rouge">Commentaires à valider</div>
+
+                                <!-- Module comment à valider -->
+                                <?php foreach ($listCommentReported as $commentReported) { ?>
+
+                                    <!-- Modal comments pour validation -->
+                                    <div class="modal fade" id="validate_comment" tabindex="-1" role="dialog" aria-labelledby="validate_postLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="validate_postLabel">Validation d'un commentaire</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Vous êtes sur le point de valider ce commentaire, êtes vous certain de votre choix ?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>
+                                                    <a href="manager.php?VALIDATE_COMMENT=<?= $commentReported->id() ?>">
+                                                        <button type="button" class="btn btn-danger">Valider</button>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Modal comments pour suppression-->
+                                    <div class="modal fade" id="delete_comment" tabindex="-1" role="dialog" aria-labelledby="delete_postLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="delete_postLabel">Suppression d'un commentaire</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Êtes-vous certain de vouloir supprimer ce commentaire ?<br>Merci de confirmer votre choix.
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>
+                                                    <a href="manager.php?DEL_COMMENT=<?= $commentReported->id() ?>">
+                                                        <button type="button" class="btn btn-danger">Supprimer</button>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-11 marg_top-30">
+                                        <div class="row contenu_module_comments">
+                                            <!-- Contenu Num chapitre, titre et date de publication -->
+
+                                            <div class="col-md-8 contenu_padding ">
+                                                <div class="row">
+
+                                                    <p class="col-md-12 titre_module"> <?= $commentReported->comment() ?></p>
+                                                    <p class="col-md-12 date_publi">Publié le <?= $commentReported->dateComment() ?> </p>
+                                                    <p class="col-md-12 date_publi">Par <?= $commentReported->pseudo() ?></p>
+
+                                                </div>
+                                            </div>
+
+                                            <!-- Les boutons -->
+                                            <div class="col-md-4 separation_gauche">
+                                                <div class="row">
+                                                    <button type="button" class="col-md-12 btn btn-light bouton_modules_comment modifier" data-toggle="modal" data-target="#validate_comment">Valider</button>
+
+                                                    <!-- Button trigger modal -->
+                                                    <button type="button" class="col-md-12 btn btn-light bouton_modules_comment supprimer" data-toggle="modal" data-target="#delete_comment">Supprimer</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                            </div>
+
+                            <!-- Colonne tous les derniers commmentaires postés -->
+                            <div class="row">
+                                <div class="col-md-11 titre_module_top grey marg_top-30">LES DERNIERS COMMENTAIRES POSTÉS</div>
+
+                                <!-- Module tous les comments -->
                                 <?php foreach ($listComment as $comment) { ?>
 
-                                    <!-- Modal comments -->
+                                    <!-- Modal comments pour validation -->
+                                    <div class="modal fade" id="validate_comment" tabindex="-1" role="dialog" aria-labelledby="validate_postLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="validate_postLabel">Validation d'un commentaire</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Vous êtes sur le point de valider ce commentaire, êtes vous certain de votre choix ?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>
+                                                    <a href="manager.php?VALIDATE_COMMENT=<?= $comment->id() ?>">
+                                                        <button type="button" class="btn btn-danger">Valider</button>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Modal comments pour suppression-->
                                     <div class="modal fade" id="delete_comment" tabindex="-1" role="dialog" aria-labelledby="delete_postLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
@@ -247,8 +360,9 @@ if (!empty($_GET['DEL_COMMENT'])) {
 
                                             <!-- Les boutons -->
                                             <div class="col-md-4 separation_gauche">
-                                                <div class="row bouton_100h ">
-                                                    <button type="button" class="col-md-12 btn supprimer_comment" data-toggle="modal" data-target="#delete_comment">Supprimer</button>
+                                            <div class="row bouton_100h ">
+                                                <button type="button" class="col-md-12 btn supprimer_comment" data-toggle="modal" data-target="#delete_comment">Supprimer</button>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -256,7 +370,6 @@ if (!empty($_GET['DEL_COMMENT'])) {
                                 <?php } ?>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

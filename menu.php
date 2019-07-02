@@ -1,14 +1,16 @@
 <?php
-// Appel vers la base de donnée
-try {
-    $db = new PDO('mysql:host=localhost;dbname=Alaska;charset=utf8', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-}
-// Gérer les erreurs
-catch (Exception $e) {
-    die('Erreur : ' . $e->getMessage());
-}
+// // Appel vers la base de donnée
+// try {
+//     $db = new PDO('mysql:host=localhost;dbname=Alaska;charset=utf8', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+// }
+// // Gérer les erreurs
+// catch (Exception $e) {
+//     die('Erreur : ' . $e->getMessage());
+// }
 // // Aller chercher les données dans la table
-$reponse2 = $db->query('SELECT * FROM livre ORDER BY id');
+// $reponse2 = $db->query('SELECT * FROM livre ORDER BY id');
+$ChapterManager = new ChapterManager();
+$listChapter = $ChapterManager->getList('ASC');
 
 ?>
 <!doctype html>
@@ -36,8 +38,8 @@ $reponse2 = $db->query('SELECT * FROM livre ORDER BY id');
         </ul>
 
         <ul class="main">
-            <?php while ($menu = $reponse2->fetch()) { ?>
-                <li><a href="chapter.php?chapitre=<?php echo $menu['id']; ?>"> <?= htmlspecialchars($menu['chapter_number']) ?> / <?= htmlspecialchars($menu['title']) ?> </a></li>
+            <?php foreach($listChapter as $chapterMenu) { ?>
+                <li><a href="chapter.php?chapitre=<?= $chapterMenu->id(); ?>"> <?= $chapterMenu->chapter_number() ?> / <?= $chapterMenu->title() ?> </a></li>
             <?php } ?>
         </ul>
 

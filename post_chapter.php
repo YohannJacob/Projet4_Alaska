@@ -127,21 +127,42 @@ if (!empty($_POST)) {
 <body>
     <div class="container-fluid home">
         <div class="row">
-            <div class="col-md-3 menu bleu">
+        <div class="col-md-3 menu bleu">
                 <div class="row">
-                    <div class="col-md-8 offset-md-2 marg_top-60 d-flex justify-content-center text_sans-serif back_home">
+                    <div class="col-md-9 offset-md-2 marg_top-60 d-flex justify-content-center text_sans-serif back_home">
                         <a href="manager.php">JEAN FORTEROCHE</a>
                     </div>
 
+                    <div class="col-md-9 offset-md-2 marg_top-60 bouton_manager ">
+                        <div class="row ">
+                            <div class="col-md-12  ">
+                                <a href="post_chapter.php" class="nounderline">
+                                    <button type="button" class="btn btn-block">
+                                        PUBLIER
+                                        <i class="fas fa-plus-circle"></i>
+                                    </button>
+                                </a>
+                            </div>
 
+                            <div class="col-md-12 marg_top-30">
+                                <a href="index.php" class="nounderline">
+                                    <button type="button" class="btn btn-block ">
+                                        visiter
+                                    </button>
+                                </a>
+                            </div>
 
-                    <div class="col-md-8 offset-md-2 marg_top-60 d-flex justify-content-center bouton_manager">
-                        <a href="post_chapter.php">
-                            <button type="button" class="btn d-flex justify-content-center">
-                                AJOUTER UN CHAPITRE
-                                <i class="fas fa-plus-circle"></i>
-                            </button>
-                        </a>
+                            <div class="col-md-12 marg_top-30">
+                                <a href="deconnexion.php" class="nounderline">
+                                    <button type="button" class="btn btn-block ">
+                                        Log out
+                                        <i class="fas fa-sign-out-alt"></i>
+                                    </button>
+                                </a>
+                            </div>
+
+                        </div>
+
                     </div>
                 </div>
             </div>

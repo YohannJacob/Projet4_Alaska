@@ -43,11 +43,11 @@ class ChapterManager
      * @param string $order
      * @return array
      */
-    public function getList($order)
+    public function getList()
     {
         $listChapter = [];
-        $req = $this->_db->prepare('SELECT * FROM livre ORDER BY ? ');
-        $req->execute(array($order));
+        $req = $this->_db->prepare('SELECT * FROM livre ORDER BY chapter_number ASC ');
+        $req->execute([]);
 
         while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
             $listChapter[] = new Chapter($data);

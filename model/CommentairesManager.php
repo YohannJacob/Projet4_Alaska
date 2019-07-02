@@ -50,6 +50,42 @@ class CommentairesManager
         }
         return $list;
     }
+
+    /**
+     * description de la function
+     *
+     * @param string $id_chapter
+     * @return array
+     */
+    public function getAllComment()
+    {
+        $list = [];
+        $req = $this->_db->prepare('SELECT * FROM commentaires WHERE report = 0');
+        $req->execute();
+
+        while ($commentaire = $req->fetch(PDO::FETCH_ASSOC)) {
+            $list[] = new Commentaires($commentaire);
+        }
+        return $list;
+    }
+
+    /**
+     * description de la function
+     *
+     * @param string $id_chapter
+     * @return array
+     */
+    public function getAllCommentReported()
+    {
+        $list = [];
+        $req = $this->_db->prepare('SELECT * FROM commentaires WHERE report = 1');
+        $req->execute();
+
+        while ($commentaire = $req->fetch(PDO::FETCH_ASSOC)) {
+            $list[] = new Commentaires($commentaire);
+        }
+        return $list;
+    }
     /**
      * Fonction pour faire un Update de la base commentaire - changer le report en 1 pour signaler un post
      *@param string $comment
@@ -60,6 +96,18 @@ class CommentairesManager
         $req = $this->_db->prepare('UPDATE commentaires SET report = 1 WHERE id = ?');
         $req->execute(array($comment));
     }
+
+    /**
+     * Fonction pour faire un Update de la base commentaire - changer le report en 1 pour signaler un post
+     *@param string $comment
+     *@return array
+     */
+    public function validate($comment)
+    {
+        $req = $this->_db->prepare('UPDATE commentaires SET report = 0 WHERE id = ?');
+        $req->execute(array($comment));
+    }
+
 
     public function delete($delete)
     {

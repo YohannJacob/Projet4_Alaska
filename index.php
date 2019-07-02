@@ -13,7 +13,7 @@ require 'model/ChapterManager.php';
 // $image = $reponse->fetch();
 
 $chapterManager = new ChapterManager();
-$chapter = $chapterManager->get(117);
+$chapter = $chapterManager->get(125);
 
 ?>
 

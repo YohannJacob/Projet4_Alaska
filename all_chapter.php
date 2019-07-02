@@ -6,7 +6,8 @@ require 'model/Chapter.php';
 require 'model/ChapterManager.php';
 
 $ChapterManager = new ChapterManager();
-$listChapter = $ChapterManager->getList('DESC');
+$listChapter = $ChapterManager->getList('ASC');
+
 
 ?>
 
@@ -65,7 +66,7 @@ $listChapter = $ChapterManager->getList('DESC');
             <!-- Contenu -->
             <div class="contenu">
                 <!-- Titre / sous titre -->
-                <a href="chapter.php?chapitre=<?php echo $chapter->id() ?>">
+                <a href="chapter.php?chapitre=<?= $chapter->id() ?>">
                     <div class="row">
                         <div class="col-md-6 offset-md-1 chapter text_sans-serif">Chapitre N° <?= $chapter->chapter_number() ?></div>
                         <h1 class="col-md-6 offset-md-1 titre"><?= $chapter->title() ?></h1>

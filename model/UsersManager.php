@@ -2,7 +2,7 @@
 class UsersManager
 {
     // Les atributs ----------------------------------  
-    private $_db,
+    private $_db;
 
     // Implémenter le constructeur -------------------
     public function __construct()
