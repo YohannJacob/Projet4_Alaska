@@ -30,8 +30,8 @@
     <link href="https://fonts.googleapis.com/css?family=Volkhov:400,400i,700,700i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link href="style.css" rel="stylesheet">
-    <link href="menu.css" rel="stylesheet">
+    <link href="public/css/style.css" rel="stylesheet">
+    <link href="public/css/menu.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -63,7 +63,7 @@
                 </a>
                 <!-- photo  -->
                 <div class="row photo_chapter">
-                    <div class="col-12 col-md-7 offset-md-4"><img class="img-fluid" src="public/∑uploads/<?= $chapter->image_chapter() ?>" alt="<?= $chapter->title() ?>"></div>
+                    <div class="col-12 col-md-7 offset-md-4"><img class="img-fluid" src="public/uploads/<?= $chapter->image_chapter() ?>" alt="<?= $chapter->title() ?>"></div>
                 </div>
             </div>
 
