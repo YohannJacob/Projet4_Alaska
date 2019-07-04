@@ -28,12 +28,27 @@ class ChapterManager
             'image_chapter' => $chapter->image_chapter(),
         ));
     }
+    //FIXME:impossible de récupérer le dernier chapitre
+    public function getLastChapter()
+    {
+        $req = $this->_db->prepare('SELECT * FROM livre ORDER BY id DESC LIMIT 1');
+        $req->execute();
+        $data = $req->fetch();
+        return new Chapter ($data);
+
+    }
+
     public function get($id)
     {
         $req = $this->_db->prepare('SELECT * FROM livre WHERE id = ?');
         $req->execute(array($id));
         $data = $req->fetch();
-        return new Chapter($data);
+        if ($data){
+            return new Chapter($data);
+        }
+        else{
+            return false;
+        }
     }
 
         /**
@@ -52,7 +67,6 @@ class ChapterManager
         while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
             $listChapter[] = new Chapter($data);
         }
-
         return $listChapter;
     }
 

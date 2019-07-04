@@ -1,92 +1,3 @@
-<?php
-session_start();
-require 'model/Chapter.php';
-require 'model/ChapterManager.php';
-
-try {
-    $db = new PDO('mysql:host=localhost;dbname=Alaska;charset=utf8', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-}
-// Gérer les erreurs
-catch (Exception $e) {
-    die('Erreur : ' . $e->getMessage());
-}
-
-function verifdata($data)
-{
-    if (isset($data)) {
-        echo $data;
-    } else {
-        echo '';
-    }
-}
-
-if (!empty($_POST)) {
-    $validation = true;
-
-    if (empty($_POST['chapter_number'])) {
-        $erreurChapNumber = 'Merci de renseigner le numéro de chapitre';
-        $validation = false;
-    }
-    if (!is_numeric($_POST['chapter_number'])) {
-        $erreurChapNumber = 'Le numero de chapitre n\'est pas un chiffre';
-        $validation = false;
-    }
-
-    if (empty($_POST['title'])) {
-        $erreurTitle = 'Le titre est vide';
-        $validation = false;
-    }
-    if (empty($_POST['text_chapter'])) {
-        $erreurText = 'Le texte du chapitre est vide';
-        $validation = false;
-    }
-    if (empty($_POST['couleur'])) {
-        $erreurCouleur = 'Merci de choisir une couleur';
-        $validation = false;
-    }
-    if (empty($_FILES['image_chapter']['name'])) {
-        $erreurImage = 'Merci de choisir une image';
-        $validation = false;
-    }
-
-    if (filesize($_FILES['image_chapter']['tmp_name']) > 2500000) {
-        $erreurTailleImage = "Votre photo est trop grosse la taille limite est de 2 MO";
-        $validation = false;
-    }
-
-    $extensions = array('.png', '.gif', '.jpg', '.jpeg');
-    $extension = strrchr($_FILES['image_chapter']['name'], '.');
-    if (!in_array($extension, $extensions)) {
-        $erreurFormatImage = 'Vous devez uploader un fichier de type png, gif, jpg ou jpeg';
-        $validation = false;
-    }
-
-    if ($validation == true) {
-        $chapter = new Chapter([
-            'chapter_number' => $_POST['chapter_number'],
-            'title' => $_POST['title'],
-            'text_chapter' => $_POST['text_chapter'],
-            'couleur' => $_POST['couleur'],
-            'id' => $_GET['chapitre'],
-            'image_chapter' => "chapitre" . $_POST['chapter_number'] . "-" . $_FILES['image_chapter']['name'],
-        ]);
-        $ChapterManager = new ChapterManager();
-        $ChapterManager->update($chapter);
-
-        move_uploaded_file($_FILES['image_chapter']['tmp_name'], 'uploads/chapitre' . basename($_POST['chapter_number'] . "-" . $_FILES['image_chapter']['name']));
-        header('Location: manager.php');
-        exit();
-
-
-    }
-}
-
-// récupération du post publié pour l'afficher dans le formulaire en vue de le modifier.
-$ChapterManager = new ChapterManager();
-$post_data = $ChapterManager->get($_GET['chapitre']);
-?>
-
-
 <!-- ici on commence le HTML -->
 <!DOCTYPE html>
 <html lang="fr">
@@ -211,7 +122,7 @@ $post_data = $ChapterManager->get($_GET['chapitre']);
                             <?php } ?>
                         </div>
                     </div>
-                    <form action="update-chapter.php?chapitre=<?php echo $_GET['chapitre']; ?>" method="POST" enctype="multipart/form-data">
+                    <form action="index.php?action=updateChapter&chapitre=<?php echo $_GET['chapitre']; ?>" method="POST" enctype="multipart/form-data">
                         <div class="row marg_top-60">
                             <div class="col-md-9 form-group">
                                 <input type="text" placeholder="Titre du chapitre" id="title" name="title" class="form-control manager_form" value="<?php echo $post_data->title() ?>" />

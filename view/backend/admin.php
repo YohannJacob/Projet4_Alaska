@@ -1,52 +1,3 @@
-<?php
-session_start();
-require 'model/Commentaires.php';
-require 'model/CommentairesManager.php';
-require 'model/Chapter.php';
-require 'model/ChapterManager.php';
-// Appel vers la base de donnée
-try {
-    $db = new PDO('mysql:host=localhost;dbname=Alaska;charset=utf8', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-}
-// Gérer les erreurs
-catch (Exception $e) {
-    die('Erreur : ' . $e->getMessage());
-}
-// Aller chercher les données dans la table
-$ChapterManager = new ChapterManager();
-$listChapter = $ChapterManager->getList();
-
-$CommentairesManager = new CommentairesManager();
-$listComment = $CommentairesManager->getAllComment();
-
-$CommentairesManager = new CommentairesManager();
-$listCommentReported = $CommentairesManager->getAllCommentReported();
-
-if (!empty($_GET['DEL'])) {
-    $ChapterManager = new ChapterManager();
-    $delete = $ChapterManager->delete($_GET['DEL']);
-    header('Location: manager.php');
-    exit();
-}
-
-if (!empty($_GET['DEL_COMMENT'])) {
-    $CommentairesManager = new CommentairesManager();
-    $delete = $CommentairesManager->delete($_GET['DEL_COMMENT']);
-    header('Location: manager.php');
-    exit();
-}
-
-if (!empty($_GET['VALIDATE_COMMENT'])) {
-    $CommentairesManager = new CommentairesManager();
-    $validate = $CommentairesManager->validate($_GET['VALIDATE_COMMENT']);
-    header('Location: manager.php');
-    exit();
-}
-
-
-?>
-
-
 <!-- ici on commence le HTML -->
 <!DOCTYPE html>
 <html lang="fr">
@@ -100,13 +51,13 @@ if (!empty($_GET['VALIDATE_COMMENT'])) {
             <div class="col-md-3 menu bleu">
                 <div class="row">
                     <div class="col-md-9 offset-md-2 marg_top-60 d-flex justify-content-center text_sans-serif back_home">
-                        <a href="manager.php">JEAN FORTEROCHE</a>
+                        <a href="index.php?action=admin">JEAN FORTEROCHE</a>
                     </div>
 
                     <div class="col-md-9 offset-md-2 marg_top-60 bouton_manager ">
                         <div class="row ">
                             <div class="col-md-12  ">
-                                <a href="post_chapter.php" class="nounderline">
+                                <a href="index.php?action=postChapter" class="nounderline">
                                     <button type="button" class="btn btn-block">
                                         PUBLIER
                                         <i class="fas fa-plus-circle"></i>
@@ -152,7 +103,7 @@ if (!empty($_GET['VALIDATE_COMMENT'])) {
                                 <?php foreach ($listChapter as $chapter) {  ?>
 
                                     <!-- Modal -->
-                                    <div class="modal fade" id="delete_post" tabindex="-1" role="dialog" aria-labelledby="delete_postLabel" aria-hidden="true">
+                                    <div class="modal fade" id="delete_post<?= $chapter->id() ?>" tabindex="-1" role="dialog" aria-labelledby="delete_postLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -166,7 +117,7 @@ if (!empty($_GET['VALIDATE_COMMENT'])) {
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>
-                                                    <a href="manager.php?DEL=<?= $chapter->id() ?>">
+                                                    <a href="index.php?action=admin&DEL=<?= $chapter->id() ?>">
                                                         <button type="button" class="btn btn-danger">Supprimer</button>
                                                     </a>
                                                 </div>
@@ -178,7 +129,6 @@ if (!empty($_GET['VALIDATE_COMMENT'])) {
                                     <div class="col-md-11 marg_top-30">
                                         <div class="row contenu_module_chapitre">
                                             <!-- Contenu Num chapitre, titre et date de publication -->
-
                                             <div class="col-md-8 contenu_padding ">
                                                 <div class="row ">
                                                     <h5 class="col-md-12">Chapitre N° <?= $chapter->chapter_number() ?> </h5>
@@ -190,10 +140,10 @@ if (!empty($_GET['VALIDATE_COMMENT'])) {
                                             <!-- Les boutons -->
                                             <div class="col-md-4 separation_gauche">
                                                 <div class="row">
-                                                    <button type="button" class="col-md-12 btn btn-light bouton_modules_chapitre modifier"> <a href="update-chapter.php?chapitre=<?php echo $chapter->id() ?>">Modifier</a></button>
+                                                    <button type="button" class="col-md-12 btn btn-light bouton_modules_chapitre modifier"> <a href="index.php?action=updateChapter&chapitre=<?php echo $chapter->id() ?>">Modifier</a></button>
 
                                                     <!-- Button trigger modal -->
-                                                    <button type="button" class="col-md-12 btn btn-light bouton_modules_chapitre supprimer" data-toggle="modal" data-target="#delete_post">Supprimer</button>
+                                                    <button type="button" class="col-md-12 btn btn-light bouton_modules_chapitre supprimer" data-toggle="modal" data-target="#delete_post<?= $chapter->id() ?>">Supprimer</button>
                                                 </div>
                                             </div>
 
@@ -216,7 +166,7 @@ if (!empty($_GET['VALIDATE_COMMENT'])) {
                                 <?php foreach ($listCommentReported as $commentReported) { ?>
 
                                     <!-- Modal comments pour validation -->
-                                    <div class="modal fade" id="validate_comment" tabindex="-1" role="dialog" aria-labelledby="validate_postLabel" aria-hidden="true">
+                                    <div class="modal fade" id="validate_comment<?= $commentReported->id() ?>" tabindex="-1" role="dialog" aria-labelledby="validate_postLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -230,7 +180,7 @@ if (!empty($_GET['VALIDATE_COMMENT'])) {
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>
-                                                    <a href="manager.php?VALIDATE_COMMENT=<?= $commentReported->id() ?>">
+                                                    <a href="index.php?action=admin&VALIDATE_COMMENT=<?= $commentReported->id() ?>">
                                                         <button type="button" class="btn btn-danger">Valider</button>
                                                     </a>
                                                 </div>
@@ -239,7 +189,7 @@ if (!empty($_GET['VALIDATE_COMMENT'])) {
                                     </div>
 
                                     <!-- Modal comments pour suppression-->
-                                    <div class="modal fade" id="delete_comment" tabindex="-1" role="dialog" aria-labelledby="delete_postLabel" aria-hidden="true">
+                                    <div class="modal fade" id="delete_comment<?= $commentReported->id() ?>" tabindex="-1" role="dialog" aria-labelledby="delete_postLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -253,7 +203,7 @@ if (!empty($_GET['VALIDATE_COMMENT'])) {
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>
-                                                    <a href="manager.php?DEL_COMMENT=<?= $commentReported->id() ?>">
+                                                    <a href="index.php?action=admin&DEL_COMMENT=<?= $commentReported->id() ?>">
                                                         <button type="button" class="btn btn-danger">Supprimer</button>
                                                     </a>
                                                 </div>
@@ -279,10 +229,10 @@ if (!empty($_GET['VALIDATE_COMMENT'])) {
                                             <!-- Les boutons -->
                                             <div class="col-md-4 separation_gauche">
                                                 <div class="row">
-                                                    <button type="button" class="col-md-12 btn btn-light bouton_modules_comment modifier" data-toggle="modal" data-target="#validate_comment">Valider</button>
+                                                    <button type="button" class="col-md-12 btn btn-light bouton_modules_comment modifier" data-toggle="modal" data-target="#validate_comment<?= $commentReported->id() ?>">Valider</button>
 
                                                     <!-- Button trigger modal -->
-                                                    <button type="button" class="col-md-12 btn btn-light bouton_modules_comment supprimer" data-toggle="modal" data-target="#delete_comment">Supprimer</button>
+                                                    <button type="button" class="col-md-12 btn btn-light bouton_modules_comment supprimer" data-toggle="modal" data-target="#delete_comment<?= $commentReported->id() ?>">Supprimer</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -312,7 +262,7 @@ if (!empty($_GET['VALIDATE_COMMENT'])) {
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>
-                                                    <a href="manager.php?VALIDATE_COMMENT=<?= $comment->id() ?>">
+                                                    <a href="index.php?action=admin&VALIDATE_COMMENT=<?= $comment->id() ?>">
                                                         <button type="button" class="btn btn-danger">Valider</button>
                                                     </a>
                                                 </div>
@@ -321,7 +271,7 @@ if (!empty($_GET['VALIDATE_COMMENT'])) {
                                     </div>
 
                                     <!-- Modal comments pour suppression-->
-                                    <div class="modal fade" id="delete_comment" tabindex="-1" role="dialog" aria-labelledby="delete_postLabel" aria-hidden="true">
+                                    <div class="modal fade" id="delete_comment<?= $comment->id() ?>" tabindex="-1" role="dialog" aria-labelledby="delete_postLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -335,7 +285,7 @@ if (!empty($_GET['VALIDATE_COMMENT'])) {
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>
-                                                    <a href="manager.php?DEL_COMMENT=<?= $comment->id() ?>">
+                                                    <a href="index.php?action=admin&DEL_COMMENT=<?= $comment->id() ?>">
                                                         <button type="button" class="btn btn-danger">Supprimer</button>
                                                     </a>
                                                 </div>
@@ -360,8 +310,8 @@ if (!empty($_GET['VALIDATE_COMMENT'])) {
 
                                             <!-- Les boutons -->
                                             <div class="col-md-4 separation_gauche">
-                                            <div class="row bouton_100h ">
-                                                <button type="button" class="col-md-12 btn supprimer_comment" data-toggle="modal" data-target="#delete_comment">Supprimer</button>
+                                                <div class="row bouton_100h ">
+                                                    <button type="button" class="col-md-12 btn supprimer_comment" data-toggle="modal" data-target="#delete_comment<?= $comment->id() ?>">Supprimer</button>
 
                                                 </div>
                                             </div>

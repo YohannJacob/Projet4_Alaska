@@ -1,15 +1,3 @@
-<?php
-session_start();
-require 'model/Commentaires.php';
-require 'model/CommentairesManager.php';
-require 'model/Chapter.php';
-require 'model/ChapterManager.php';
-
-$ChapterManager = new ChapterManager();
-$listChapter = $ChapterManager->getList('ASC');
-
-
-?>
 
 <!-- ici on commence le HTML -->
 <!DOCTYPE html>
@@ -66,7 +54,7 @@ $listChapter = $ChapterManager->getList('ASC');
             <!-- Contenu -->
             <div class="contenu">
                 <!-- Titre / sous titre -->
-                <a href="chapter.php?chapitre=<?= $chapter->id() ?>">
+                <a href="index.php?action=chapter&chapitre=<?= $chapter->id() ?>">
                     <div class="row">
                         <div class="col-md-6 offset-md-1 chapter text_sans-serif">Chapitre N° <?= $chapter->chapter_number() ?></div>
                         <h1 class="col-md-6 offset-md-1 titre"><?= $chapter->title() ?></h1>
@@ -75,7 +63,7 @@ $listChapter = $ChapterManager->getList('ASC');
                 </a>
                 <!-- photo  -->
                 <div class="row photo_chapter">
-                    <div class="col-12 col-md-7 offset-md-4"><img class="img-fluid" src="uploads/<?= $chapter->image_chapter() ?>" alt="<?= $chapter->title() ?>"></div>
+                    <div class="col-12 col-md-7 offset-md-4"><img class="img-fluid" src="public/∑uploads/<?= $chapter->image_chapter() ?>" alt="<?= $chapter->title() ?>"></div>
                 </div>
             </div>
 

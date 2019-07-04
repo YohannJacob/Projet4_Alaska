@@ -1,76 +1,3 @@
-<?php
-session_start();
-require 'model/Chapter.php';
-require 'model/ChapterManager.php';
-
-function verifdata($data)
-{
-    if (isset($data)) {
-        echo $data;
-    } else {
-        echo '';
-    }
-}
-
-if (!empty($_POST)) {
-    $validation = true;
-
-    if (empty($_POST['chapter_number'])) {
-        $erreurChapNumber = 'Merci de renseigner le numéro de chapitre';
-        $validation = false;
-    }
-    if (!is_numeric($_POST['chapter_number'])) {
-        $erreurChapNumber = 'Le numero de chapitre n\'est pas un chiffre';
-        $validation = false;
-    }
-
-    if (empty($_POST['title'])) {
-        $erreurTitle = 'Le titre est vide';
-        $validation = false;
-    }
-    if (empty($_POST['text_chapter'])) {
-        $erreurText = 'Le texte du chapitre est vide';
-        $validation = false;
-    }
-    if (empty($_POST['couleur'])) {
-        $erreurCouleur = 'Merci de choisir une couleur';
-        $validation = false;
-    }
-    if (empty($_FILES['image_chapter']['name'])) {
-        $erreurImage = 'Merci de choisir une image';
-        $validation = false;
-    }
-
-    if (filesize($_FILES['image_chapter']['tmp_name']) > 2500000) {
-        $erreurTailleImage = "Votre photo est trop grosse la taille limite est de 2 MO";
-        $validation = false;
-    }
-
-    $extensions = array('.png', '.gif', '.jpg', '.jpeg');
-    $extension = strrchr($_FILES['image_chapter']['name'], '.');
-    if (!in_array($extension, $extensions)) {
-        $erreurFormatImage = 'Vous devez uploader un fichier de type png, gif, jpg ou jpeg';
-        $validation = false;
-    }
-
-    if ($validation == true) {
-        $chapter = new Chapter([
-            'chapter_number' => $_POST['chapter_number'],
-            'title' => $_POST['title'],
-            'text_chapter' => $_POST['text_chapter'],
-            'couleur' => $_POST['couleur'],
-            'image_chapter' => "chapitre" . $_POST['chapter_number'] . "-" . $_FILES['image_chapter']['name'],
-        ]);
-        $ChapterManager = new ChapterManager();
-        $ChapterManager->add($chapter);
-
-        
-        move_uploaded_file($_FILES['image_chapter']['tmp_name'], 'uploads/chapitre' . basename($_POST['chapter_number'] . "-" . $_FILES['image_chapter']['name']));
-        header('Location: manager.php');
-        exit();
-    }
-}
-?>
 
 <!-- ici on commence le HTML -->
 <!DOCTYPE html>
@@ -130,13 +57,13 @@ if (!empty($_POST)) {
         <div class="col-md-3 menu bleu">
                 <div class="row">
                     <div class="col-md-9 offset-md-2 marg_top-60 d-flex justify-content-center text_sans-serif back_home">
-                        <a href="manager.php">JEAN FORTEROCHE</a>
+                    <a href="index.php?action=admin">JEAN FORTEROCHE</a>
                     </div>
 
                     <div class="col-md-9 offset-md-2 marg_top-60 bouton_manager ">
                         <div class="row ">
                             <div class="col-md-12  ">
-                                <a href="post_chapter.php" class="nounderline">
+                                <a href="index.php?action=postChapter" class="nounderline">
                                     <button type="button" class="btn btn-block">
                                         PUBLIER
                                         <i class="fas fa-plus-circle"></i>
@@ -196,7 +123,7 @@ if (!empty($_POST)) {
                             <?php } ?>
                         </div>
                     </div>
-                    <form action="post_chapter.php" method="POST" enctype="multipart/form-data">
+                    <form action="index.php?action=postChapter" method="POST" enctype="multipart/form-data">
                         <div class="row marg_top-60">
                             <div class="col-md-9 form-group">
                                 <input type="text" placeholder="Titre du chapitre" id="title" name="title" class="form-control manager_form" value="<?php if (isset($_POST['title'])) {

@@ -1,69 +1,10 @@
 <?php
-session_start();
-require 'model/Commentaires.php';
-require 'model/CommentairesManager.php';
-require 'model/Chapter.php';
-require 'model/ChapterManager.php';
+// session_start();
+// require 'model/Commentaires.php';
+// require 'model/CommentairesManager.php';
+// require 'model/Chapter.php';
+// require 'model/ChapterManager.php';
 
-if (!empty($_POST)) {
-    $validation = true;
-
-    if (empty($_POST['pseudo'])) {
-        $erreurPseudo = 'le pseudo est vide';
-        $validation = false;
-    }
-    if (empty($_POST['comment'])) {
-        $erreurComment = 'le commentaire est vide';
-        $validation = false;
-    }
-    if ($validation == true) {
-        $commentaire = new Commentaires([
-            'pseudo' => $_POST['pseudo'],
-            'comment' => $_POST['comment'],
-            'id_chapter' => $_GET['chapitre'],
-        ]);
-
-        $CommentairesManager = new CommentairesManager();
-        $CommentairesManager->add($commentaire);
-        header('Location: chapter.php?chapitre=' . $_GET['chapitre']);
-        exit();
-    }
-}
-
-$CommentairesManager = new CommentairesManager();
-$listComment = $CommentairesManager->getList($_GET['chapitre']);
-
-// // Aller chercher les données dans la table
-$chapterManager = new ChapterManager();
-$chapter = $chapterManager->get($_GET['chapitre']);
-
-
-//FIXME: $ChapterManager = new ChapterManager();
-// $listChapter = $ChapterManager->getList('ASC');
-
-// foreach ($listChapter as $check) {
-//     if (!$check->id()) {
-//         header('location: index.php');
-//     } else {
-//         echo 'id OK';
-//         $chapterManager = new ChapterManager();
-//         $chapter = $chapterManager->get($_GET['chapitre']);
-//     }
-// }
-
-
-
-//Signaler un commentaire en lui donnant un report = 1
-if (isset($_GET['comment'])) {
-    $commentaire = new Commentaires([
-        'report' => 1,
-    ]);
-
-    $CommentairesManager = new CommentairesManager();
-    $CommentairesManager->update($_GET['comment']);
-    header('Location: chapter.php?chapitre=' . $_GET['chapitre']);
-    exit();
-}
 ?>
 
 
@@ -126,7 +67,7 @@ if (isset($_GET['comment'])) {
 
             <!-- photo  -->
             <div class="row photo_chapter">
-                <div class="col-12 col-md-7 offset-md-4"><img class="img-fluid" src="uploads/<?= $chapter->image_chapter() ?>" alt="<?= $chapter->title() ?>"></div>
+                <div class="col-12 col-md-7 offset-md-4"><img class="img-fluid" src="public/uploads/<?= $chapter->image_chapter() ?>" alt="<?= $chapter->title() ?>"></div>
             </div>
         </div>
 
@@ -134,7 +75,7 @@ if (isset($_GET['comment'])) {
         <div class="row background">
             <div class="col-12 col-md-8 rectangle <?= $chapter->couleur() ?>"></div>
             <div class="col-12 col-md-4"></div>
-            <div class="col-12 col-md-4 offset-md-8 all_chapter fixed"><a href="all_chapter.php">Liste des chapitres</a></div>
+            <div class="col-12 col-md-4 offset-md-8 all_chapter fixed"><a href="index.php?action=allChapter">Liste des chapitres</a></div>
         </div>
 
         <!-- Contenu -->
@@ -157,7 +98,7 @@ if (isset($_GET['comment'])) {
                             <div class="col-md-11 offset-md-1 marg_top-30 pseudo"><?= $comment->pseudo() ?></div>
                             <div class="col-md-11 offset-md-1 comments"><?= $comment->comment() ?></div>
                             <div class="col-md-3 offset-md-8 alert_comment">
-                                <form action="chapter.php?chapitre=<?= $_GET['chapitre'] ?>&comment=<?= $comment->id() ?>" method="POST">
+                                <form action="index.php?action=chapter&chapitre=<?= $_GET['chapitre'] ?>&comment=<?= $comment->id() ?>" method="POST">
                                     <button class="btn btn-primary" type="submit" id="signaler" name="signaler">signaler</button>
                                 </form>
                             </div>
@@ -169,7 +110,7 @@ if (isset($_GET['comment'])) {
             <div class="col-md-4 add_comment">
                 <div class="col-md-11 title_add_comment"> Ajouter votre commentaire</div>
                 <div class="col-md-11">
-                    <form action="chapter.php?chapitre=<?php echo $chapter->id(); ?>" method="POST">
+                    <form action="index.php?action=chapter&chapitre=<?php echo $chapter->id(); ?>" method="POST">
                         <div class="col-md-11 form-group">
                             <p><input type="text" id="pseudo" name="pseudo" placeholder="Pseudo" class="form-control commentaire_form" /></p>
                             <?php if (isset($erreurPseudo)) { ?>

@@ -1,47 +1,3 @@
-<?php
-// Appel vers la base de donnée
-try {
-    $bdd = new PDO('mysql:host=localhost;dbname=Alaska;charset=utf8', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-}
-// Gérer les erreurs
-catch (Exception $e) {
-    die('Erreur : ' . $e->getMessage());
-}
-
-session_start();
-if (!empty($_SESSION)) {
-    header('location: index.php?action=admin');
-}
-
-//  Récupération de l'utilisateur et de son pass hashé
-if (!empty($_POST)) {
-    $req = $bdd->prepare('SELECT id, pass FROM users WHERE pseudo = :pseudo');
-    $req->execute(array(
-        'pseudo' => $_POST['pseudo']
-    ));
-
-    $resultat = $req->fetch();
-
-    $isPasswordCorrect = password_verify($_POST['pass'], $resultat['pass']);
-
-    if (!$resultat) {
-        echo 'Mauvais identifiant ou mot de passe !';
-    } else {
-        if ($isPasswordCorrect) {
-            session_start();
-            $_SESSION['id'] = $resultat['id'];
-            $_SESSION['pseudo'] = $_POST['pseudo'];
-            // $_SESSION['pseudo'] = $pseudo;
-            header('location: index.php?action=admin');
-        } else {
-            echo $_POST['pseudo'] . 'Mauvais identifiant ou mot de passe !';
-        }
-    }
-}
-
-?>
-
-<!-- ici on commence le HTML -->
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -87,24 +43,34 @@ if (!empty($_POST)) {
 </head>
 
 <body>
-    <div class="container-fluid image_cover">
-        <div class="row centered">
-            <h1 class="col-12 offset-1 col-md-4 offset-md-1 hello">Bonjour. Merci de vous identifier.</h1>
-            <div class="col-12 offset-1 col-md-6 offset-md-1 inscription">
-                <form action="connexion.php" method="POST">
-
-                    <p><label>Pseudo :</label></p>
-                    <input type="text" id="pseudo" name="pseudo" />
-
-                    <p><label>Mot de passe :</label></p>
-                    <input type="password" id="pass" name="pass" />
-
-                    <input type="submit" value="Valider" id="bt_post" class="btn btn-primary marg_top-60" />
-
-                    <p><a href="inscription.php">Pas encore inscrit ? Créez votre compte.</a></p>
-
-                </form>
-            </div>
+    <div class="container-fluid home">
+        <!-- Menu -->
+        <div class="row menunav">
+        <div class="col-8 offset-1 col-sm-8 col-md-4 offset-md-1 back_home text_sans-serif"><a href="index.php">JEAN FORTEROCHE</a></div>
+            <div class="col-md-4 offset-md-3"><?php include("menu.php"); ?></div>
         </div>
+
+        <!-- Titre / sous titre -->
+        <div class="row ">
+            <h1 class="col-md-6 offset-md-1 titre">Billet simple pour l’Alaska</h1>
+            <div class="col-md-4 offset-md-1 sous-titre">Un livre-blog publié par Jean Forteroche</div>
+
+        </div>
+
+        <!-- photo  -->
+        <div class="row photo">
+        <div class="col-12 col-md-8 offset-md-4"><img class="img-fluid" src="public/uploads/<?= $chapter->image_chapter() ?>" alt="Billet simple pour l’Alaska"></div>
+        </div>
+        <!-- Background -->
+        
+        <div class="row footer">
+            <div class="col-md-8 rectangle bleu"></div>
+            <div class="col-md-4"></div>
+            <div class="col-md-8 last_chapter"><a href="index.php?action=chapter&chapitre=<?php echo $chapter->id(); ?>">Lire le dernier chapitre publié</a></div>
+
+            <div class="col-md-4 all_chapter"><a href="index.php?action=allChapter">Tous les chapitres</a></div>
+        </div>
+
     </div>
+
 </body>
