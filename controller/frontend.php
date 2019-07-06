@@ -48,6 +48,10 @@ function chapter()
     $chapterManager = new ChapterManager();
     $chapter = $chapterManager->get($_GET['chapitre']);
 
+    if ($chapter == false){
+        header('Location: index.php?action=allChapter');
+    }
+
 
     //Signaler un commentaire en lui donnant un report = 1
     if (isset($_GET['comment'])) {

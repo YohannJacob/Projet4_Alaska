@@ -297,7 +297,7 @@ nav ul.sub {
     text-align: center;
     margin: auto;
     width: 100%;
-    bottom: 0px;
+    bottom: 50px;
     -webkit-transform: translateY(30px);
     -moz-transform: translateY(30px);
     -ms-transform: translateY(30px);

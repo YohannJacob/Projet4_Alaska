@@ -1,14 +1,4 @@
 <?php
-// // Appel vers la base de donnée
-// try {
-//     $db = new PDO('mysql:host=localhost;dbname=Alaska;charset=utf8', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-// }
-// // Gérer les erreurs
-// catch (Exception $e) {
-//     die('Erreur : ' . $e->getMessage());
-// }
-// // Aller chercher les données dans la table
-// $reponse2 = $db->query('SELECT * FROM livre ORDER BY id');
 $ChapterManager = new ChapterManager();
 $listChapter = $ChapterManager->getList('ASC');
 

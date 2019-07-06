@@ -1,57 +1,66 @@
 <!-- Ici commence le php -->
 <?php
 // Appel vers la base de donnée
-try {
-    $bdd = new PDO('mysql:host=localhost;dbname=Alaska;charset=utf8', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-}
-// Gérer les erreurs
-catch (Exception $e) {
-    die('Erreur : ' . $e->getMessage());
-}
-
-// Déclaration des variables vide pour le fonctionnement de la page
-$erreurPseudo = false;
-$erreurMail = false;
-$erreurMdp = false;
-$erreurMailForm = false;
-$confirmationInscription = false;
+// try {
+//     $bdd = new PDO('mysql:host=localhost;dbname=Alaska;charset=utf8', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+// }
+// // Gérer les erreurs
+// catch (Exception $e) {
+//     die('Erreur : ' . $e->getMessage());
+// }
 
 // Vérification si une session est ouverte
 session_start();
+require 'model/User.php';
+require 'model/UsersManager.php';
+
 if (!empty($_SESSION)) {
-    header('location: manager.php');
+    header('Location: index.php?action=admin');
 }
+
+// Déclaration des variables vide pour le fonctionnement de la page
+$errorCreatePseudo = false;
+$errorCreateMail = false;
+$errorCreateMdp = false;
+$errorCreateMailForm = false;
+$confirmInscription = false;
+$errorLogin = false;
+$errorPassword = false;
 
 // Vérification de la validité des informations
 
 if (isset($_POST['pseudo']) && isset($_POST['mail']) && isset($_POST['pass']) && isset($_POST['passVerif'])) {
+    $req = new UsersManager();
+    $verifPseudo = $req->getPseudo($_POST['pseudo']);
     // vérification du pseudo dans la base de donneés
-    $reqPseudo = $bdd->prepare('SELECT pseudo FROM users WHERE pseudo = ? ');
-    $reqPseudo->execute(array(htmlspecialchars($_POST['pseudo'])));
-    $verifPseudo = $reqPseudo->fetch();
-    $reqPseudo->closeCursor();
+    // $reqPseudo = $bdd->prepare('SELECT pseudo FROM users WHERE pseudo = ? ');
+    // $reqPseudo->execute(array(htmlspecialchars($_POST['pseudo'])));
+    // $verifPseudo = $reqPseudo->fetch();
 
-    // vérification du mail dans la base de donneés
-    $reqMail = $bdd->prepare('SELECT mail FROM users WHERE mail = ? ');
-    $reqMail->execute(array(htmlspecialchars($_POST['mail'])));
-    $verifMail = $reqMail->fetch();
-    $reqMail->closeCursor();
+    $verifMail = $req->getMail($_POST['mail']);
+    // // vérification du mail dans la base de donneés
+    // $reqMail = $bdd->prepare('SELECT mail FROM users WHERE mail = ? ');
+    // $reqMail->execute(array(htmlspecialchars($_POST['mail'])));
+    // $verifMail = $reqMail->fetch();
+    // $reqMail->closeCursor();
 
     include 'erreur.php';
 
-    if ((strtolower($_POST['pseudo']) != strtolower($verifPseudo['pseudo'])) && (strtolower($_POST['mail']) != $verifMail['mail']) && ($_POST['pass'] == $_POST['passVerif'])) {
-
-        $_POST['mail'] = htmlspecialchars($_POST['mail']); // On rend inoffensives les balises HTML que le visiteur a pu rentrer
+    if ((strtolower($_POST['pseudo']) != strtolower($verifPseudo->pseudo()) && (strtolower($_POST['mail'])) != $verifMaiL->mail() && ($_POST['pass'] == $_POST['passVerif']))) {
         $pass_hache = password_hash($_POST['pass'], PASSWORD_DEFAULT);
-        $req = $bdd->prepare('INSERT INTO users(pseudo, pass, mail) VALUES(:pseudo, :pass, :mail)');
-        $req->execute(array(
+
+        $user = new User([
             'pseudo' => $_POST['pseudo'],
             'pass' => $pass_hache,
             'mail' => $_POST['mail'],
-        ));
+        ]);
+        $newUser = new UsersManager();
+        $newUser->addUser($user);
+
 
         $_SESSION['pseudo'] = $_POST['pseudo'];
-        header('location: manager.php');
+        header('location: index.php?action=admin');
+        exit();
     }
 }
 
@@ -66,7 +75,7 @@ if (isset($_POST['pseudo']) && isset($_POST['mail']) && isset($_POST['pass']) &&
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Billet simple pour l'Alaska</title>
+    <title>Inscription</title>
     <meta name="description" content="Un billet pour l'alaska, le blog de l'écrivain Jean Forteroche">
 
     <!-- Twitter Card data -->
@@ -89,7 +98,7 @@ if (isset($_POST['pseudo']) && isset($_POST['mail']) && isset($_POST['pass']) &&
     <link href="https://fonts.googleapis.com/css?family=Volkhov:400,400i,700,700i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link href="style.css" rel="stylesheet">
+    <link href="public/css/style.css" rel="stylesheet">
 
 
 
@@ -107,8 +116,8 @@ if (isset($_POST['pseudo']) && isset($_POST['mail']) && isset($_POST['pass']) &&
 
     <div class="container-fluid image_cover">
         <div class="row centered">
-            <h1 class="col-12 offset-1 col-md-4 offset-md-1 hello">Bonjour.<br>Sur cette page vous pouvez créer votre compte.</h1>
-            <div class="col-12 offset-1 col-md-6 offset-md-1 inscription">
+            <h1 class="col-10 offset-1 col-md-4 offset-md-1 hello">Bonjour.<br>Sur cette page vous pouvez créer votre compte.</h1>
+            <div class="col-10 offset-1 col-md-6 offset-md-1 inscription">
                 <form action="inscription.php" method="POST" enctype="multipart/form-data">
                     <div class="col-md-12 form-group">
                         <h2>Veuillez choisir votre identifiant et mot de passe.</h2>
@@ -127,10 +136,10 @@ if (isset($_POST['pseudo']) && isset($_POST['mail']) && isset($_POST['pass']) &&
 
                         <p><input type="submit" value="Valider" id="bt_post" class="btn btn-primary marg_top-60" /></p>
 
-                        <?php echo $erreurPseudo; ?>
-                        <?php echo $erreurMail; ?>
-                        <?php echo $erreurMdp; ?>
-                        <?php echo $erreurMailForm; ?>
+                        <?php echo $errorCreatePseudo; ?>
+                        <?php echo $errorCreateMail; ?>
+                        <?php echo $errorCreateMdp; ?>
+                        <?php echo $errorCreateMailForm; ?>
                     </div>
                 </form>
             </div>

@@ -54,8 +54,8 @@ session_destroy();
 <body>
     <div class="container-fluid image_cover">
         <div class="row centered">
-            <h1 class="col-12 offset-1 col-md-4 offset-md-1 hello">Vous êtes désormais déconnecté.</h1>
-            <div class="col-12 offset-1 col-md-6 offset-md-1 inscription">
+            <h1 class="col-10 offset-1 col-md-4 offset-md-1 hello">Vous êtes désormais déconnecté.</h1>
+            <div class="col-10 offset-1 col-md-6 offset-md-1 inscription">
                 <div class="col-md-12 form-group">
                     <nav>
                         <ul class="back">

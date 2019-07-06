@@ -9,7 +9,7 @@
                     <a href="index.php?action=admin">JEAN FORTEROCHE</a>
                 </div>
 
-                <div class="col-md-9 offset-md-2 marg_top-60 bouton_manager ">
+                <div class="col-8 offset-2 col-md-9 offset-md-2 marg_top-60 bouton_manager ">
                     <div class="row ">
                         <div class="col-md-12  ">
                             <a href="index.php?action=postChapter" class="nounderline">
@@ -43,14 +43,14 @@
             </div>
         </div>
 
-        <div class="col-md-7 offset-md-1">
+        <div class="col-10 offset-1 col-md-7 offset-md-1">
             <h1 class="text_serif marg_top-60 titre_manager"><?php echo $_SESSION['pseudo'] . ', bienvenue sur votre espace de gestion.' ?> </h1>
             <p class="marg_top-15">Ici vous pourrez administrer les contenus de votre blog.</p>
 
             <div class="content">
                 <div class="row marg_top-30">
                     <!-- Colonne derniers Chapitres postés -->
-                    <div class="col-md-6">
+                    <div class="col-10 offset-1 col-md-6">
                         <div class="row">
                             <div class="col-md-11 titre_module_top jaune">LES DERNIERS CHAPITRES POSTÉS</div>
 
@@ -111,7 +111,7 @@
 
 
 
-                    <div class="col-md-6">
+                    <div class="col-10 offset-1 col-md-6 marg_top-60    ">
 
                         <!-- Colonne commentaires à valider -->
                         <div class="row">

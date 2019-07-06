@@ -9,7 +9,7 @@
                 <a href="index.php?action=admin">JEAN FORTEROCHE</a>
                 </div>
 
-                <div class="col-md-9 offset-md-2 marg_top-60 bouton_manager ">
+                <div class="col-8 offset-2 col-md-9 offset-md-2 marg_top-60 bouton_manager ">
                     <div class="row ">
                         <div class="col-md-12  ">
                             <a href="post_chapter.php" class="nounderline">
@@ -43,7 +43,7 @@
             </div>
         </div>
 
-        <div class="col-md-7 offset-md-1">
+        <div class="col-10 offset-1 col-md-7 offset-md-1">
             <h1 class="text_serif marg_top-60 titre_manager">Ajouter un chapitre</h1>
             <div class="content marg-top">
                 <div class="row marg_top-15">

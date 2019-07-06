@@ -7,11 +7,16 @@ try {
 catch (Exception $e) {
     die('Erreur : ' . $e->getMessage());
 }
+$errorLogin = false;
 
 session_start();
+require 'model/User.php';
+require 'model/UsersManager.php';
+
 if (!empty($_SESSION)) {
     header('location: index.php?action=admin');
 }
+
 
 //  Récupération de l'utilisateur et de son pass hashé
 if (!empty($_POST)) {
@@ -19,13 +24,12 @@ if (!empty($_POST)) {
     $req->execute(array(
         'pseudo' => $_POST['pseudo']
     ));
-
     $resultat = $req->fetch();
 
     $isPasswordCorrect = password_verify($_POST['pass'], $resultat['pass']);
 
     if (!$resultat) {
-        echo 'Mauvais identifiant ou mot de passe !';
+        $errorLogin = "<p style=\"color: red;\">L'identifiant ou le mot de passe ne sont pas valides !</p>";
     } else {
         if ($isPasswordCorrect) {
             session_start();
@@ -34,7 +38,7 @@ if (!empty($_POST)) {
             // $_SESSION['pseudo'] = $pseudo;
             header('location: index.php?action=admin');
         } else {
-            echo $_POST['pseudo'] . 'Mauvais identifiant ou mot de passe !';
+            $errorLogin = "<p style=\"color: red;\">L'identifiant ou le mot de passe ne sont pas valides !</p>";
         }
     }
 }
@@ -89,8 +93,8 @@ if (!empty($_POST)) {
 <body>
     <div class="container-fluid image_cover">
         <div class="row centered">
-            <h1 class="col-12 offset-1 col-md-4 offset-md-1 hello">Bonjour. Merci de vous identifier.</h1>
-            <div class="col-12 offset-1 col-md-6 offset-md-1 inscription">
+            <h1 class="col-10 offset-1 col-md-4 offset-md-1 hello">Bonjour. Merci de vous identifier.</h1>
+            <div class="col-10 offset-1 col-md-6 offset-md-1 inscription">
                 <form action="connexion.php" method="POST">
 
                     <p><label>Pseudo :</label></p>
@@ -101,8 +105,7 @@ if (!empty($_POST)) {
 
                     <input type="submit" value="Valider" id="bt_post" class="btn btn-primary marg_top-60" />
 
-                    <p><a href="inscription.php">Pas encore inscrit ? Créez votre compte.</a></p>
-
+                    <?php echo $errorLogin; ?>
                 </form>
             </div>
         </div>
