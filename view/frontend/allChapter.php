@@ -14,14 +14,14 @@
             <!-- Titre / sous titre -->
             <a href="index.php?action=chapter&chapitre=<?= $chapter->id() ?>">
                 <div class="row">
-                    <div class="col-md-6 offset-md-1 chapter text_sans-serif">Chapitre N° <?= $chapter->chapter_number() ?></div>
+                    <div class="col-md-6 offset-md-1 chapter text_sans-serif">Chapitre N° <?= $chapter->chapterNumber() ?></div>
                     <h1 class="col-md-6 offset-md-1 titre"><?= $chapter->title() ?></h1>
                     <aside class="col-md-6 offset-md-1 bt_lire"><i class="fas fa-book-reader"></i> Lire le chapitre </aside>
                 </div>
             </a>
             <!-- photo  -->
             <div class="row photo_chapter">
-                <div class="col-12 col-md-7 offset-md-4"><img class="img-fluid" src="public/uploads/<?= $chapter->image_chapter() ?>" alt="<?= $chapter->title() ?>"></div>
+                <div class="col-12 col-md-7 offset-md-4"><img class="img-fluid" src="public/uploads/<?= $chapter->imageChapter() ?>" alt="<?= $chapter->title() ?>"></div>
             </div>
         </div>
 

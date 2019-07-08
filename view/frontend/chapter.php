@@ -16,7 +16,7 @@
 
         <!-- photo  -->
         <div class="row photo_chapter">
-            <div class="col-12 col-md-7 offset-md-4"><img class="img-fluid" src="public/uploads/<?= $chapter->image_chapter() ?>" alt="<?= $chapter->title() ?>"></div>
+            <div class="col-12 col-md-7 offset-md-4"><img class="img-fluid" src="public/uploads/<?= $chapter->imageChapter() ?>" alt="<?= $chapter->title() ?>"></div>
         </div>
     </div>
 
@@ -30,7 +30,7 @@
     <!-- Contenu -->
     <div class="row">
         <div class="col-12 col-md-8 text">
-            <div class="col-md-3 offset-md-1 marg_top-60 text_sans-serif">CHAPITRE N° <?= $chapter->chapter_number() ?> </div>
+            <div class="col-md-3 offset-md-1 marg_top-60 text_sans-serif">CHAPITRE N° <?= $chapter->chapterNumber() ?> </div>
             <div class="col-md-10 offset-md-1 marg_top-60 text_serif">
                 <?= $chapter->text_chapter() ?>
             </div>

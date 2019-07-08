@@ -16,7 +16,7 @@
 
     <!-- photo  -->
     <div class="row photo">
-        <div class="col-12 col-md-8 offset-md-4"><img class="img-fluid" src="public/uploads/<?= $chapter->image_chapter() ?>" alt="Billet simple pour l’Alaska"></div>
+        <div class="col-12 col-md-8 offset-md-4"><img class="img-fluid" src="public/uploads/<?= $chapter->imageChapter() ?>" alt="Billet simple pour l’Alaska"></div>
     </div>
     <!-- Background -->
 

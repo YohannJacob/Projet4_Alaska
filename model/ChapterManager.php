@@ -19,13 +19,13 @@ class ChapterManager
     // Les méthodes ----------------------------------
     public function add(Chapter $chapter)
     {
-        $req = $this->_db->prepare('INSERT INTO livre(chapter_number, title, text_chapter, couleur, image_chapter) VALUES(:chapter_number, :title, :text_chapter, :couleur, :image_chapter)');
+        $req = $this->_db->prepare('INSERT INTO livre(chapterNumber, title, text_chapter, couleur, imageChapter) VALUES(:chapterNumber, :title, :text_chapter, :couleur, :imageChapter)');
         $req->execute(array(
-            'chapter_number' => $chapter->chapter_number(),
+            'chapterNumber' => $chapter->chapterNumber(),
             'title' => $chapter->title(),
             'text_chapter' => $chapter->text_chapter(),
             'couleur' => $chapter->couleur(),
-            'image_chapter' => $chapter->image_chapter(),
+            'imageChapter' => $chapter->imageChapter(),
         ));
     }
 
@@ -61,7 +61,7 @@ class ChapterManager
     public function getList()
     {
         $listChapter = [];
-        $req = $this->_db->prepare('SELECT * FROM livre ORDER BY chapter_number ASC ');
+        $req = $this->_db->prepare('SELECT * FROM livre ORDER BY chapterNumber ASC ');
         $req->execute([]);
 
         while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
@@ -78,13 +78,13 @@ class ChapterManager
     
     public function update(Chapter $chapter)
     {
-        $req = $this->_db->prepare('UPDATE livre SET chapter_number = :chapter_number, title = :title, text_chapter = :text_chapter, couleur = :couleur, image_chapter = :image_chapter WHERE id = :id');
+        $req = $this->_db->prepare('UPDATE livre SET chapterNumber = :chapterNumber, title = :title, text_chapter = :text_chapter, couleur = :couleur, imageChapter = :imageChapter WHERE id = :id');
         $req->execute(array(
-            'chapter_number' => $chapter->chapter_number(),
+            'chapterNumber' => $chapter->chapterNumber(),
             'title' => $chapter->title(),
             'text_chapter' => $chapter->text_chapter(),
             'couleur' => $chapter->couleur(),
-            'image_chapter' => $chapter->image_chapter(),
+            'imageChapter' => $chapter->imageChapter(),
             'id' => $chapter->id(),
         ));
     }

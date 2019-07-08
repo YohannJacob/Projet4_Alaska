@@ -80,8 +80,8 @@
                         </div>
 
                         <div class="col-md-3 form-group">
-                            <input type="text" placeholder="N° de chapitre" id="chapter_number" name="chapter_number" class="form-control manager_form" value="<?php if (isset($_POST['chapter_number'])) {
-                                                                                                                                                                    echo $_POST['chapter_number'];
+                            <input type="text" placeholder="N° de chapitre" id="chapterNumber" name="chapterNumber" class="form-control manager_form" value="<?php if (isset($_POST['chapterNumber'])) {
+                                                                                                                                                                    echo $_POST['chapterNumber'];
                                                                                                                                                                 } ?>" />
                         </div>
                     </div>
@@ -137,7 +137,7 @@
                         <h4 class="marg_top-30">Ajouter une photo :</h4>
                         <div class="row">
                             <div class="col-md-8">
-                                <input type="file" name="image_chapter" class="marg_top-15" />
+                                <input type="file" name="imageChapter" class="marg_top-15" />
                             </div>
 
                             <div class="col-md-2 offset-md-2">

@@ -29,7 +29,7 @@ $listChapter = $ChapterManager->getList('ASC');
 
         <ul class="main">
             <?php foreach($listChapter as $chapterMenu) { ?>
-                <li><a href="index.php?action=chapter&chapitre=<?= $chapterMenu->id(); ?>"> <?= $chapterMenu->chapter_number() ?> / <?= $chapterMenu->title() ?> </a></li>
+                <li><a href="index.php?action=chapter&chapitre=<?= $chapterMenu->id(); ?>"> <?= $chapterMenu->chapterNumber() ?> / <?= $chapterMenu->title() ?> </a></li>
             <?php } ?>
         </ul>
 

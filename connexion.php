@@ -20,22 +20,26 @@ if (!empty($_SESSION)) {
 
 //  Récupération de l'utilisateur et de son pass hashé
 if (!empty($_POST)) {
-    $req = $bdd->prepare('SELECT id, pass FROM users WHERE pseudo = :pseudo');
-    $req->execute(array(
-        'pseudo' => $_POST['pseudo']
-    ));
-    $resultat = $req->fetch();
+    $req = new UsersManager();
+    $resultat = $req->getUser($_POST['pseudo']);
 
-    $isPasswordCorrect = password_verify($_POST['pass'], $resultat['pass']);
+    // $req = $bdd->prepare('SELECT id, pass FROM users WHERE pseudo = :pseudo');
+    // $req->execute(array(
+    //     'pseudo' => $_POST['pseudo']
+    // ));
+    // $resultat = $req->fetch();
 
-    if (!$resultat) {
+
+
+    if ($resultat == false) {
         $errorLogin = "<p style=\"color: red;\">L'identifiant ou le mot de passe ne sont pas valides !</p>";
     } else {
+        $isPasswordCorrect = password_verify($_POST['pass'], $resultat->pass());
         if ($isPasswordCorrect) {
             session_start();
-            $_SESSION['id'] = $resultat['id'];
+            $_SESSION['id'] = $resultat->id();
             $_SESSION['pseudo'] = $_POST['pseudo'];
-            // $_SESSION['pseudo'] = $pseudo;
+
             header('location: index.php?action=admin');
         } else {
             $errorLogin = "<p style=\"color: red;\">L'identifiant ou le mot de passe ne sont pas valides !</p>";

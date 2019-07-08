@@ -49,11 +49,11 @@ function postChapter()
     if (!empty($_POST)) {
         $validation = true;
 
-        if (empty($_POST['chapter_number'])) {
+        if (empty($_POST['chapterNumber'])) {
             $erreurChapNumber = 'Merci de renseigner le numéro de chapitre';
             $validation = false;
         }
-        if (!is_numeric($_POST['chapter_number'])) {
+        if (!is_numeric($_POST['chapterNumber'])) {
             $erreurChapNumber = 'Le numero de chapitre n\'est pas un chiffre';
             $validation = false;
         }
@@ -70,18 +70,18 @@ function postChapter()
             $erreurCouleur = 'Merci de choisir une couleur';
             $validation = false;
         }
-        if (empty($_FILES['image_chapter']['name'])) {
+        if (empty($_FILES['imageChapter']['name'])) {
             $erreurImage = 'Merci de choisir une image';
             $validation = false;
         }
 
-        if (filesize($_FILES['image_chapter']['tmp_name']) > 2500000) {
+        if (filesize($_FILES['imageChapter']['tmp_name']) > 2500000) {
             $erreurTailleImage = "Votre photo est trop grosse la taille limite est de 2 MO";
             $validation = false;
         }
 
         $extensions = array('.png', '.gif', '.jpg', '.jpeg');
-        $extension = strrchr($_FILES['image_chapter']['name'], '.');
+        $extension = strrchr($_FILES['imageChapter']['name'], '.');
         if (!in_array($extension, $extensions)) {
             $erreurFormatImage = 'Vous devez uploader un fichier de type png, gif, jpg ou jpeg';
             $validation = false;
@@ -89,17 +89,17 @@ function postChapter()
 
         if ($validation == true) {
             $chapter = new Chapter([
-                'chapter_number' => $_POST['chapter_number'],
+                'chapterNumber' => $_POST['chapterNumber'],
                 'title' => $_POST['title'],
                 'text_chapter' => $_POST['text_chapter'],
                 'couleur' => $_POST['couleur'],
-                'image_chapter' => "chapitre" . $_POST['chapter_number'] . "-" . $_FILES['image_chapter']['name'],
+                'imageChapter' => "chapitre" . $_POST['chapterNumber'] . "-" . $_FILES['imageChapter']['name'],
             ]);
             $ChapterManager = new ChapterManager();
             $ChapterManager->add($chapter);
 
 
-            move_uploaded_file($_FILES['image_chapter']['tmp_name'], 'public/uploads/chapitre' . basename($_POST['chapter_number'] . "-" . $_FILES['image_chapter']['name']));
+            move_uploaded_file($_FILES['imageChapter']['tmp_name'], 'public/uploads/chapitre' . basename($_POST['chapterNumber'] . "-" . $_FILES['imageChapter']['name']));
             header('Location: index.php?action=admin');
             exit();
         }
@@ -109,23 +109,23 @@ function postChapter()
 
 function updateChapter()
 {
-    function verifdata($data)
-    {
-        if (isset($data)) {
-            echo $data;
-        } else {
-            echo '';
-        }
-    }
+    // function verifdata($data)
+    // {
+    //     if (isset($data)) {
+    //         echo $data;
+    //     } else {
+    //         echo '';
+    //     }
+    // }
 
     if (!empty($_POST)) {
         $validation = true;
 
-        if (empty($_POST['chapter_number'])) {
+        if (empty($_POST['chapterNumber'])) {
             $erreurChapNumber = 'Merci de renseigner le numéro de chapitre';
             $validation = false;
         }
-        if (!is_numeric($_POST['chapter_number'])) {
+        if (!is_numeric($_POST['chapterNumber'])) {
             $erreurChapNumber = 'Le numero de chapitre n\'est pas un chiffre';
             $validation = false;
         }
@@ -142,18 +142,18 @@ function updateChapter()
             $erreurCouleur = 'Merci de choisir une couleur';
             $validation = false;
         }
-        if (empty($_FILES['image_chapter']['name'])) {
+        if (empty($_FILES['imageChapter']['name'])) {
             $erreurImage = 'Merci de choisir une image';
             $validation = false;
         }
 
-        if (filesize($_FILES['image_chapter']['tmp_name']) > 2500000) {
+        if (filesize($_FILES['imageChapter']['tmp_name']) > 2500000) {
             $erreurTailleImage = "Votre photo est trop grosse la taille limite est de 2 MO";
             $validation = false;
         }
 
         $extensions = array('.png', '.gif', '.jpg', '.jpeg');
-        $extension = strrchr($_FILES['image_chapter']['name'], '.');
+        $extension = strrchr($_FILES['imageChapter']['name'], '.');
         if (!in_array($extension, $extensions)) {
             $erreurFormatImage = 'Vous devez uploader un fichier de type png, gif, jpg ou jpeg';
             $validation = false;
@@ -161,17 +161,17 @@ function updateChapter()
 
         if ($validation == true) {
             $chapter = new Chapter([
-                'chapter_number' => $_POST['chapter_number'],
+                'chapterNumber' => $_POST['chapterNumber'],
                 'title' => $_POST['title'],
                 'text_chapter' => $_POST['text_chapter'],
                 'couleur' => $_POST['couleur'],
                 'id' => $_GET['chapitre'],
-                'image_chapter' => "chapitre" . $_POST['chapter_number'] . "-" . $_FILES['image_chapter']['name'],
+                'imageChapter' => "chapitre" . $_POST['chapterNumber'] . "-" . $_FILES['imageChapter']['name'],
             ]);
             $ChapterManager = new ChapterManager();
             $ChapterManager->update($chapter);
 
-            move_uploaded_file($_FILES['image_chapter']['tmp_name'], 'public/uploads/chapitre' . basename($_POST['chapter_number'] . "-" . $_FILES['image_chapter']['name']));
+            move_uploaded_file($_FILES['imageChapter']['tmp_name'], 'public/uploads/chapitre' . basename($_POST['chapterNumber'] . "-" . $_FILES['imageChapter']['name']));
             header('Location: index.php?action=admin');
             exit();
         }

@@ -43,14 +43,14 @@
             </div>
         </div>
 
-        <div class="col-10 offset-1 col-md-7 offset-md-1">
+        <div class="col-md-7 offset-md-1">
             <h1 class="text_serif marg_top-60 titre_manager"><?php echo $_SESSION['pseudo'] . ', bienvenue sur votre espace de gestion.' ?> </h1>
             <p class="marg_top-15">Ici vous pourrez administrer les contenus de votre blog.</p>
 
             <div class="content">
                 <div class="row marg_top-30">
                     <!-- Colonne derniers Chapitres postés -->
-                    <div class="col-10 offset-1 col-md-6">
+                    <div class="col-md-6">
                         <div class="row">
                             <div class="col-md-11 titre_module_top jaune">LES DERNIERS CHAPITRES POSTÉS</div>
 
@@ -86,7 +86,7 @@
                                         <!-- Contenu Num chapitre, titre et date de publication -->
                                         <div class="col-md-8 contenu_padding ">
                                             <div class="row ">
-                                                <h5 class="col-md-12">Chapitre N° <?= $chapter->chapter_number() ?> </h5>
+                                                <h5 class="col-md-12">Chapitre N° <?= $chapter->chapterNumber() ?> </h5>
                                                 <p class="col-md-12 titre_module"> <?= $chapter->title() ?> </p>
                                                 <p class="col-md-12 date_publi">Publié le <?= $chapter->date_publi() ?> </p>
                                             </div>
@@ -111,7 +111,7 @@
 
 
 
-                    <div class="col-10 offset-1 col-md-6 marg_top-60    ">
+                    <div class="col-md-6">
 
                         <!-- Colonne commentaires à valider -->
                         <div class="row">

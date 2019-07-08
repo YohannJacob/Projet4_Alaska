@@ -3,12 +3,12 @@ class Chapter
 {
     // Les atributs -----------------------------------  
     private $_id,
-        $_chapter_number,
+        $_chapterNumber,
         $_title,
         $_text_chapter,
         $_date_publi,
         $_couleur,
-        $_image_chapter;
+        $_imageChapter;
 
     // Les méthodes - ici pas de méthode --------------
 
@@ -20,8 +20,8 @@ class Chapter
         if (isset($data['id'])) {
             $this->setId($data['id']);
         }
-        if (isset($data['chapter_number'])) {
-            $this->setChapterNumber($data['chapter_number']);
+        if (isset($data['chapterNumber'])) {
+            $this->setChapterNumber($data['chapterNumber']);
         }
         if (isset($data['title'])) {
             $this->setTitle($data['title']);
@@ -35,8 +35,8 @@ class Chapter
         if (isset($data['couleur'])) {
             $this->setCouleur($data['couleur']);
         }
-        if (isset($data['image_chapter'])) {
-            $this->setImageChapter($data['image_chapter']);
+        if (isset($data['imageChapter'])) {
+            $this->setImageChapter($data['imageChapter']);
         }
     }
 
@@ -51,9 +51,9 @@ class Chapter
     {
         return $this->_id;
     }
-    public function chapter_number()
+    public function chapterNumber()
     {
-        return $this->_chapter_number;
+        return $this->_chapterNumber;
     }
     public function title()
     {
@@ -71,9 +71,9 @@ class Chapter
     {
         return $this->_couleur;
     }
-    public function image_chapter()
+    public function imageChapter()
     {
-        return $this->_image_chapter;
+        return $this->_imageChapter;
     }
 
     // Les setters ------------------------------------
@@ -88,11 +88,11 @@ class Chapter
         }
     }
 
-    public function setChapterNumber($chapter_number)
+    public function setChapterNumber($chapterNumber)
     {
-        $chapter_number = (int)$chapter_number;
-        if ($chapter_number > 0) {
-            $this->_chapter_number = htmlspecialchars($chapter_number);
+        $chapterNumber = (int)$chapterNumber;
+        if ($chapterNumber > 0) {
+            $this->_chapterNumber = htmlspecialchars($chapterNumber);
         }
     }
 
@@ -125,8 +125,8 @@ class Chapter
             $this->_couleur = htmlspecialchars($couleur);
     }
 
-    public function setImageChapter($image_chapter)
+    public function setImageChapter($imageChapter)
     {
-        $this->_image_chapter = htmlspecialchars($image_chapter);
+        $this->_imageChapter = htmlspecialchars($imageChapter);
     }
 }

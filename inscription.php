@@ -32,12 +32,18 @@ $errorPassword = false;
 if (isset($_POST['pseudo']) && isset($_POST['mail']) && isset($_POST['pass']) && isset($_POST['passVerif'])) {
     $req = new UsersManager();
     $verifPseudo = $req->getPseudo($_POST['pseudo']);
+    var_dump($verifPseudo);
+   
+
+    $verifMail = $req->getMail($_POST['mail']);
+    // var_dump($verifMail);
+
     // vérification du pseudo dans la base de donneés
     // $reqPseudo = $bdd->prepare('SELECT pseudo FROM users WHERE pseudo = ? ');
     // $reqPseudo->execute(array(htmlspecialchars($_POST['pseudo'])));
     // $verifPseudo = $reqPseudo->fetch();
 
-    $verifMail = $req->getMail($_POST['mail']);
+
     // // vérification du mail dans la base de donneés
     // $reqMail = $bdd->prepare('SELECT mail FROM users WHERE mail = ? ');
     // $reqMail->execute(array(htmlspecialchars($_POST['mail'])));
@@ -46,7 +52,8 @@ if (isset($_POST['pseudo']) && isset($_POST['mail']) && isset($_POST['pass']) &&
 
     include 'erreur.php';
 
-    if ((strtolower($_POST['pseudo']) != strtolower($verifPseudo->pseudo()) && (strtolower($_POST['mail'])) != $verifMaiL->mail() && ($_POST['pass'] == $_POST['passVerif']))) {
+    if (($verifMail == false) && ($verifPseudo == false) && ($_POST['pass'] == $_POST['passVerif'])) {
+
         $pass_hache = password_hash($_POST['pass'], PASSWORD_DEFAULT);
 
         $user = new User([

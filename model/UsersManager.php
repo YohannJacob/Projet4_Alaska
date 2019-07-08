@@ -29,13 +29,16 @@ class UsersManager
 
     public function getPseudo($pseudo)
     {
-        $req = $this->_db->prepare('SELECT * FROM users');
-        $req->execute(array());
+        $req = $this->_db->prepare('SELECT pseudo FROM users WHERE pseudo = :pseudo');
+        $req->execute(array(
+           'pseudo'=> $pseudo
+        ));
         $data = $req->fetch();
+
         if ($data) {
-            return new User($data);
+            return true;
         } else {
-            return 'error';
+            return false;
         }
     }
 
@@ -43,20 +46,28 @@ class UsersManager
     {
         $req = $this->_db->prepare('SELECT mail FROM users WHERE mail = ?');
         $req->execute(array($mail));
-
         $data = $req->fetch();
-        if (isset($data)) {
-            return new User($data);
+
+        if ($data) {
+            return true;
         } else {
-            return 'error';
+            return false;
         }
     }
 
-    public function getUser(User $user)
+    public function getUser($pseudo)
     {
         $req = $this->_db->prepare('SELECT id, pass FROM users WHERE pseudo = :pseudo');
         $req->execute(array(
-            'pseudo' => $user->pseudo(),
+            'pseudo' => $pseudo
         ));
+        $data = $req->fetch();
+        if ($data) {
+            return new User($data);
+        } else {
+            return false;
+        }
+
+
     }
 }
