@@ -29,7 +29,7 @@
                         </div>
 
                         <div class="col-md-12 marg_top-30">
-                            <a href="deconnexion.php" class="nounderline">
+                            <a href="index.php?action=logOut" class="nounderline">
                                 <button type="button" class="btn btn-block ">
                                     Log out
                                     <i class="fas fa-sign-out-alt"></i>
@@ -85,7 +85,7 @@
 
                     <div class="form-group">
                         <h4 class="marg_top-30">Contenu du chapitre :</h4>
-                        <textarea name="text_chapter" id="text_chapter" cols="50" rows="15" class="form-control manager_form marg_top-30"> <?php echo $post_data->text_chapter() ?> </textarea>
+                        <textarea name="textChapter" id="textChapter" cols="50" rows="15" class="form-control manager_form marg_top-30"> <?php echo $post_data->textChapter() ?> </textarea>
                     </div>
 
                     <div class="form-group ">

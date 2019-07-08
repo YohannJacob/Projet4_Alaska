@@ -437,7 +437,7 @@ h5 {
 
 }
 
-.date_publi {
+.datePubli {
     font-size: 16px;
     color: #676767;
 }
@@ -522,7 +522,7 @@ h5 {
 
 .image_cover {
     width: 100vw;
-    background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 1)), url('photo1.jpg');
+    background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 1)), url('../images/photo1.jpg');
     min-height: 100vh;
     background-size: cover;
     background-position: center center;

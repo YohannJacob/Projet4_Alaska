@@ -29,7 +29,7 @@
                         </div>
 
                         <div class="col-md-12 marg_top-30">
-                            <a href="deconnexion.php" class="nounderline">
+                            <a href="index.php?action=logOut" class="nounderline">
                                 <button type="button" class="btn btn-block ">
                                     Log out
                                     <i class="fas fa-sign-out-alt"></i>
@@ -88,7 +88,7 @@
                                             <div class="row ">
                                                 <h5 class="col-md-12">Chapitre N° <?= $chapter->chapterNumber() ?> </h5>
                                                 <p class="col-md-12 titre_module"> <?= $chapter->title() ?> </p>
-                                                <p class="col-md-12 date_publi">Publié le <?= $chapter->date_publi() ?> </p>
+                                                <p class="col-md-12 datePubli">Publié le <?= $chapter->datePubli() ?> </p>
                                             </div>
                                         </div>
 
@@ -175,8 +175,8 @@
                                             <div class="row">
 
                                                 <p class="col-md-12 titre_module"> <?= $commentReported->comment() ?></p>
-                                                <p class="col-md-12 date_publi">Publié le <?= $commentReported->dateComment() ?> </p>
-                                                <p class="col-md-12 date_publi">Par <?= $commentReported->pseudo() ?></p>
+                                                <p class="col-md-12 datePubli">Publié le <?= $commentReported->dateComment() ?> </p>
+                                                <p class="col-md-12 datePubli">Par <?= $commentReported->pseudo() ?></p>
 
                                             </div>
                                         </div>
@@ -257,8 +257,8 @@
                                             <div class="row">
 
                                                 <p class="col-md-12 titre_module"> <?= $comment->comment() ?></p>
-                                                <p class="col-md-12 date_publi">Publié le <?= $comment->dateComment() ?> </p>
-                                                <p class="col-md-12 date_publi">Par <?= $comment->pseudo() ?></p>
+                                                <p class="col-md-12 datePubli">Publié le <?= $comment->dateComment() ?> </p>
+                                                <p class="col-md-12 datePubli">Par <?= $comment->pseudo() ?></p>
 
                                             </div>
                                         </div>

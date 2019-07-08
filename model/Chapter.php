@@ -5,8 +5,8 @@ class Chapter
     private $_id,
         $_chapterNumber,
         $_title,
-        $_text_chapter,
-        $_date_publi,
+        $_textChapter,
+        $_datePubli,
         $_couleur,
         $_imageChapter;
 
@@ -26,11 +26,11 @@ class Chapter
         if (isset($data['title'])) {
             $this->setTitle($data['title']);
         }
-        if (isset($data['text_chapter'])) {
-            $this->setTextChapter($data['text_chapter']);
+        if (isset($data['textChapter'])) {
+            $this->setTextChapter($data['textChapter']);
         }
-        if (isset($data['date_publi'])) {
-            $this->setDatePubli($data['date_publi']);
+        if (isset($data['datePubli'])) {
+            $this->setDatePubli($data['datePubli']);
         }
         if (isset($data['couleur'])) {
             $this->setCouleur($data['couleur']);
@@ -59,13 +59,13 @@ class Chapter
     {
         return $this->_title;
     }
-    public function text_chapter()
+    public function textChapter()
     {
-        return $this->_text_chapter;
+        return $this->_textChapter;
     }
-    public function date_publi()
+    public function datePubli()
     {
-        return $this->_date_publi;
+        return $this->_datePubli;
     }
     public function couleur()
     {
@@ -104,17 +104,17 @@ class Chapter
             $this->_title = $title;
     }
 
-    public function setTextChapter($text_chapter)
+    public function setTextChapter($textChapter)
     {
         // On vérifie que le text du chapitre est bien une chaine de caractère.
-        if (is_string($text_chapter))
+        if (is_string($textChapter))
             // Si c'est le cas, on assigne la valeur à l'attribut correspondant.
-            $this->_text_chapter = $text_chapter;
+            $this->_textChapter = $textChapter;
     }
 
-    public function setDatePubli($date_publi)
+    public function setDatePubli($datePubli)
     {
-        $this->_date_publi = htmlspecialchars($date_publi);
+        $this->_datePubli = htmlspecialchars($datePubli);
     }
 
     public function setCouleur($couleur)

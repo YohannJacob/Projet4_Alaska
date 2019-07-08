@@ -34,7 +34,7 @@ $listChapter = $ChapterManager->getList('ASC');
         </ul>
 
         <ul class="sub">
-            <li><a href="connexion.php">Connexion espace auteur</a></li>
+            <li><a href="index.php?action=login">Connexion espace auteur</a></li>
         </ul>
     </nav>
 

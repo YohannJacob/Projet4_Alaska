@@ -32,7 +32,7 @@
         <div class="col-12 col-md-8 text">
             <div class="col-md-3 offset-md-1 marg_top-60 text_sans-serif">CHAPITRE N° <?= $chapter->chapterNumber() ?> </div>
             <div class="col-md-10 offset-md-1 marg_top-60 text_serif">
-                <?= $chapter->text_chapter() ?>
+                <?= $chapter->textChapter() ?>
             </div>
         </div>
     </div>

@@ -19,11 +19,11 @@ class ChapterManager
     // Les méthodes ----------------------------------
     public function add(Chapter $chapter)
     {
-        $req = $this->_db->prepare('INSERT INTO livre(chapterNumber, title, text_chapter, couleur, imageChapter) VALUES(:chapterNumber, :title, :text_chapter, :couleur, :imageChapter)');
+        $req = $this->_db->prepare('INSERT INTO livre(chapterNumber, title, textChapter, couleur, imageChapter) VALUES(:chapterNumber, :title, :textChapter, :couleur, :imageChapter)');
         $req->execute(array(
             'chapterNumber' => $chapter->chapterNumber(),
             'title' => $chapter->title(),
-            'text_chapter' => $chapter->text_chapter(),
+            'textChapter' => $chapter->textChapter(),
             'couleur' => $chapter->couleur(),
             'imageChapter' => $chapter->imageChapter(),
         ));
@@ -78,11 +78,11 @@ class ChapterManager
     
     public function update(Chapter $chapter)
     {
-        $req = $this->_db->prepare('UPDATE livre SET chapterNumber = :chapterNumber, title = :title, text_chapter = :text_chapter, couleur = :couleur, imageChapter = :imageChapter WHERE id = :id');
+        $req = $this->_db->prepare('UPDATE livre SET chapterNumber = :chapterNumber, title = :title, textChapter = :textChapter, couleur = :couleur, imageChapter = :imageChapter WHERE id = :id');
         $req->execute(array(
             'chapterNumber' => $chapter->chapterNumber(),
             'title' => $chapter->title(),
-            'text_chapter' => $chapter->text_chapter(),
+            'textChapter' => $chapter->textChapter(),
             'couleur' => $chapter->couleur(),
             'imageChapter' => $chapter->imageChapter(),
             'id' => $chapter->id(),
