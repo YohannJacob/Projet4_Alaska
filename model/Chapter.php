@@ -10,9 +10,6 @@ class Chapter
         $_couleur,
         $_imageChapter;
 
-    // Les méthodes - ici pas de méthode --------------
-
-    // Les constantes - Pas de constantes non plus ----
 
     // Hydrater ---------------------------------------
     public function hydrate(array $data)

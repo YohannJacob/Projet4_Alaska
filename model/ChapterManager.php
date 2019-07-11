@@ -8,7 +8,7 @@ class ChapterManager
     public function __construct()
     {
         try {
-            $this->_db = new PDO('mysql:host=localhost;dbname=Alaska;charset=utf8', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+            $this->_db = new PDO('mysql:host=yohannjamod1.mysql.db;dbname=yohannjamod1;charset=utf8', 'yohannjamod1', 'Sitewebpr0', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
         }
         // Gérer les erreurs
         catch (Exception $e) {

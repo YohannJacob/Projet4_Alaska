@@ -15,7 +15,7 @@ if (isset($_GET['action'])) {
     if ($_GET['action'] == 'chapter') {
         chapter();
     } else if ($_GET['action'] == 'allChapter') {
-        allChapter();
+            ();
     } else if ($_GET['action'] == 'admin') {
         admin();
     } else if ($_GET['action'] == 'postChapter') {
@@ -28,7 +28,10 @@ if (isset($_GET['action'])) {
         login();
     }else if ($_GET['action'] == 'logOut') {
         logOut();
+    }else if ($_GET['action'] == '404') {
+        erreur404();
     }
+
 } else {
     home();
 }

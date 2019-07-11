@@ -40,7 +40,7 @@ function chapter()
             exit();
         }
     }
-
+    // // Aller chercher les commentaires dans la table
     $CommentairesManager = new CommentairesManager();
     $listComment = $CommentairesManager->getList($_GET['chapitre']);
 
@@ -48,8 +48,8 @@ function chapter()
     $chapterManager = new ChapterManager();
     $chapter = $chapterManager->get($_GET['chapitre']);
 
-    if ($chapter == false){
-        header('Location: index.php?action=allChapter');
+    if ($chapter === false){
+        header('Location: index.php?action=404');
     }
 
 
@@ -65,4 +65,8 @@ function chapter()
         exit();
     }
     include('view/frontend/chapter.php');
+}
+
+function erreur404(){
+    include('view/backend/erreur404.php');
 }

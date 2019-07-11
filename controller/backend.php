@@ -37,14 +37,6 @@ function admin()
 
 function postChapter()
 {
-    // function verifdata2($data)
-    // {
-    //     if (isset($data)) {
-    //         echo $data;
-    //     } else {
-    //         echo '';
-    //     }
-    // }
 
     if (!empty($_POST)) {
         $validation = true;
